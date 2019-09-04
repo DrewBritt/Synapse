@@ -11,6 +11,13 @@ namespace AGGS.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext _context)
+        {
+            this._context = _context;
+        }
+
         public IActionResult Index()
         {
             return View();
