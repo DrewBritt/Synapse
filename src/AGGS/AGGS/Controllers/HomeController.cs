@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AGGS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AGGS.Controllers
 {
@@ -16,6 +17,12 @@ namespace AGGS.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Test()
         {
             return View();
         }

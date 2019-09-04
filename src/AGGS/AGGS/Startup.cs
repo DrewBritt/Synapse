@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using AGGS.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace AGGS
 {
@@ -36,8 +37,12 @@ namespace AGGS
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseMySql(
+                    Configuration.GetConnectionString("DefaultConnection"), 
+                    mySqlOptions =>
+                    {
+                        mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql);
+                    }));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
