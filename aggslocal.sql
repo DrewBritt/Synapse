@@ -239,6 +239,230 @@ INSERT INTO `aspnetusertokens` VALUES ('19f0a0cc-272b-40e1-88bd-c29d27f83e63','[
 UNLOCK TABLES;
 
 --
+-- Table structure for table `assignmentcategories`
+--
+
+DROP TABLE IF EXISTS `assignmentcategories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `assignmentcategories` (
+  `categoryid` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `classid` mediumint(9) NOT NULL,
+  `categoryname` varchar(50) NOT NULL,
+  `categoryweight` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`categoryid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `assignmentcategories`
+--
+
+LOCK TABLES `assignmentcategories` WRITE;
+/*!40000 ALTER TABLE `assignmentcategories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `assignmentcategories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `assignments`
+--
+
+DROP TABLE IF EXISTS `assignments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `assignments` (
+  `assignmentid` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `classid` mediumint(9) NOT NULL,
+  `assignmentname` varchar(100) NOT NULL,
+  `categoryid` mediumint(9) NOT NULL,
+  PRIMARY KEY (`assignmentid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `assignments`
+--
+
+LOCK TABLES `assignments` WRITE;
+/*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `attendances`
+--
+
+DROP TABLE IF EXISTS `attendances`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `attendances` (
+  `datetaken` date NOT NULL,
+  `studentid` mediumint(9) NOT NULL,
+  `classid` mediumint(9) NOT NULL,
+  `attendancevalue` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`datetaken`,`studentid`,`classid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `attendances`
+--
+
+LOCK TABLES `attendances` WRITE;
+/*!40000 ALTER TABLE `attendances` DISABLE KEYS */;
+/*!40000 ALTER TABLE `attendances` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `classes`
+--
+
+DROP TABLE IF EXISTS `classes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `classes` (
+  `classid` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `teacherid` mediumint(9) NOT NULL,
+  `classname` varchar(50) NOT NULL,
+  PRIMARY KEY (`classid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `classes`
+--
+
+LOCK TABLES `classes` WRITE;
+/*!40000 ALTER TABLE `classes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `classes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `grades`
+--
+
+DROP TABLE IF EXISTS `grades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `grades` (
+  `gradeid` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `assignmentid` mediumint(9) NOT NULL,
+  `classid` mediumint(9) NOT NULL,
+  `studentid` mediumint(9) NOT NULL,
+  `gradevalue` varchar(3) NOT NULL,
+  PRIMARY KEY (`gradeid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `grades`
+--
+
+LOCK TABLES `grades` WRITE;
+/*!40000 ALTER TABLE `grades` DISABLE KEYS */;
+/*!40000 ALTER TABLE `grades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `periods`
+--
+
+DROP TABLE IF EXISTS `periods`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `periods` (
+  `periodid` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `periodname` varchar(20) NOT NULL,
+  `periodnumber` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`periodid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `periods`
+--
+
+LOCK TABLES `periods` WRITE;
+/*!40000 ALTER TABLE `periods` DISABLE KEYS */;
+/*!40000 ALTER TABLE `periods` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `students`
+--
+
+DROP TABLE IF EXISTS `students`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `students` (
+  `studentid` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(50) NOT NULL,
+  `lname` varchar(50) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `gradelevel` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`studentid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `students`
+--
+
+LOCK TABLES `students` WRITE;
+/*!40000 ALTER TABLE `students` DISABLE KEYS */;
+/*!40000 ALTER TABLE `students` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `studentsclasses`
+--
+
+DROP TABLE IF EXISTS `studentsclasses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `studentsclasses` (
+  `studentid` mediumint(9) NOT NULL,
+  `periodid` mediumint(9) NOT NULL,
+  `classid` mediumint(9) NOT NULL,
+  PRIMARY KEY (`studentid`,`periodid`,`classid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `studentsclasses`
+--
+
+LOCK TABLES `studentsclasses` WRITE;
+/*!40000 ALTER TABLE `studentsclasses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `studentsclasses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `teachers`
+--
+
+DROP TABLE IF EXISTS `teachers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `teachers` (
+  `teacherid` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `fname` varchar(50) NOT NULL,
+  `lname` varchar(50) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  PRIMARY KEY (`teacherid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `teachers`
+--
+
+LOCK TABLES `teachers` WRITE;
+/*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping routines for database 'aggs'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -251,4 +475,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-04 12:05:47
+-- Dump completed on 2019-09-05 12:52:22
