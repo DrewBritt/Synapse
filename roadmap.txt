@@ -1,9 +1,0 @@
-Roadmap
-
-User system (CHECK)
-Admin page (Manage students, manage classes, override grades)
-Way to import students and teachers and classes
-Way to add students to classes
-Class viewing system for teachers
-Way to implement grades and attendance
-Grade/Attendance viewing system for students
