@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AGGS.Models;
 using Microsoft.AspNetCore.Authorization;
+using AGGS.Data;
 
 namespace AGGS.Controllers
 {
