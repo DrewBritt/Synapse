@@ -44,6 +44,7 @@ namespace AGGS
                         mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql);
                     }));
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

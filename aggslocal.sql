@@ -89,6 +89,7 @@ CREATE TABLE `aspnetroles` (
 
 LOCK TABLES `aspnetroles` WRITE;
 /*!40000 ALTER TABLE `aspnetroles` DISABLE KEYS */;
+INSERT INTO `aspnetroles` VALUES ('1e6570a1-c310-4793-91fd-8f14db7e23fb','Teacher','TEACHER','8d6485b6-d8bb-40d2-ab1b-11b07daa44fd'),('aeb2ab58-d2c1-4e1e-b7f3-e27d57e8476c','Student','STUDENT','91972a45-b123-4ba2-8b0b-68366db76fa0'),('e5544f6c-32db-47df-8529-903e8c37fde4','Admin','ADMIN','37f4075d-6f1b-4ce9-9a27-4c2461eb8673');
 /*!40000 ALTER TABLE `aspnetroles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,6 +170,7 @@ CREATE TABLE `aspnetuserroles` (
 
 LOCK TABLES `aspnetuserroles` WRITE;
 /*!40000 ALTER TABLE `aspnetuserroles` DISABLE KEYS */;
+INSERT INTO `aspnetuserroles` VALUES ('01bf3742-be86-4301-b9a1-7ab7fdf05544','aeb2ab58-d2c1-4e1e-b7f3-e27d57e8476c'),('19f0a0cc-272b-40e1-88bd-c29d27f83e63','e5544f6c-32db-47df-8529-903e8c37fde4');
 /*!40000 ALTER TABLE `aspnetuserroles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,7 +209,7 @@ CREATE TABLE `aspnetusers` (
 
 LOCK TABLES `aspnetusers` WRITE;
 /*!40000 ALTER TABLE `aspnetusers` DISABLE KEYS */;
-INSERT INTO `aspnetusers` VALUES ('19f0a0cc-272b-40e1-88bd-c29d27f83e63','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAELzKlyKICLyczHoCeP22A0BUznUtvQfhAsRLYON3oJmyrPED4Vn4oKytmK4wHsar2A==','TR2M3HSS6REJMDZE4EZJ7VRHGFW7GA4M','cbcdfcb5-d42e-400b-b2d5-2cc6200d3f6e',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
+INSERT INTO `aspnetusers` VALUES ('01bf3742-be86-4301-b9a1-7ab7fdf05544','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAEG//19q2NW6y+8waJ8iyxhu2bK5czTqhwUeX6QY1NW6x9L9VyG72uz4P4nwLFfWSuA==','YV7WHXLOENP7QEJJQZUOA457FMLV7EXN','a94fe8a0-d3b0-42fc-9009-0fc62a5a00d7',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('19f0a0cc-272b-40e1-88bd-c29d27f83e63','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAELzKlyKICLyczHoCeP22A0BUznUtvQfhAsRLYON3oJmyrPED4Vn4oKytmK4wHsar2A==','TR2M3HSS6REJMDZE4EZJ7VRHGFW7GA4M','2038c76b-be09-43d1-82ca-89992b67fffa',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
 /*!40000 ALTER TABLE `aspnetusers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -475,4 +477,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-05 12:52:22
+-- Dump completed on 2019-09-05 21:18:08

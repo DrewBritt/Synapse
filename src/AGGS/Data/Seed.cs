@@ -32,17 +32,9 @@ namespace AGGS.Data
                 }
             }
 
-            //Create superuser with admin role
-            var superuser = new IdentityUser
-            {
-                UserName = "drewbritt02@gmail.com",
-                Email = "drewbritt02@gmail.com"
-            };
+            var superuser = await UserManager.FindByEmailAsync("drewbritt02@gmail.com");
 
-            if(await UserManager.IsInRoleAsync(superuser, "Admin") == false)
-            {
-                await UserManager.AddToRoleAsync(superuser, "Admin");
-            }
+            await UserManager.AddToRoleAsync(superuser, "Admin");
         }
     }
 }
