@@ -83,6 +83,7 @@ namespace AGGS.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                    //By default, add user to Student role on registration
                     await _userManager.AddToRoleAsync(user, "Student");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);

@@ -28,6 +28,7 @@ namespace AGGS
                     var serviceProvider = services.GetRequiredService<IServiceProvider>();
                     var configuration = services.GetRequiredService<IConfiguration>();
 
+                    //Pull DbContext service and Create Roles in the context of the app
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     context.Database.Migrate();
                     Seed.CreateRoles(serviceProvider, configuration).Wait();
