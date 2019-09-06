@@ -1,0 +1,9 @@
+{
+  "name": "mybulma",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "bulma": "^0.7.5"
+  },
+  "dependencies": {}
+}

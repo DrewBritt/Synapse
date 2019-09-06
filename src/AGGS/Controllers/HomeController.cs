@@ -24,29 +24,6 @@ namespace AGGS.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [Authorize]
-        public IActionResult Test()
-        {
-            return View();
-        }
-
-        [Authorize(Roles = "Admin")]
-        public IActionResult Admin()
-        {
-            return View();
-        }
-
-        [Authorize(Roles = "Student")]
-        public IActionResult Student()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
