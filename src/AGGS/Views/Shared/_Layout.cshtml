@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AGGS</title>
 
-    <environment include="Development">
+    <!--<environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
     <environment exclude="Development">
@@ -14,50 +14,64 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
-    </environment>
+    </environment>-->
+
+    <link rel="stylesheet" href="~/css/bulma.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AGGS</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Test">Test</a>
-                            </li>
-                        }
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
-                            </li>
-                        }
-                        else if (User.IsInRole("Student"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Student">Student</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item is-size-3 has-text-primary" asp-area="" asp-controller="Home" asp-action="Index">AGGS</a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMain">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
             </div>
+
+            <div id="navbarMain" class="navbar-menu">
+                <!--Admin Buttons-->
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="navbar-start">
+                        <a class="navbar-item">
+                            View Students
+                        </a>
+
+                        <a class="navbar-item">
+                            View Classes
+                        </a>
+
+                        <a class="navbar-item">
+                            View Referrals
+                        </a>
+                    </div>
+                }
+                //Teacher Buttons
+                else if (User.IsInRole("Teacher"))
+                {
+                    <div class="navbar-start">
+                        <a class="navbar-item">
+                            View Classes
+                        </a>
+                    </div>
+                }
+                //Student Buttons
+                else if (User.IsInRole("Student"))
+                {
+                    <div class="navbar-start">
+                        <a class="navbar-item">
+                            Grades
+                        </a>
+                        <a class="navbar-item">
+                            Attendance
+                        </a>
+                    </div>
+                }
+            </div>
+            <partial name="_LoginPartial" />
         </nav>
     </header>
     <div class="container">
@@ -67,9 +81,12 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - AGGS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>AGGS</strong> by <a href="https://github.com/drewbritt">Drew Britt</a> & <a href="https://github.com/lyonjenkins">Lyon Jenkins</a>.
+                Source Code is licensed under <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+            </p>
         </div>
     </footer>
 
