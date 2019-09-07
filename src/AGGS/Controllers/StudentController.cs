@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AGGS.Controllers
 {
     [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
-        public IActionResult Grades()
+        public async Task<IActionResult> Grades()
         {
             return View();
         }
 
-        public IActionResult Attendance()
+        public async Task<IActionResult> Attendance()
         {
             return View();
         }

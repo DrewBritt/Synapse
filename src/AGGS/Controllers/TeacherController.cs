@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AGGS.Controllers
 {
     [Authorize(Roles = "Teacher")]
     public class TeacherController : Controller
     {
-        public IActionResult Classes()
+        public async Task<IActionResult> Classes()
         {
             return View();
         }
 
-        public IActionResult ViewClass()
+        public async Task<IActionResult> ViewClass()
         {
             return View();
         }

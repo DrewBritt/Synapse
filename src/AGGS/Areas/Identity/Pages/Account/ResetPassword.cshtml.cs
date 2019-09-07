@@ -42,7 +42,7 @@ namespace AGGS.Areas.Identity.Pages.Account
             public string Code { get; set; }
         }
 
-        public IActionResult OnGet(string code = null)
+        public async Task<IActionResult> OnGet(string code = null)
         {
             if (code == null)
             {

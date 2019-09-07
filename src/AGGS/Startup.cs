@@ -36,7 +36,7 @@ namespace AGGS
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<AGGSContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("DefaultConnection"), 
                     mySqlOptions =>
@@ -45,7 +45,7 @@ namespace AGGS
                     }));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<AGGSContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

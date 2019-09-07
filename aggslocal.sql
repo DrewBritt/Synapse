@@ -209,7 +209,7 @@ CREATE TABLE `aspnetusers` (
 
 LOCK TABLES `aspnetusers` WRITE;
 /*!40000 ALTER TABLE `aspnetusers` DISABLE KEYS */;
-INSERT INTO `aspnetusers` VALUES ('01bf3742-be86-4301-b9a1-7ab7fdf05544','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAEG//19q2NW6y+8waJ8iyxhu2bK5czTqhwUeX6QY1NW6x9L9VyG72uz4P4nwLFfWSuA==','YV7WHXLOENP7QEJJQZUOA457FMLV7EXN','a94fe8a0-d3b0-42fc-9009-0fc62a5a00d7',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('19f0a0cc-272b-40e1-88bd-c29d27f83e63','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAELzKlyKICLyczHoCeP22A0BUznUtvQfhAsRLYON3oJmyrPED4Vn4oKytmK4wHsar2A==','TR2M3HSS6REJMDZE4EZJ7VRHGFW7GA4M','2038c76b-be09-43d1-82ca-89992b67fffa',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
+INSERT INTO `aspnetusers` VALUES ('01bf3742-be86-4301-b9a1-7ab7fdf05544','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAEG//19q2NW6y+8waJ8iyxhu2bK5czTqhwUeX6QY1NW6x9L9VyG72uz4P4nwLFfWSuA==','YV7WHXLOENP7QEJJQZUOA457FMLV7EXN','a94fe8a0-d3b0-42fc-9009-0fc62a5a00d7',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('19f0a0cc-272b-40e1-88bd-c29d27f83e63','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAELzKlyKICLyczHoCeP22A0BUznUtvQfhAsRLYON3oJmyrPED4Vn4oKytmK4wHsar2A==','TR2M3HSS6REJMDZE4EZJ7VRHGFW7GA4M','ae9fa195-47aa-42d0-a5c3-58efe80e52f1',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
 /*!40000 ALTER TABLE `aspnetusers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -398,12 +398,12 @@ DROP TABLE IF EXISTS `students`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `students` (
   `studentid` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `fname` varchar(50) NOT NULL,
-  `lname` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
   `email` varchar(150) NOT NULL,
   `gradelevel` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`studentid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -412,6 +412,7 @@ CREATE TABLE `students` (
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
+INSERT INTO `students` VALUES (1,'Andrew','Britt','andrew.britt57@k12.leanderisd.org',11),(2,'Lyon','Jenkins','lyon.jenkins16@k12.leanderisd.org',11),(3,'Michelle','Bickett','michelle.bickett17@k12.leanderisd.org',11),(4,'Billy','Joel','billy.joel81@k12.leanderisd.org',9),(5,'Robert','Plant','robert.plant36@k12.leanderisd.org',12),(6,'John','Bonham','john.bonham28@k12.leanderisd.org',12),(7,'Jimmy','Page','jimmy.page55@k12.leanderisd.org',12),(8,'John','Jones','john.jones16@k12.leanderisd.org',12),(9,'Gwen','Stefani','gwen.stefani39@k12.leanderisd.org',10),(10,'Michael','Aguayo','michael.aguayo72@k12.leanderisd.org',12);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -477,4 +478,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-05 21:18:08
+-- Dump completed on 2019-09-06 20:39:40
