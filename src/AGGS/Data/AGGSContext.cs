@@ -15,6 +15,7 @@ namespace AGGS.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Class> Classes { get; set; }
+        public DbSet<Referral> Referrals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,6 +24,7 @@ namespace AGGS.Data
             builder.Entity<Student>().ToTable("Students");
             builder.Entity<Teacher>().ToTable("Teachers");
             builder.Entity<Class>().ToTable("Classes");
+            builder.Entity<Referral>().ToTable("Referrals");
         }
     }
 }

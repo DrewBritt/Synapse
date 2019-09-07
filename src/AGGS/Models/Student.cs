@@ -6,8 +6,8 @@ namespace AGGS.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int StudentId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string StudentFirstName { get; set; }
+        public string StudentLastName { get; set; }
         public string Email { get; set; }
         public byte GradeLevel { get; set; }
     }

@@ -392,6 +392,33 @@ LOCK TABLES `periods` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `referrals`
+--
+
+DROP TABLE IF EXISTS `referrals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `referrals` (
+  `referralid` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `studentid` mediumint(9) NOT NULL,
+  `teacherid` mediumint(9) NOT NULL,
+  `dateissued` date NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`referralid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `referrals`
+--
+
+LOCK TABLES `referrals` WRITE;
+/*!40000 ALTER TABLE `referrals` DISABLE KEYS */;
+INSERT INTO `referrals` VALUES (1,4,2,'2019-09-07','Existed.'),(2,6,5,'2019-09-07','Made too good of music.'),(3,6,5,'2019-09-05','Beat another kid with his drumsticks.'),(4,9,3,'2019-08-31','Test Description.'),(5,10,1,'2019-09-03','Michael sux lol.');
+/*!40000 ALTER TABLE `referrals` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `students`
 --
 
@@ -400,8 +427,8 @@ DROP TABLE IF EXISTS `students`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `students` (
   `studentid` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(50) NOT NULL,
-  `lastname` varchar(50) NOT NULL,
+  `studentfirstname` varchar(50) NOT NULL,
+  `studentlastname` varchar(50) NOT NULL,
   `email` varchar(150) NOT NULL,
   `gradelevel` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`studentid`)
@@ -451,8 +478,8 @@ DROP TABLE IF EXISTS `teachers`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `teachers` (
   `teacherid` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(50) NOT NULL,
-  `lastname` varchar(50) NOT NULL,
+  `teacherfirstname` varchar(50) NOT NULL,
+  `teacherlastname` varchar(50) NOT NULL,
   `email` varchar(150) NOT NULL,
   PRIMARY KEY (`teacherid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -481,4 +508,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-07  0:44:29
+-- Dump completed on 2019-09-07 16:26:55

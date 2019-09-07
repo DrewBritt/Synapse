@@ -27,21 +27,21 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ClassName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FullName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Period)
-                        </td>
-                        <td>
-                            <button class="button is-primary is-small">
-                                View
-                            </button>
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeacherFullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Period)
+                    </td>
+                    <td>
+                        <button class="button is-primary is-small">
+                            View
+                        </button>
+                    </td>
                     </tr>
                 }
             </tbody>

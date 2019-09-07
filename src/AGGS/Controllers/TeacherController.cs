@@ -9,12 +9,12 @@ namespace AGGS.Controllers
     {
         public async Task<IActionResult> Classes()
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
         public async Task<IActionResult> ViewClass()
         {
-            return View();
+            return await Task.Run(() => View());
         }
     }
 }

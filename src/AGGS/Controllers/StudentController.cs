@@ -9,12 +9,12 @@ namespace AGGS.Controllers
     {
         public async Task<IActionResult> Grades()
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
         public async Task<IActionResult> Attendance()
         {
-            return View();
+            return await Task.Run(() => View());
         }
     }
 }

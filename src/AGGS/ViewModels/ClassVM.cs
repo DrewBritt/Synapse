@@ -8,17 +8,17 @@ namespace AGGS.ViewModels
     public class ClassVM
     {
         public int ClassId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string TeacherFirstName { get; set; }
+        public string TeacherLastName { get; set; }
         public string Email { get; set; }
         public string ClassName { get; set; }
         public string Period { get; set; }
 
-        public string FullName
+        public string TeacherFullName
         {
             get
             {
-                return FirstName + " " + LastName;
+                return TeacherFirstName + " " + TeacherLastName;
             }
         }
     }
