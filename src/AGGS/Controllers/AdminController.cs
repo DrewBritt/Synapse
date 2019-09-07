@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using AGGS.ViewModels;
+using System.Collections.Generic;
 
 namespace AGGS.Controllers
 {
@@ -36,7 +38,28 @@ namespace AGGS.Controllers
 
         public async Task<IActionResult> Classes()
         {
-            return View();
+            List<ClassVM> ClassVMList = new List<ClassVM>();
+
+            //LINQ Query to pull Classes + associated Teacher data
+            var classList = (from classes in _context.Classes
+                             join teachers in _context.Teachers on classes.TeacherId equals teachers.TeacherId 
+                             select new { classes.ClassId, teachers.FirstName, teachers.LastName, teachers.Email, classes.ClassName, classes.Period }).ToList();
+
+            //Add query results to List<ClassVM>
+            foreach(var item in classList)
+            {
+                ClassVM newClass = new ClassVM();
+                newClass.ClassId = item.ClassId;
+                newClass.FirstName = item.FirstName;
+                newClass.LastName = item.LastName;
+                newClass.Email = item.Email;
+                newClass.ClassName = item.ClassName;
+                newClass.Period = item.Period;
+
+                ClassVMList.Add(newClass);
+            }
+
+            return View(ClassVMList);
         }
 
         public async Task<IActionResult> ViewClass()

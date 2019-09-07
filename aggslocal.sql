@@ -326,8 +326,9 @@ CREATE TABLE `classes` (
   `classid` mediumint(9) NOT NULL AUTO_INCREMENT,
   `teacherid` mediumint(9) NOT NULL,
   `classname` varchar(50) NOT NULL,
+  `period` varchar(10) NOT NULL,
   PRIMARY KEY (`classid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -336,6 +337,7 @@ CREATE TABLE `classes` (
 
 LOCK TABLES `classes` WRITE;
 /*!40000 ALTER TABLE `classes` DISABLE KEYS */;
+INSERT INTO `classes` VALUES (1,1,'Wind Ensemble 1','1st'),(2,1,'Wind Ensemble 2','1st'),(3,1,'Wind Ensemble 3','1st'),(4,1,'Wind Ensemble 4','1st'),(5,2,'AP Computer Science','6th'),(6,2,'Computer Science Pre-AP','5th'),(7,2,'Computer Science 3','7th'),(8,3,'English 2 Pre-AP','4th'),(9,3,'English 2 Pre-AP','8th'),(10,3,'English 3 AP','7th'),(11,4,'AP Microeconomics','2nd'),(12,4,'AP Microeconomics','4th'),(13,5,'World History','4th'),(14,5,'AP World History','7th'),(15,6,'AP World History','7th'),(16,7,'Dance 1','1st'),(17,7,'Dance 2','1st');
 /*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,11 +451,11 @@ DROP TABLE IF EXISTS `teachers`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `teachers` (
   `teacherid` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `fname` varchar(50) NOT NULL,
-  `lname` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
   `email` varchar(150) NOT NULL,
   PRIMARY KEY (`teacherid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -462,6 +464,7 @@ CREATE TABLE `teachers` (
 
 LOCK TABLES `teachers` WRITE;
 /*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
+INSERT INTO `teachers` VALUES (1,'Amy','Suggs','amy.suggs@leanderisd.org'),(2,'Daniel','Nawrocki','daniel.nawrocki@leanderisd.org'),(3,'Zachary','Long','zachary.long@leanderisd.org'),(4,'Uncle','Sam','uncle.sam@leanderisd.org'),(5,'Grant','Britton','grant.britton@leanderisd.org'),(6,'Matt','Riley','matt.riley@leanderisd.org'),(7,'Katy','Reeves','katy.reeves@leanderisd.org');
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -478,4 +481,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-06 20:49:53
+-- Dump completed on 2019-09-07  0:44:29

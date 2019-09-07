@@ -13,12 +13,16 @@ namespace AGGS.Data
         }
 
         public DbSet<Student> Students { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Class> Classes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<Student>().ToTable("Students");
+            builder.Entity<Teacher>().ToTable("Teachers");
+            builder.Entity<Class>().ToTable("Classes");
         }
     }
 }
