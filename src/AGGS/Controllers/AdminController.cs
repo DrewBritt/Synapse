@@ -65,9 +65,25 @@ namespace AGGS.Controllers
             return await Task.Run(() => View(ClassVMList));
         }
 
-        public async Task<IActionResult> ViewClass()
+        public async Task<IActionResult> ViewClass(int classid)
         {
-            return await Task.Run(() => View());
+            ViewClassVM ClassToView = new ViewClassVM();
+
+            //LINQ Query to pull Class data
+            var viewClass = (from classes in _context.Classes
+                             join teachers in _context.Teachers on classes.TeacherId equals teachers.TeacherId
+                             select new { classes.ClassId, teachers.TeacherFirstName, teachers.TeacherLastName, teachers.Email, classes.ClassName, classes.Period })
+                             .Where(s => s.ClassId == classid).FirstOrDefault();
+
+            //Insert LINQ values into ViewClassVM
+            ClassToView.ClassId = viewClass.ClassId;
+            ClassToView.TeacherFirstName = viewClass.TeacherFirstName;
+            ClassToView.TeacherLastName = viewClass.TeacherLastName;
+            ClassToView.Email = viewClass.Email;
+            ClassToView.ClassName = viewClass.ClassName;
+            ClassToView.Period = viewClass.Period;
+
+            return await Task.Run(() => View(ClassToView));
         }
 
         public async Task<IActionResult> Referrals()
