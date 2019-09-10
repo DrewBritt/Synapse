@@ -34,7 +34,7 @@ namespace AGGS.Controllers
 
         public async Task<IActionResult> ViewStudent(int studentid)
         {
-            Student StudentToView = new Student();
+            ViewStudentVM StudentToView = new ViewStudentVM();
 
             //LINQ Query to pull student with ID
             var student = (from students in _context.Students
@@ -46,6 +46,41 @@ namespace AGGS.Controllers
             StudentToView.StudentLastName = student.StudentLastName;
             StudentToView.Email = student.Email;
             StudentToView.GradeLevel = student.GradeLevel;
+
+            var schedule = (from studentsclasses in _context.StudentsClasses
+                            join classes in _context.Classes on studentsclasses.ClassId equals classes.ClassId
+                            join teachers in _context.Teachers on classes.TeacherId equals teachers.TeacherId
+                            select new
+                            {
+                                classes.ClassId,
+                                classes.TeacherId,
+                                teachers.TeacherFirstName,
+                                teachers.TeacherLastName,
+                                classes.ClassName,
+                                classes.Period,
+                                classes.Location,
+                                studentsclasses.StudentId
+                            }).Where(s => s.StudentId == studentid)
+                            .ToList();
+
+            List<ClassWithTeacherInfo> EnrolledClasses = new List<ClassWithTeacherInfo>();
+
+            foreach(var item in schedule)
+            {
+                ClassWithTeacherInfo studentClass = new ClassWithTeacherInfo();
+
+                studentClass.ClassId = item.ClassId;
+                studentClass.TeacherId = item.TeacherId;
+                studentClass.TeacherFirstName = item.TeacherFirstName;
+                studentClass.TeacherLastName = item.TeacherLastName;
+                studentClass.ClassName = item.ClassName;
+                studentClass.Period = item.Period;
+                studentClass.Location = item.Location;
+
+                EnrolledClasses.Add(studentClass);
+            }
+
+            StudentToView.Classes = EnrolledClasses;
 
             return await Task.Run(() => View(StudentToView));
         }

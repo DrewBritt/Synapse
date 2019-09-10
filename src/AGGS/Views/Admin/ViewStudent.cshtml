@@ -1,4 +1,4 @@
-﻿@model AGGS.Models.Student
+﻿@model AGGS.ViewModels.ViewStudentVM
 
 @{
     ViewData["Title"] = "ViewStudent";
@@ -35,6 +35,40 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="columns is-desktop">
+            <div class="column is-full has-text-centered">
+                <p class="title">Schedule</p>
+                <table id="studentsTable" class="table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Class Name</th>
+                            <th>Teacher</th>
+                            <th>Period</th>
+                            <th>Grade in Class</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var enrolledclass in Model.Classes)
+                        {
+                            <tr>
+                                <td>@enrolledclass.ClassName</td>
+                                <td>@enrolledclass.TeacherFullName</td>
+                                <td>@enrolledclass.Period</td>
+                                <td>Grade Percent</td>
+                                <td>
+                                    <a asp-area="" asp-controller="Admin" asp-action="ViewClass" asp-route-classid=@enrolledclass.ClassId>
+                                        <button class="button is-primary is-small">
+                                            View
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
