@@ -43,7 +43,7 @@ html {
 
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    margin-bottom: 1rem;
 }
 
 .footer {
@@ -65,5 +65,11 @@ body {
 @media (max-width: 321px) {
     .footer{
         font-size: 8px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .is-pulled-right-desktop {
+        float: right;
     }
 }
