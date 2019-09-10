@@ -21,7 +21,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar has-background-white-bis" role="navigation" aria-label="main navigation">
+        <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item is-size-3 has-text-primary" asp-area="" asp-controller="Home" asp-action="Index">AGGS</a>
                 <!--Only show Hamburger button if user is logged in-->
@@ -78,7 +78,7 @@
             <partial name="_LoginPartial" />
         </nav>
     </header>
-    <div class="container">
+    <div class="container" style="margin-top: 1rem; padding-bottom: 2rem;">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
