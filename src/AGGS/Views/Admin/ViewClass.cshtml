@@ -5,70 +5,127 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container" style="width: 65%; margin-left: auto; margin-right: auto;">
-        <div>
-            <h1 class="title" style="font-weight: normal;">Viewing class <span class="has-text-weight-bold">@Model.ClassName</span></h1>
-            <hr>
-            <div class="columns">
-                <div class="is-full" style="width: 100%; margin-bottom: 2rem;">
-                    <div class="card">
-                        <div style="padding: .75rem;">
-                            <div class="columns">
-                                <div class="column">
-                                    <p class="title">Class Information</p>
+<div class="container" style="width: 65%; margin-left: auto; margin-right: auto;">
+    <div>
+        <h1 class="title" style="font-weight: normal;">Viewing class <span class="has-text-weight-bold">@Model.ClassName</span></h1>
+        <hr>
+        <div class="columns">
+            <div class="is-full" style="width: 100%; margin-bottom: 2rem;">
+                <div class="card">
+                    <div style="padding: .75rem;">
+                        <div class="columns">
+                            <div class="column">
+                                <p class="title">Class Information</p>
+                            </div>
+                            <div class="column">
+                                <div class="is-pulled-right-desktop is-marginless" id="btns">
+                                    <button onclick="editClass()" id="editBtn" class="button is-primary">Edit</button>
                                 </div>
-                                <div class="column">
-                                    <button class="button is-primary is-pulled-right-desktop is-marginless">Edit</button>
-                                </div>
+                                
+                            </div>
 
-                            </div>
                         </div>
-                        <hr class="is-marginless">
-                        <div class="card-content">
-                            <div class="content">
-                                <span class="has-text-weight-bold">Teacher:</span> @Model.TeacherFullName
-                                <br>
-                                <span class="has-text-weight-bold">Location:</span> @Model.Location
-                                <br>
-                                <span class="has-text-weight-bold">Period:</span> @Model.Period
-                                <br>
-                                <span class="has-text-weight-bold">Assigned Students:</span> @Model.EnrolledStudents.Count
-                            </div>
+                    </div>
+                    <hr class="is-marginless">
+                    <div class="card-content" id="card-content">
+                        <div class="content">
+                            <form>
+                                <span id="teacherLabel" class="has-text-weight-bold">Teacher:</span>
+                                <div id="teacher">@Model.TeacherFullName</div>
+                                <span id="locationLabel" class="has-text-weight-bold" id="location">Location:</span>
+                                <div id="location"> @Model.Location</div>
+                                <span id="periodLabel" class="has-text-weight-bold" id="period">Period:</span>
+                                <div id="period"> @Model.Period</div>
+                                <span id="studentsLabel" class="has-text-weight-bold" id="students">Assigned Students:</span>
+                                <div id="students">@Model.EnrolledStudents.Count</div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="columns is-desktop">
-            <div class="column is-full has-text-centered">
-                <p class="title">Enrolled Students</p>
-                <table id="studentsTable" class="table" style="width: 100%;">
-                    <thead>
+    </div>
+    <div class="columns is-desktop">
+        <div class="column is-full has-text-centered">
+            <p class="title">Enrolled Students</p>
+            <table id="studentsTable" class="table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Grade in Class</th>
+                        <th>Grade Level</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.EnrolledStudents)
+                    {
                         <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Grade in Class</th>
-                            <th>Grade Level</th>
-                            <th>Action</th>
+                            <td>@student.StudentFirstName</td>
+                            <td>@student.StudentLastName</td>
+                            <td>Grade Percent</td>
+                            <td>@student.GradeLevel</td>
+                            <td>
+                                <a class="button is-primary is-small">
+                                    View
+                                </a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach(var student in Model.EnrolledStudents)
-                        {
-                            <tr>
-                                <td>@student.StudentFirstName</td>
-                                <td>@student.StudentLastName</td>
-                                <td>Grade Percent</td>
-                                <td>@student.GradeLevel</td>
-                                <td>
-                                    <a class="button is-primary is-small">
-                                        View
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+
+<script>
+
+    function pageInit() {
+        const editBtn = document.getElementById("editBtn");
+        if (editBtn.addEventListener) editBtn.addEventListener('click', editClass, false);
+    }
+
+    function editClass() {
+        const teacher = document.getElementById("teacher");
+        const teacherLabel = document.getElementById("teacherLabel");
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "text");
+        x.setAttribute("value", teacher.textContent);
+        x.setAttribute("name", "teacher");
+        x.classList.add("input");
+        teacherLabel.appendChild(x);
+        teacher.parentNode.removeChild(teacher);
+
+        const location = document.getElementById("location");
+        const locationLabel = document.getElementById("locationLabel");
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "text");
+        x.setAttribute("name", "location");
+        x.setAttribute("value", location.textContent);
+        x.classList.add("input");
+        locationLabel.appendChild(x);
+        location.parentNode.removeChild(location);
+
+        const period = document.getElementById("period");
+        const periodLabel = document.getElementById("periodLabel");
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "text");
+        x.setAttribute("name", "period");
+        x.setAttribute("value", period.textContent);
+        x.classList.add("input");
+        periodLabel.appendChild(x);
+        period.parentNode.removeChild(period);
+
+        const btns = document.getElementById("btns");
+        const editBtn = document.getElementById("editBtn");
+        btns.parentNode.removeChild(editBtn);
+        let submitBtn = document.createElement("INPUT");
+        submitBtn.setAttribute("type", "submit");
+        submitBtn.textContent = "Submit";
+        submitBtn.classList.add("button");
+        submitBtn.classList.add("is-success");
+        btns.appendChild(submitBtn);
+        editBtn.parentNode.removeChild(editBtn);
+    }
+</script>
