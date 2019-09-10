@@ -6,15 +6,16 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using AGGS.ViewModels;
 using System.Collections.Generic;
+using AGGS.Models;
 
 namespace AGGS.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private readonly AGGSContext _context;
+        private readonly Data.AGGSContext _context;
 
-        public AdminController(AGGSContext context)
+        public AdminController(Data.AGGSContext context)
         {
             _context = context;
         }
@@ -74,8 +75,14 @@ namespace AGGS.Controllers
             //LINQ Query to pull Class data
             var viewClass = (from classes in _context.Classes
                              join teachers in _context.Teachers on classes.TeacherId equals teachers.TeacherId
-                             select new { classes.ClassId, teachers.TeacherFirstName, teachers.TeacherLastName, teachers.Email,
-                                 classes.ClassName, classes.Period, classes.Location })
+                             select new {
+                                 classes.ClassId,
+                                 teachers.TeacherFirstName,
+                                 teachers.TeacherLastName,
+                                 teachers.Email,
+                                 classes.ClassName,
+                                 classes.Period,
+                                 classes.Location })
                              .Where(s => s.ClassId == classid).FirstOrDefault();
 
             //Insert LINQ values into ViewClassVM
@@ -86,6 +93,39 @@ namespace AGGS.Controllers
             ClassToView.ClassName = viewClass.ClassName;
             ClassToView.Period = viewClass.Period;
             ClassToView.Location = viewClass.Location;
+
+            var listOfStudentsInClass = (from students in _context.Students
+                                         join studentclasses in _context.StudentsClasses on students.StudentId equals studentclasses.StudentId
+                                         join classes in _context.Classes on studentclasses.ClassId equals classes.ClassId
+                                         select new
+                                         {
+                                             students.StudentId,
+                                             students.StudentFirstName,
+                                             students.StudentLastName,
+                                             students.Email,
+                                             students.GradeLevel,
+                                             studentclasses.ClassId
+                                         });
+
+            List<Student> ListOfStudentsEnrolled = new List<Student>();
+            foreach(var item in listOfStudentsInClass)
+            {
+                if (item.ClassId == ClassToView.ClassId)
+                {
+                    Student newStudent = new Student();
+
+                    newStudent.StudentId = item.StudentId;
+                    newStudent.StudentFirstName = item.StudentFirstName;
+                    newStudent.StudentLastName = item.StudentLastName;
+                    newStudent.Email = item.Email;
+                    newStudent.GradeLevel = item.GradeLevel;
+
+                    ListOfStudentsEnrolled.Add(newStudent);
+                }
+
+            }
+
+            ClassToView.EnrolledStudents = ListOfStudentsEnrolled;
 
             return await Task.Run(() => View(ClassToView));
         }

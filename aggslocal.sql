@@ -455,9 +455,8 @@ DROP TABLE IF EXISTS `studentsclasses`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `studentsclasses` (
   `studentid` mediumint(9) NOT NULL,
-  `periodid` mediumint(9) NOT NULL,
   `classid` mediumint(9) NOT NULL,
-  PRIMARY KEY (`studentid`,`periodid`,`classid`)
+  PRIMARY KEY (`studentid`,`classid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -467,6 +466,7 @@ CREATE TABLE `studentsclasses` (
 
 LOCK TABLES `studentsclasses` WRITE;
 /*!40000 ALTER TABLE `studentsclasses` DISABLE KEYS */;
+INSERT INTO `studentsclasses` VALUES (1,1),(1,5),(1,8),(1,14),(2,1),(2,4),(3,5),(3,7),(3,15),(3,17),(6,13),(6,15),(6,16);
 /*!40000 ALTER TABLE `studentsclasses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -509,4 +509,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-09 20:01:00
+-- Dump completed on 2019-09-09 22:20:12
