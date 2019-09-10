@@ -1,8 +1,40 @@
-﻿
+﻿@model AGGS.Models.Student
+
 @{
     ViewData["Title"] = "ViewStudent";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="title is-1">ViewStudent</h1>
+    <div class="container" style="width: 65%; margin-left: auto; margin-right: auto;">
+        <div>
+            <h1 class="title" style="font-weight: normal;">Viewing student <span class="has-text-weight-bold">@Model.StudentFirstName @Model.StudentLastName</span></h1>
+            <hr>
+            <div class="columns">
+                <div class="is-full" style="width: 100%; margin-bottom: 2rem;">
+                    <div class="card">
+                        <div style="padding: .75rem;">
+                            <div class="columns">
+                                <div class="column">
+                                    <p class="title">Student Information</p>
+                                </div>
+                                <div class="column">
+                                    <button class="button is-primary is-pulled-right-desktop is-marginless">Edit</button>
+                                </div>
 
+                            </div>
+                        </div>
+                        <hr class="is-marginless">
+                        <div class="card-content">
+                            <div class="content">
+                                <span class="has-text-weight-bold">Student:</span> @Model.StudentFirstName @Model.StudentLastName
+                                <br>
+                                <span class="has-text-weight-bold">Email:</span> @Model.Email
+                                <br>
+                                <span class="has-text-weight-bold">Grade Level:</span> @Model.GradeLevel
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

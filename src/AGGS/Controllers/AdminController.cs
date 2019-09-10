@@ -32,9 +32,22 @@ namespace AGGS.Controllers
             return View(await students.AsNoTracking().ToListAsync());
         }
 
-        public async Task<IActionResult> ViewStudent()
+        public async Task<IActionResult> ViewStudent(int studentid)
         {
-            return await Task.Run(() => View());
+            Student StudentToView = new Student();
+
+            //LINQ Query to pull student with ID
+            var student = (from students in _context.Students
+                           select new { students.StudentId, students.StudentFirstName, students.StudentLastName, students.Email, students.GradeLevel })
+                           .Where(s => s.StudentId == studentid).FirstOrDefault();
+
+            StudentToView.StudentId = studentid;
+            StudentToView.StudentFirstName = student.StudentFirstName;
+            StudentToView.StudentLastName = student.StudentLastName;
+            StudentToView.Email = student.Email;
+            StudentToView.GradeLevel = student.GradeLevel;
+
+            return await Task.Run(() => View(StudentToView));
         }
 
         public async Task<IActionResult> Classes()

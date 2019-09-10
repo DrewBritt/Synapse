@@ -38,9 +38,11 @@
                             @Html.DisplayFor(modelItem => item.GradeLevel)
                         </td>
                         <td>
-                            <button class="button is-primary is-small">
-                                View
-                            </button>
+                            <a asp-area="" asp-controller="Admin" asp-action="ViewStudent" asp-route-studentid=@item.StudentId>
+                                <button class="button is-primary is-small">
+                                    View
+                                </button>
+                            </a>
                         </td>
                     </tr>
                 }
