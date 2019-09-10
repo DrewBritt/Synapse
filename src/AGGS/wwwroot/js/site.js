@@ -43,3 +43,15 @@ function classesTableSearchBar(tableId, searchBarId) {
         }
     }
 }
+
+//Bulma Functionality for navbar
+document.addEventListener('DOMContentLoaded', function () {
+    var navbarBurgers = document.getElementsByClassName('navbar-burger')
+    navbarBurgers = navbarBurgers[0]
+    var menu = document.getElementById('navbarMain')
+
+    navbarBurgers.addEventListener('click', function () {
+        navbarBurgers.classList.toggle('is-active');
+        menu.classList.toggle('is-active');
+    })
+});

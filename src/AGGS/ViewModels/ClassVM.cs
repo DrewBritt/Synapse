@@ -13,6 +13,7 @@ namespace AGGS.ViewModels
         public string Email { get; set; }
         public string ClassName { get; set; }
         public string Period { get; set; }
+        public string Location { get; set; }
 
         public string TeacherFullName
         {

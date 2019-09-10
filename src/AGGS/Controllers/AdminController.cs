@@ -43,7 +43,8 @@ namespace AGGS.Controllers
             //LINQ Query to pull Classes + associated Teacher data
             var classList = (from classes in _context.Classes
                              join teachers in _context.Teachers on classes.TeacherId equals teachers.TeacherId 
-                             select new { classes.ClassId, teachers.TeacherFirstName, teachers.TeacherLastName, teachers.Email, classes.ClassName, classes.Period }).ToList();
+                             select new { classes.ClassId, teachers.TeacherFirstName, teachers.TeacherLastName, teachers.Email,
+                                 classes.ClassName, classes.Period, classes.Location }).ToList();
 
             //Order classes by teacher last name
             classList = classList.OrderBy(classes => classes.TeacherLastName).ToList();
@@ -58,6 +59,7 @@ namespace AGGS.Controllers
                 newClass.Email = item.Email;
                 newClass.ClassName = item.ClassName;
                 newClass.Period = item.Period;
+                newClass.Location = item.Location;
 
                 ClassVMList.Add(newClass);
             }
@@ -72,7 +74,8 @@ namespace AGGS.Controllers
             //LINQ Query to pull Class data
             var viewClass = (from classes in _context.Classes
                              join teachers in _context.Teachers on classes.TeacherId equals teachers.TeacherId
-                             select new { classes.ClassId, teachers.TeacherFirstName, teachers.TeacherLastName, teachers.Email, classes.ClassName, classes.Period })
+                             select new { classes.ClassId, teachers.TeacherFirstName, teachers.TeacherLastName, teachers.Email,
+                                 classes.ClassName, classes.Period, classes.Location })
                              .Where(s => s.ClassId == classid).FirstOrDefault();
 
             //Insert LINQ values into ViewClassVM
@@ -82,6 +85,7 @@ namespace AGGS.Controllers
             ClassToView.Email = viewClass.Email;
             ClassToView.ClassName = viewClass.ClassName;
             ClassToView.Period = viewClass.Period;
+            ClassToView.Location = viewClass.Location;
 
             return await Task.Run(() => View(ClassToView));
         }

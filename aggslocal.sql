@@ -327,6 +327,7 @@ CREATE TABLE `classes` (
   `teacherid` mediumint(9) NOT NULL,
   `classname` varchar(50) NOT NULL,
   `period` varchar(10) NOT NULL,
+  `location` varchar(20) NOT NULL,
   PRIMARY KEY (`classid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -337,7 +338,7 @@ CREATE TABLE `classes` (
 
 LOCK TABLES `classes` WRITE;
 /*!40000 ALTER TABLE `classes` DISABLE KEYS */;
-INSERT INTO `classes` VALUES (1,1,'Wind Ensemble 1','1st'),(2,1,'Wind Ensemble 2','1st'),(3,1,'Wind Ensemble 3','1st'),(4,1,'Wind Ensemble 4','1st'),(5,2,'AP Computer Science','6th'),(6,2,'Computer Science Pre-AP','5th'),(7,2,'Computer Science 3','7th'),(8,3,'English 2 Pre-AP','4th'),(9,3,'English 2 Pre-AP','8th'),(10,3,'English 3 AP','7th'),(11,4,'AP Microeconomics','2nd'),(12,4,'AP Microeconomics','4th'),(13,5,'World History','4th'),(14,5,'AP World History','7th'),(15,6,'AP World History','7th'),(16,7,'Dance 1','1st'),(17,7,'Dance 2','1st');
+INSERT INTO `classes` VALUES (1,1,'Wind Ensemble 1','1st','Band Hall'),(2,1,'Wind Ensemble 2','1st','Band Hall'),(3,1,'Wind Ensemble 3','1st','Band Hall'),(4,1,'Wind Ensemble 4','1st','Band Hall'),(5,2,'AP Computer Science','6th','2417'),(6,2,'Computer Science Pre-AP','5th','2417'),(7,2,'Computer Science 3','7th','2417'),(8,3,'English 2 Pre-AP','4th','1412'),(9,3,'English 2 Pre-AP','8th','1412'),(10,3,'English 3 AP','7th','1412'),(11,4,'AP Microeconomics','2nd','1206'),(12,4,'AP Microeconomics','4th','1206'),(13,5,'World History','4th','1208'),(14,5,'AP World History','7th','1208'),(15,6,'AP World History','7th','1207'),(16,7,'Dance 1','1st','Dance Gym'),(17,7,'Dance 2','1st','Dance Gym');
 /*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -508,4 +509,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-07 16:26:55
+-- Dump completed on 2019-09-09 20:01:00
