@@ -55,3 +55,60 @@ document.addEventListener('DOMContentLoaded', function () {
         menu.classList.toggle('is-active');
     })
 });
+
+
+function pageInit() {
+    const editBtn = document.getElementById("editBtn");
+    if (editBtn.addEventListener) editBtn.addEventListener('click', editClass, false);
+}
+
+function editClass() {
+    const teacher = document.getElementById("teacher");
+    const teacherLabel = document.getElementById("teacherLabel");
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "text");
+    x.setAttribute("value", teacher.textContent);
+    x.setAttribute("name", "teacher");
+    x.classList.add("input");
+    teacherLabel.appendChild(x);
+    teacher.parentNode.removeChild(teacher);
+
+    const location = document.getElementById("location");
+    const locationLabel = document.getElementById("locationLabel");
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "text");
+    x.setAttribute("name", "location");
+    x.setAttribute("value", location.textContent);
+    x.classList.add("input");
+    locationLabel.appendChild(x);
+    location.parentNode.removeChild(location);
+
+    const period = document.getElementById("period");
+    const periodLabel = document.getElementById("periodLabel");
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "text");
+    x.setAttribute("name", "period");
+    x.setAttribute("value", period.textContent);
+    x.classList.add("input");
+    periodLabel.appendChild(x);
+    period.parentNode.removeChild(period);
+
+    const btns = document.getElementById("btns");
+    const editBtn = document.getElementById("editBtn");
+    let submitBtn = document.createElement("BUTTON");
+    submitBtn.setAttribute("type", "submit");
+    submitBtn.textContent = "Submit";
+    submitBtn.classList.add("button");
+    submitBtn.classList.add("is-success");
+    btns.appendChild(submitBtn);
+
+    let cancelBtn = document.createElement("BUTTON");
+    cancelBtn.setAttribute("type", "cancel");
+    cancelBtn.setAttribute("id", "cancelBtn")
+    cancelBtn.textContent = "Cancel";
+    cancelBtn.classList.add("button");
+    cancelBtn.classList.add("is-danger");
+    btns.appendChild(cancelBtn);
+
+    editBtn.parentNode.removeChild(editBtn);
+}

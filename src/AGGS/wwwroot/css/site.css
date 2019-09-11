@@ -73,3 +73,7 @@ body {
         float: right;
     }
 }
+
+#cancelBtn {
+    margin-left: .75rem;
+}
