@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/js/editClass.js"></script>
+
 <div class="container" style="width: 65%; margin-left: auto; margin-right: auto;">
     <div>
         <h1 class="title" style="font-weight: normal;">Viewing class <span class="has-text-weight-bold">@Model.ClassName</span></h1>
@@ -19,7 +21,7 @@
                             </div>
                             <div class="column">
                                 <div class="is-pulled-right-desktop is-marginless" id="btns">
-                                    <button onclick="editClass()" id="editBtn" class="button is-primary">Edit</button>
+                                    <button id="editBtn" class="button is-primary">Edit</button>
                                 </div>
                                 
                             </div>
