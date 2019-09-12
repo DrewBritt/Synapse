@@ -94,3 +94,35 @@ function cancel() {
 function insertAfter(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
 }
+
+function dropdownFunc() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("option");
+    for (i = 0; i < a.length; i++) {
+        txtValue = a[i].textContent || a[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const modalButtons = document.getElementsByClassName("modalClose");
+    let teacherModal = document.getElementById("teacherSearchModal");
+
+    for (let i = 0; i < modalButtons.length; i++) {
+        modalButtons[i].addEventListener('click', function () {
+            teacherModal.classList.toggle('is-active');
+        });
+    }
+
+});

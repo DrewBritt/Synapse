@@ -55,3 +55,27 @@ document.addEventListener('DOMContentLoaded', function () {
         menu.classList.toggle('is-active');
     })
 });
+
+//Provides functionality for filtering through table of students
+function teachersSearchTable(tableId, searchBarId) {
+    var input, filter, table, tr, firstName, lastName, i, firstNameValue, lastNameValue;
+    input = document.getElementById(searchBarId);
+    filter = input.value.toUpperCase();
+    table = document.getElementById(tableId);
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+        firstName = tr[i].getElementsByTagName("td")[0];
+        lastName = tr[i].getElementsByTagName("td")[1];
+
+        if (firstName && lastName) {
+            firstNameValue = firstName.textContent.toUpperCase();
+            lastNameValue = lastName.textContent.toUpperCase();
+            if (firstNameValue.indexOf(filter) > -1 || lastNameValue.indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
