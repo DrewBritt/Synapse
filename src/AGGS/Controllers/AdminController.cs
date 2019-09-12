@@ -212,9 +212,37 @@ namespace AGGS.Controllers
             return await Task.Run(() => View(ReferralVMList));
         }
 
-        public async Task<IActionResult> ViewReferral()
+        public async Task<IActionResult> ViewReferral(int referralid)
         {
-            return await Task.Run(() => View());
+            var referralQuery = (from referrals in _context.Referrals
+                                  join students in _context.Students on referrals.StudentId equals students.StudentId
+                                  join teachers in _context.Teachers on referrals.TeacherId equals teachers.TeacherId
+                                  select new
+                                  {
+                                      referrals.ReferralId,
+                                      students.StudentId,
+                                      students.StudentFirstName,
+                                      students.StudentLastName,
+                                      teachers.TeacherId,
+                                      teachers.TeacherFirstName,
+                                      teachers.TeacherLastName,
+                                      referrals.DateIssued,
+                                      referrals.Description
+                                  })
+                                  .Where(s => s.ReferralId == referralid).FirstOrDefault();
+
+            ReferralVM referralToView = new ReferralVM();
+            referralToView.ReferralId = referralQuery.ReferralId;
+            referralToView.StudentId = referralQuery.StudentId;
+            referralToView.StudentFirstName = referralQuery.StudentFirstName;
+            referralToView.StudentLastName = referralQuery.StudentLastName;
+            referralToView.TeacherId = referralQuery.TeacherId;
+            referralToView.TeacherFirstName = referralQuery.TeacherFirstName;
+            referralToView.TeacherLastName = referralQuery.TeacherLastName;
+            referralToView.DateIssued = referralQuery.DateIssued;
+            referralToView.Description = referralQuery.Description;
+
+            return await Task.Run(() => View(referralToView));
         }
     }
 }

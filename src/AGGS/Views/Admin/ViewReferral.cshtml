@@ -1,8 +1,17 @@
-﻿
+﻿@model AGGS.ViewModels.ReferralVM
+
 @{
     ViewData["Title"] = "ViewReferral";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="title is-1">ViewReferral</h1>
-
+    <div class="container has-text-centered" style="width: 65%; margin-left: auto; margin-right: auto;">
+        <div>
+            <h1 class="title" style="font-weight: normal;">Viewing referral for <span class="has-text-weight-bold">@Model.StudentFirstName @Model.StudentLastName</span></h1>
+            <h1 class="subtitle" style="font-weight: normal;">Issued on 
+                <span class="has-text-weight-bold">@Model.DateIssuedString</span> 
+                by 
+                <span class="has-text-weight-bold">@Model.TeacherFullName</span>
+            </h1>
+        </div>
+    </div>

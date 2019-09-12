@@ -40,9 +40,11 @@
                         @Html.DisplayFor(modelItem => item.DescriptionTruncated)
                     </td>
                     <td>
-                        <button class="button is-primary is-small">
-                            View
-                        </button>
+                        <a asp-area="" asp-controller="Admin" asp-action="ViewReferral" asp-route-referralid=@item.ReferralId>
+                            <button class="button is-primary is-small">
+                                View
+                            </button>
+                        </a>
                     </td>
                 </tr>
                 }
