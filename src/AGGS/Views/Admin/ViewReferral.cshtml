@@ -1,4 +1,4 @@
-﻿@model AGGS.ViewModels.ReferralVM
+﻿@model AGGS.ViewModels.ViewReferralVM
 
 @{
     ViewData["Title"] = "ViewReferral";
@@ -13,5 +13,41 @@
                 by 
                 <span class="has-text-weight-bold">@Model.TeacherFullName</span>
             </h1>
+            <h1 class="subtitle" style="font-weight: normal;">Description: 
+                <span class="has-text-weight-bold">"@Model.Description"</span>
+            </h1>
+
+            <a class="button is-primary">
+                Mark as Handled
+            </a>
+
+            <hr />
+        </div>
+    </div>
+
+    <div class= "container has-text-centered" style="width: 65%; margin-left: auto; margin-right: auto;">
+        <span class="title" style="font-weight: normal;">Previous Referrals</span>
+        <div class="is-centered">
+            <table class="table" style="width: 65%; margin-left: auto; margin-right: auto">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Teacher Name</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var previousReferral in Model.PreviousReferrals)
+                    {
+                        <tr>
+                            <td>@previousReferral.StudentFullName</td>
+                            <td>@previousReferral.TeacherFullName</td>
+                            <td>@previousReferral.DateIssuedString</td>
+                            <td>@previousReferral.DescriptionTruncated</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>

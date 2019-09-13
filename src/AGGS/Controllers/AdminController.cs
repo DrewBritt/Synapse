@@ -231,7 +231,7 @@ namespace AGGS.Controllers
                                   })
                                   .Where(s => s.ReferralId == referralid).FirstOrDefault();
 
-            ReferralVM referralToView = new ReferralVM();
+            ViewReferralVM referralToView = new ViewReferralVM();
             referralToView.ReferralId = referralQuery.ReferralId;
             referralToView.StudentId = referralQuery.StudentId;
             referralToView.StudentFirstName = referralQuery.StudentFirstName;
@@ -241,6 +241,42 @@ namespace AGGS.Controllers
             referralToView.TeacherLastName = referralQuery.TeacherLastName;
             referralToView.DateIssued = referralQuery.DateIssued;
             referralToView.Description = referralQuery.Description;
+
+            var previousReferralsQuery = (from referrals in _context.Referrals
+                                          join students in _context.Students on referrals.StudentId equals students.StudentId
+                                          join teachers in _context.Teachers on referrals.TeacherId equals teachers.TeacherId
+                                          select new
+                                          {
+                                              referrals.ReferralId,
+                                              students.StudentId,
+                                              students.StudentFirstName,
+                                              students.StudentLastName,
+                                              teachers.TeacherId,
+                                              teachers.TeacherFirstName,
+                                              teachers.TeacherLastName,
+                                              referrals.DateIssued,
+                                              referrals.Description
+                                          })
+                                          .Where(s => s.StudentId == referralToView.StudentId && s.ReferralId != referralid).ToList();
+
+            List<ReferralVM> previousReferrals = new List<ReferralVM>();
+            foreach(var referral in previousReferralsQuery)
+            {
+                ReferralVM curReferral = new ReferralVM();
+                curReferral.ReferralId = referral.ReferralId;
+                curReferral.StudentId = referral.StudentId;
+                curReferral.StudentFirstName = referral.StudentFirstName;
+                curReferral.StudentLastName = referral.StudentLastName;
+                curReferral.TeacherId = referral.TeacherId;
+                curReferral.TeacherFirstName = referral.TeacherFirstName;
+                curReferral.TeacherLastName = referral.TeacherLastName;
+                curReferral.DateIssued = referral.DateIssued;
+                curReferral.Description = referral.Description;
+
+                previousReferrals.Add(curReferral);
+            }
+
+            referralToView.PreviousReferrals = previousReferrals;
 
             return await Task.Run(() => View(referralToView));
         }
