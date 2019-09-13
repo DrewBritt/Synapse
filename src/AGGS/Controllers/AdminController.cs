@@ -38,7 +38,13 @@ namespace AGGS.Controllers
 
             //LINQ Query to pull student with ID
             var student = (from students in _context.Students
-                           select new { students.StudentId, students.StudentFirstName, students.StudentLastName, students.Email, students.GradeLevel })
+                           select new {
+                               students.StudentId,
+                               students.StudentFirstName,
+                               students.StudentLastName,
+                               students.Email,
+                               students.GradeLevel
+                           })
                            .Where(s => s.StudentId == studentid).FirstOrDefault();
 
             StudentToView.StudentId = studentid;
@@ -92,8 +98,16 @@ namespace AGGS.Controllers
             //LINQ Query to pull Classes + associated Teacher data
             var classList = (from classes in _context.Classes
                              join teachers in _context.Teachers on classes.TeacherId equals teachers.TeacherId 
-                             select new { classes.ClassId, teachers.TeacherFirstName, teachers.TeacherLastName, teachers.Email,
-                                 classes.ClassName, classes.Period, classes.Location }).ToList();
+                             select new {
+                                 classes.ClassId,
+                                 teachers.TeacherFirstName,
+                                 teachers.TeacherLastName,
+                                 teachers.Email,
+                                 classes.ClassName,
+                                 classes.Period,
+                                 classes.Location
+                             })
+                             .ToList();
 
             //Order classes by teacher last name
             classList = classList.OrderBy(classes => classes.TeacherLastName).ToList();
@@ -186,8 +200,19 @@ namespace AGGS.Controllers
             var referralList = (from referrals in _context.Referrals
                                 join students in _context.Students on referrals.StudentId equals students.StudentId
                                 join teachers in _context.Teachers on referrals.TeacherId equals teachers.TeacherId
-                                select new { referrals.ReferralId, students.StudentId, students.StudentFirstName, students.StudentLastName,
-                                    teachers.TeacherId, teachers.TeacherFirstName, teachers.TeacherLastName, referrals.DateIssued, referrals.Description}).ToList();
+                                select new {
+                                    referrals.ReferralId,
+                                    students.StudentId,
+                                    students.StudentFirstName,
+                                    students.StudentLastName,
+                                    teachers.TeacherId,
+                                    teachers.TeacherFirstName,
+                                    teachers.TeacherLastName,
+                                    referrals.DateIssued,
+                                    referrals.Description,
+                                    referrals.Handled
+                                })
+                                .ToList();
 
             //Order referrals by date
             referralList = referralList.OrderBy(referrals => referrals.DateIssued).ToList();
@@ -205,6 +230,7 @@ namespace AGGS.Controllers
                 newReferral.TeacherLastName = item.TeacherLastName;
                 newReferral.DateIssued = item.DateIssued;
                 newReferral.Description = item.Description;
+                newReferral.Handled = item.Handled;
 
                 ReferralVMList.Add(newReferral);
             }
@@ -227,7 +253,8 @@ namespace AGGS.Controllers
                                       teachers.TeacherFirstName,
                                       teachers.TeacherLastName,
                                       referrals.DateIssued,
-                                      referrals.Description
+                                      referrals.Description,
+                                      referrals.Handled
                                   })
                                   .Where(s => s.ReferralId == referralid).FirstOrDefault();
 
@@ -241,26 +268,28 @@ namespace AGGS.Controllers
             referralToView.TeacherLastName = referralQuery.TeacherLastName;
             referralToView.DateIssued = referralQuery.DateIssued;
             referralToView.Description = referralQuery.Description;
+            referralToView.Handled = referralQuery.Handled;
 
-            var previousReferralsQuery = (from referrals in _context.Referrals
-                                          join students in _context.Students on referrals.StudentId equals students.StudentId
-                                          join teachers in _context.Teachers on referrals.TeacherId equals teachers.TeacherId
-                                          select new
-                                          {
-                                              referrals.ReferralId,
-                                              students.StudentId,
-                                              students.StudentFirstName,
-                                              students.StudentLastName,
-                                              teachers.TeacherId,
-                                              teachers.TeacherFirstName,
-                                              teachers.TeacherLastName,
-                                              referrals.DateIssued,
-                                              referrals.Description
-                                          })
-                                          .Where(s => s.StudentId == referralToView.StudentId && s.ReferralId != referralid).ToList();
+            var otherReferralsQuery = (from referrals in _context.Referrals
+                                       join students in _context.Students on referrals.StudentId equals students.StudentId
+                                       join teachers in _context.Teachers on referrals.TeacherId equals teachers.TeacherId
+                                       select new
+                                       {
+                                           referrals.ReferralId,
+                                           students.StudentId,
+                                           students.StudentFirstName,
+                                           students.StudentLastName,
+                                           teachers.TeacherId,
+                                           teachers.TeacherFirstName,
+                                           teachers.TeacherLastName,
+                                           referrals.DateIssued,
+                                           referrals.Description,
+                                           referrals.Handled
+                                       })
+                                       .Where(s => s.StudentId == referralToView.StudentId && s.ReferralId != referralid).ToList();
 
-            List<ReferralVM> previousReferrals = new List<ReferralVM>();
-            foreach(var referral in previousReferralsQuery)
+            List<ReferralVM> otherReferrals = new List<ReferralVM>();
+            foreach(var referral in otherReferralsQuery)
             {
                 ReferralVM curReferral = new ReferralVM();
                 curReferral.ReferralId = referral.ReferralId;
@@ -272,13 +301,41 @@ namespace AGGS.Controllers
                 curReferral.TeacherLastName = referral.TeacherLastName;
                 curReferral.DateIssued = referral.DateIssued;
                 curReferral.Description = referral.Description;
+                curReferral.Handled = referral.Handled;
 
-                previousReferrals.Add(curReferral);
+                otherReferrals.Add(curReferral);
             }
 
-            referralToView.PreviousReferrals = previousReferrals;
+            referralToView.OtherReferrals = otherReferrals;
 
             return await Task.Run(() => View(referralToView));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkAsHandled (int? referralid)
+        {
+            if (referralid == null)
+            {
+                return NotFound();
+            }
+
+            var referralToUpdate = _context.Referrals.FirstOrDefault(s => s.ReferralId == referralid);
+
+            referralToUpdate.Handled = true;
+
+            try
+            {
+                _context.Update(referralToUpdate);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Referrals));
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", "Unable to save Database changes");
+            }
+
+            return RedirectToAction(nameof(Referrals));
         }
     }
 }

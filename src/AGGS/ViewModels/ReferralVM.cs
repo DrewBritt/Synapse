@@ -17,6 +17,7 @@ namespace AGGS.ViewModels
         public string TeacherLastName { get; set; }
         public DateTime DateIssued { get; set; }
         public string Description { get; set; }
+        public bool Handled { get; set; }
 
         public string StudentFullName
         {

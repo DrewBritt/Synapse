@@ -124,10 +124,10 @@
                     @foreach (var student in Model.EnrolledStudents)
                     {
                         <tr>
-                            <td>@student.StudentFirstName</td>
-                            <td>@student.StudentLastName</td>
+                            <td>@Html.DisplayFor(modelItem => student.StudentFirstName)</td>
+                            <td>@Html.DisplayFor(modelItem => student.StudentLastName)</td>
                             <td>Grade Percent</td>
-                            <td>@student.GradeLevel</td>
+                            <td>@Html.DisplayFor(modelItem => student.GradeLevel)</td>
                             <td>
                                 <a class="button is-primary is-small">
                                     View
