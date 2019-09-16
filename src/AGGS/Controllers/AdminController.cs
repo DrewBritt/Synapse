@@ -175,7 +175,57 @@ namespace AGGS.Controllers
 
             ClassToView.EnrolledStudents = ListOfStudentsEnrolled;
 
+            var allTeachers = (from teachers in _context.Teachers
+                               select new
+                               {
+                                   teachers.TeacherId,
+                                   teachers.TeacherFirstName,
+                                   teachers.TeacherLastName,
+                                   teachers.Email
+                               }).OrderBy(teachers => teachers.TeacherLastName).ToList();
+
+            List<Teacher> TeachersList = new List<Teacher>();
+            foreach(var teacher in allTeachers)
+            {
+                Teacher newTeacher = new Teacher();
+
+                newTeacher.TeacherId = teacher.TeacherId;
+                newTeacher.TeacherFirstName = teacher.TeacherFirstName;
+                newTeacher.TeacherLastName = teacher.TeacherLastName;
+                newTeacher.Email = teacher.Email;
+
+                TeachersList.Add(newTeacher);
+            }
+
+            ClassToView.AllTeachers = TeachersList;
+
             return await Task.Run(() => View(ClassToView));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ViewClass(int? classid, int teacherid, string location, string period)
+        {
+            if(classid == null)
+            {
+                return NotFound();
+            }
+
+            var classToUpdate = _context.Classes.FirstOrDefault(s => s.ClassId == classid);
+
+            classToUpdate.TeacherId = teacherid;
+
+            try
+            {
+                _context.Update(classToUpdate);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("ViewClass", new { classid });
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", "Unable to update database changes.");
+            }
+
+            return RedirectToAction("ViewClass", classid);
         }
 
         public async Task<IActionResult> Referrals()

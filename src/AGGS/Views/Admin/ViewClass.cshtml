@@ -1,11 +1,11 @@
 ﻿@model AGGS.ViewModels.ViewClassVM
+@using System.Web;
 
 @{
     ViewData["Title"] = "ViewClass";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="~/js/editClass.js"></script>   
 <div class="container" style="width: 75%; margin-left: auto; margin-right: auto;">
     <div>
         <h1 class="title" style="font-weight: normal;">Viewing class <span class="has-text-weight-bold">@Model.ClassName</span></h1>
@@ -13,23 +13,24 @@
         <div class="columns">
             <div class="is-full" style="width: 100%; margin-bottom: 2rem;">
                 <div class="card">
-                    <div style="padding: .75rem;">
-                        <div class="columns">
-                            <div class="column">
-                                <p class="title">Class Information</p>
-                            </div>
-                            <div class="column">
-                                <div class="is-pulled-right-desktop is-marginless" id="btns">
-                                    <button id="editBtn" class="button is-primary">Edit</button>
+                    @using (Html.BeginForm("ViewClass", "Admin", FormMethod.Post))
+                    {
+                        <div style="padding: .75rem;">
+                            <div class="columns">
+                                <div class="column">
+                                    <p class="title">Class Information</p>
+                                </div>
+                                <div class="column">
+                                    <div class="is-pulled-right-desktop is-marginless" id="btns">
+                                        <button id="editBtn" class="button is-primary">Edit</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <hr class="is-marginless">
-                    <div class="card-content" id="card-content">
-                        <div class="content">
-                                <button id="modalButton" class="button is-primary modalClose">Open Modal</button>
-                                 
+                        <hr class="is-marginless">
+                        <div class="card-content" id="card-content">
+                            <div class="content">
+
                                 <div class="modal" id="teacherSearchModal">
                                     <div class="modal-background"></div>
                                     <div class="modal-card">
@@ -52,36 +53,20 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                Grant
-                                                            </td>
-                                                            <td>
-                                                                Britton
-                                                            </td>
-                                                            <td>
-                                                                <a>
-                                                                    <button class="button is-primary is-small">
-                                                                        Select Teacher
-                                                                    </button>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                Daniel
-                                                            </td>
-                                                            <td>
-                                                                Nawrocki
-                                                            </td>
-                                                            <td>
-                                                                <a>
-                                                                    <button class="button is-primary is-small">
-                                                                        Select Teacher
-                                                                    </button>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                        @foreach (var teacher in Model.AllTeachers)
+                                                        {
+                                                            <tr>
+                                                                <td>@teacher.TeacherFirstName</td>
+                                                                <td>@teacher.TeacherLastName</td>
+                                                                <td>
+                                                                    <a>
+                                                                        <button type="button" onclick="newTeacher('@Html.Raw(HttpUtility.JavaScriptStringEncode(teacher.TeacherFirstName + " " + teacher.TeacherLastName))','@Html.Raw(teacher.TeacherId)')" class="button is-primary is-small modalClose">
+                                                                            Select Teacher
+                                                                        </button>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -91,18 +76,22 @@
                                         </footer>
                                     </div>
                                 </div>
-
-                                <br />
                                 <span id="teacherLabel" class="has-text-weight-bold">Teacher:</span>
                                 <div id="teacher">@Model.TeacherFullName</div>
-                                <span id="locationLabel" class="has-text-weight-bold" id="location">Location:</span>
+                                <div id="modalButtonDiv" hidden>
+                                    <button id="modalButton" type="button" class="button is-primary modalClose">Select Different Teacher</button>
+                                </div>
+                                <span id="locationLabel" class="has-text-weight-bold">Location:</span>
                                 <div id="location"> @Model.Location</div>
-                                <span id="periodLabel" class="has-text-weight-bold" id="period">Period:</span>
+                                <span id="periodLabel" class="has-text-weight-bold">Period:</span>
                                 <div id="period"> @Model.Period</div>
-                                <span id="studentsLabel" class="has-text-weight-bold" id="students">Assigned Students:</span>
-                                <div id="students">@Model.EnrolledStudents.Count</div>
+                                <span id="studentsLabel" class="has-text-weight-bold">Assigned Students:</span>
+                                <div>@Model.EnrolledStudents.Count</div>
+                                <input name="classid" hidden value="@Model.ClassId"/>
+                                <input id="teacherid" name="teacherid" hidden value=""/>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -140,3 +129,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/js/editClass.js"></script>   

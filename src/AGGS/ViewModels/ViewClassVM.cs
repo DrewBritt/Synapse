@@ -16,6 +16,7 @@ namespace AGGS.ViewModels
         public string Period { get; set; }
         public string Location { get; set; }
         public List<Student> EnrolledStudents { get; set; }
+        public List<Teacher> AllTeachers { get; set; }
 
         public string TeacherFullName
         {

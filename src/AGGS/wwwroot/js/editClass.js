@@ -5,16 +5,19 @@
 
 
 function editClass() {
+    const modalBtn = document.getElementById("modalButton");
     const teacher = document.getElementById("teacher");
     const teacherLabel = document.getElementById("teacherLabel");
+    const modalButtonDiv = document.getElementById("modalButtonDiv");
     var x = document.createElement("INPUT");
     x.setAttribute("type", "text");
     x.setAttribute("value", teacher.textContent);
     x.setAttribute("name", "teacher");
     x.setAttribute("id", "teacherInput");
     x.classList.add("input");
-    teacherLabel.appendChild(x);
-    teacher.setAttribute("hidden", "true");
+    //teacherLabel.appendChild(x);
+    //teacher.setAttribute("hidden", "true");
+    modalButtonDiv.removeAttribute("hidden");
 
     const location = document.getElementById("location");
     const locationLabel = document.getElementById("locationLabel");
@@ -40,7 +43,7 @@ function editClass() {
 
     const btns = document.getElementById("btns");
     const editBtn = document.getElementById("editBtn");
-    let submitBtn = document.createElement("BUTTON");
+    let submitBtn = document.createElement("INPUT");
     submitBtn.setAttribute("type", "submit");
     submitBtn.setAttribute("id", "submitBtn")
     submitBtn.textContent = "Submit";
@@ -54,13 +57,15 @@ function editClass() {
     cancelBtn.textContent = "Cancel";
     cancelBtn.classList.add("button");
     cancelBtn.classList.add("is-danger");
-    cancelBtn.addEventListener('click', cancel, false)
     btns.appendChild(cancelBtn);
 
+    cancelBtn.addEventListener('click', cancel, false)
+    modalBtn.removeAttribute("hidden");
     editBtn.parentNode.removeChild(editBtn);
 }
 
 function cancel() {
+    const modalBtn = document.getElementById("modalButtonDiv");
     let btns = document.getElementById("btns");
     let submitBtn = document.getElementById("submitBtn");
     let cancelBtn = document.getElementById("cancelBtn");
@@ -70,6 +75,11 @@ function cancel() {
     let teacher = document.getElementById("teacher");
     let location = document.getElementById("location");
     let period = document.getElementById("period");
+    let newTeacher = document.getElementById("newTeacher");
+    if (newTeacher !== null) {
+        teacher.removeAttribute("hidden");
+        newTeacher.parentNode.removeChild(newTeacher);
+    }
 
     let editBtn = document.createElement("BUTTON");
     editBtn.classList.add("button")
@@ -79,11 +89,12 @@ function cancel() {
     btns.appendChild(editBtn);
     editBtn.addEventListener('click', editClass, false);
 
-    teacher.removeAttribute("hidden");
+
     location.removeAttribute("hidden");
     period.removeAttribute("hidden");
+    modalBtn.setAttribute("hidden", "true");
 
-    teacherInput.parentNode.removeChild(teacherInput);
+    //teacherInput.parentNode.removeChild(teacherInput);
     locationInput.parentNode.removeChild(locationInput);
     periodInput.parentNode.removeChild(periodInput);
 
@@ -124,5 +135,21 @@ document.addEventListener('DOMContentLoaded', function () {
             teacherModal.classList.toggle('is-active');
         });
     }
-
 });
+
+
+function newTeacher(name, id) {
+    let teacherId = document.getElementById("teacherid");
+    if (document.getElementById("newTeacher")) {
+        let newTeacher = document.getElementById("newTeacher");
+        newTeacher.parentNode.removeChild(newTeacher);
+    }
+    const teacherLabel = document.getElementById("teacherLabel");
+    let teacher = document.getElementById("teacher");
+    teacher.setAttribute("hidden", "true");
+    let newSelecetedTeacher = document.createElement("DIV");
+    newSelecetedTeacher.setAttribute("id", "newTeacher");
+    newSelecetedTeacher.textContent = name;
+    insertAfter(newSelecetedTeacher, teacherLabel);
+    teacherId.setAttribute("value", id)
+}
