@@ -26,11 +26,11 @@
                         <hr class="is-marginless">
                         <div class="card-content">
                             <div class="content">
-                                <span class="has-text-weight-bold">Student:</span> @Model.StudentFirstName @Model.StudentLastName
+                                <span class="has-text-weight-bold">Student:</span> @Html.DisplayFor(modelItem => Model.StudentFirstName) @Html.DisplayFor(modelItem => Model.StudentLastName)
                                 <br>
-                                <span class="has-text-weight-bold">Email:</span> @Model.Email
+                                <span class="has-text-weight-bold">Email:</span> @Html.DisplayFor(modelItem => Model.Email)
                                 <br>
-                                <span class="has-text-weight-bold">Grade Level:</span> @Model.GradeLevel
+                                <span class="has-text-weight-bold">Grade Level:</span> @Html.DisplayFor(modelItem => Model.GradeLevel)
                             </div>
                         </div>
                     </div>
@@ -54,9 +54,9 @@
                         @foreach(var enrolledclass in Model.Classes)
                         {
                             <tr>
-                                <td>@enrolledclass.ClassName</td>
-                                <td>@enrolledclass.TeacherFullName</td>
-                                <td>@enrolledclass.Period</td>
+                                <td>@Html.DisplayFor(modelItem => enrolledclass.ClassName)</td>
+                                <td>@Html.DisplayFor(modelItem => enrolledclass.TeacherFullName)</td>
+                                <td>@Html.DisplayFor(modelItem => enrolledclass.Period)</td>
                                 <td>Grade Percent</td>
                                 <td>
                                     <a asp-area="" asp-controller="Admin" asp-action="ViewClass" asp-route-classid=@enrolledclass.ClassId>

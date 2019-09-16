@@ -405,6 +405,7 @@ CREATE TABLE `referrals` (
   `teacherid` mediumint(9) NOT NULL,
   `dateissued` date NOT NULL,
   `description` varchar(100) NOT NULL,
+  `handled` bit(1) NOT NULL,
   PRIMARY KEY (`referralid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -415,7 +416,7 @@ CREATE TABLE `referrals` (
 
 LOCK TABLES `referrals` WRITE;
 /*!40000 ALTER TABLE `referrals` DISABLE KEYS */;
-INSERT INTO `referrals` VALUES (1,4,2,'2019-09-07','Existed.'),(2,6,5,'2019-09-07','Made too good of music.'),(3,6,5,'2019-09-05','Beat another kid with his drumsticks.'),(4,9,3,'2019-08-31','Test Description.'),(5,10,1,'2019-09-03','Michael sux lol.');
+INSERT INTO `referrals` VALUES (1,4,2,'2019-09-07','Existed.',_binary '\0'),(2,6,5,'2019-09-07','Made too good of music.',_binary ''),(3,6,5,'2019-09-05','Beat another kid with his drumsticks.',_binary '\0'),(4,9,3,'2019-08-31','Test Description.',_binary '\0'),(5,10,1,'2019-09-03','Michael sux lol.',_binary '\0');
 /*!40000 ALTER TABLE `referrals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -509,4 +510,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-09 22:20:12
+-- Dump completed on 2019-09-13 16:43:35

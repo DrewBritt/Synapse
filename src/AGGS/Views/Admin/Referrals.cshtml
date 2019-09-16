@@ -20,6 +20,7 @@
                     <th>Teacher Name</th>
                     <th>Date</th>
                     <th>Description</th>
+                    <th>Handled</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -38,6 +39,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.DescriptionTruncated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Handled)
                     </td>
                     <td>
                         <a asp-area="" asp-controller="Admin" asp-action="ViewReferral" asp-route-referralid=@item.ReferralId>

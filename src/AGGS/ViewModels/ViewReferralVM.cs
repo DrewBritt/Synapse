@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AGGS.ViewModels
 {
-    public class ReferralVM
+    public class ViewReferralVM
     {
         public int ReferralId { get; set; }
         public int StudentId { get; set; }
@@ -19,6 +19,8 @@ namespace AGGS.ViewModels
         public string Description { get; set; }
         public bool Handled { get; set; }
 
+        public List<ReferralVM> OtherReferrals { get; set; }
+
         public string StudentFullName
         {
             get
@@ -26,7 +28,7 @@ namespace AGGS.ViewModels
                 return StudentFirstName + " " + StudentLastName;
             }
         }
-        
+
         public string TeacherFullName
         {
             get
