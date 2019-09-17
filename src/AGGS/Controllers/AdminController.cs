@@ -227,6 +227,8 @@ namespace AGGS.Controllers
             var classToUpdate = _context.Classes.FirstOrDefault(s => s.ClassId == classid);
 
             classToUpdate.TeacherId = teacherid;
+            classToUpdate.Location = location;
+            classToUpdate.Period = period;
 
             try
             {
