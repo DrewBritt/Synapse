@@ -1,52 +1,37 @@
-﻿using AGGS.Data;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using AGGS.ViewModels;
 using System.Collections.Generic;
 using AGGS.Models;
+using AGGS.ViewModels;
 using System;
+using AGGS.Data.Repositories;
+using AGGS.Data;
 
 namespace AGGS.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private readonly Data.AGGSContext _context;
+        private AdminRepository _adminRepository;
 
-        public AdminController(Data.AGGSContext context)
+        public AdminController(AGGSContext dbContext)
         {
-            _context = context;
+            _adminRepository = new AdminRepository(dbContext);
         }
 
         public async Task<IActionResult> Students()
         {
-            //Pull list of students from Students DbSet
-            var students = from s in _context.Students
-                           select s;
-
-            //Sort students by last name
-            students = students.OrderBy(s => s.StudentLastName);
-
-            return View(await students.AsNoTracking().ToListAsync());
+            return View(_adminRepository.GetAllStudents());
         }
 
         public async Task<IActionResult> ViewStudent(int studentid)
         {
             ViewStudentVM StudentToView = new ViewStudentVM();
 
-            //LINQ Query to pull student with ID
-            var student = (from students in _context.Students
-                           select new {
-                               students.StudentId,
-                               students.StudentFirstName,
-                               students.StudentLastName,
-                               students.Email,
-                               students.GradeLevel
-                           })
-                           .Where(s => s.StudentId == studentid).FirstOrDefault();
+            Student student = _adminRepository.GetStudent(studentid);
 
             StudentToView.StudentId = studentid;
             StudentToView.StudentFirstName = student.StudentFirstName;
