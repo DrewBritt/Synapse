@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AGGS.ViewModels;
 using System.Collections.Generic;
 using AGGS.Models;
+using System;
 
 namespace AGGS.Controllers
 {
@@ -385,6 +386,7 @@ namespace AGGS.Controllers
             catch (DbUpdateException ex)
             {
                 ModelState.AddModelError("", "Unable to save Database changes");
+                Console.WriteLine("Unable to save Databse changes (Admin/MarkAsHandled)");
             }
 
             return RedirectToAction(nameof(Referrals));

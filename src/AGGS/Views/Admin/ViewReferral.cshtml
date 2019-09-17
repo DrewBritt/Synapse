@@ -20,9 +20,13 @@
             <!--If the Referral has already been handled, don't display "Mark as Handled" button-->
             @if (!Model.Handled)
             {
-                <a class="button is-primary" asp-area="" asp-controller="Admin" asp-action="MarkAsHandled" asp-route-referralid=@Model.ReferralId>
-                    Mark as Handled
-                </a>
+                @using (Html.BeginForm("MarkAsHandled", "Admin", FormMethod.Post))
+                {
+                    <button class="button is-primary" type="submit" name="MarkAsHandledButton">
+                        Mark as Handled
+                    </button>
+                    <input id="referralid" name="referralid" hidden value="@Model.ReferralId" />
+                }
             }
 
             <hr />
@@ -39,6 +43,7 @@
                         <th>Teacher Name</th>
                         <th>Date</th>
                         <th>Description</th>
+                        <th>Handled</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -50,6 +55,7 @@
                             <td>@Html.DisplayFor(modelItem => otherReferral.TeacherFullName)</td>
                             <td>@Html.DisplayFor(modelItem => otherReferral.DateIssuedString)</td>
                             <td>@Html.DisplayFor(modelItem => otherReferral.DescriptionTruncated)</td>
+                            <td>@Html.DisplayFor(modelItem => otherReferral.Handled)</td>
                             <td>
                                 <a asp-area="" asp-controller="Admin" asp-action="ViewReferral" asp-route-referralid=@otherReferral.ReferralId>
                                     <button class="button is-primary is-small">
