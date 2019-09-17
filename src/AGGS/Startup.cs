@@ -14,6 +14,7 @@ using AGGS.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using AGGS.Data.Repositories;
 
 namespace AGGS
 {
@@ -48,6 +49,8 @@ namespace AGGS
                 .AddEntityFrameworkStores<AGGSContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSingleton<AdminRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
