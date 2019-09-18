@@ -12,33 +12,35 @@
         <div class="columns">
             <div class="is-full" style="width: 100%; margin-bottom: 2rem;">
                 <div class="card">
-                    <div style="padding: .75rem;">
-                        <div class="columns">
-                            <div class="column">
-                                <p class="title">Student Information</p>
-                            </div>
-                            <div class="column">
-                                <div class="is-pulled-right-desktop is-marginless" id="btns">
-                                    <button id="editBtn" class="button is-primary">Edit</button>
+                    @using (Html.BeginForm("EditStudentInfo", "Admin", FormMethod.Post))
+                    {
+                        <div style="padding: .75rem;">
+                            <div class="columns">
+                                <div class="column">
+                                    <p class="title">Student Information</p>
                                 </div>
-                            </div>
+                                <div class="column">
+                                    <div class="is-pulled-right-desktop is-marginless" id="btns">
+                                        <button id="editBtn" class="button is-primary">Edit</button>
+                                    </div>
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
-                    <hr class="is-marginless">
-                    <div class="card-content">
-                        <div class="content">
-                            <span id="nameLabel" class="has-text-weight-bold">Name:</span>
-                            <div id="name">@Html.DisplayFor(modelItem => Model.StudentFirstName) @Html.DisplayFor(modelItem => Model.StudentLastName)</div>
-                            <br>
-                            <span id="emailLabel" class="has-text-weight-bold">Email:</span>
-                            <div id="email">@Html.DisplayFor(modelItem => Model.Email)</div>
-                            <br>
-                            <span id="gradeLabel" class="has-text-weight-bold">Grade Level:</span>
-                            <div id="grade">@Html.DisplayFor(modelItem => Model.GradeLevel)</div>
+                        <hr class="is-marginless">
+                        <div class="card-content">
+                            <div class="content">
+                                <span id="nameLabel" class="has-text-weight-bold">Name:</span>
+                                <div id="name">@Html.DisplayFor(modelItem => Model.StudentFirstName) @Html.DisplayFor(modelItem => Model.StudentLastName)</div>
+                                <span id="emailLabel" class="has-text-weight-bold">Email:</span>
+                                <div id="email">@Html.DisplayFor(modelItem => Model.Email)</div>
+                                <span id="gradeLabel" class="has-text-weight-bold">Grade Level:</span>
+                                <div id="grade">@Html.DisplayFor(modelItem => Model.GradeLevel)</div>
+                            </div>
                         </div>
+                        <input hidden name="studentid" value="@Model.StudentId"/>
+                    }
                     </div>
-                </div>
             </div>
         </div>
     </div>
