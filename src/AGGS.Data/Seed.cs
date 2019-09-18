@@ -35,9 +35,11 @@ namespace AGGS.Data
             //Add superuser to "drewbritt02@gmail.com" account
             var drewsuperuser = await UserManager.FindByEmailAsync("drewbritt02@gmail.com");
             var lyonsuperuser = await UserManager.FindByEmailAsync("lyonjenkins@gmail.com");
+            var teacheraccount = await UserManager.FindByEmailAsync("teacheraccount@gmail.com");
 
             await UserManager.AddToRoleAsync(drewsuperuser, "Admin");
             await UserManager.AddToRoleAsync(lyonsuperuser, "Admin");
+            await UserManager.AddToRoleAsync(teacheraccount, "Teacher");
         }
     }
 }
