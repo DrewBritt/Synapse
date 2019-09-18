@@ -1,12 +1,7 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using AGGS.Models;
 using AGGS.ViewModels;
-using System;
 using AGGS.Data.Repositories;
 using AGGS.Data;
 

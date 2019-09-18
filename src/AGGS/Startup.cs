@@ -51,6 +51,7 @@ namespace AGGS
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSingleton<AdminRepository>();
+            services.AddSingleton<TeacherRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
