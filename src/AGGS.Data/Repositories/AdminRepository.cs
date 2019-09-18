@@ -89,6 +89,42 @@ namespace AGGS.Data.Repositories
             return EnrolledClasses;
         }
 
+        public async Task EditStudentInfo(int? studentid, string name, string email, byte gradelevel)
+        {
+            //Grab student from database based on studentid
+            var studentToUpdate = _context.Students.FirstOrDefault(s => s.StudentId == studentid);
+
+            //Save student's current email as string for changing their user data
+            string studentCurrentEmail = studentToUpdate.Email;
+
+            //Split name into firstname and lastname
+            string studentfirstname = name.Substring(0, name.IndexOf(' '));
+            string studentlastname = name.Substring(name.IndexOf(' ') + 1, name.Length - name.IndexOf(' '));
+
+            //Update info from page
+            studentToUpdate.StudentFirstName = studentfirstname;
+            studentToUpdate.StudentLastName = studentlastname;
+            studentToUpdate.Email = email;
+            studentToUpdate.GradeLevel = Convert.ToByte(gradelevel);
+
+            //Change student data in local database instance
+            _context.Update(studentToUpdate);
+
+            //Grab user with same email as student
+            var userStudentToUpdate = _context.Users.First(u => u.Email == studentCurrentEmail);
+
+            //Update user email to inputted email
+            userStudentToUpdate.Email = email;
+
+            //Save user data in local database instance
+            _context.Update(userStudentToUpdate);
+
+            //Flush changes to database
+            await _context.SaveChangesAsync();
+
+
+        }
+
         public List<ClassVM> GetAllClasses()
         {
             List<ClassVM> AllClasses = new List<ClassVM>();

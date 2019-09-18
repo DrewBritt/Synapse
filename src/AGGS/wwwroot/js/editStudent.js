@@ -26,11 +26,11 @@ function editClass() {
     emailLabel.appendChild(x);
     email.setAttribute("hidden", "true");
 
-    const grade = document.getElementById("grade");
+    const grade = document.getElementById("gradelevel");
     const gradeLabel = document.getElementById("gradeLabel");
     var x = document.createElement("INPUT");
     x.setAttribute("type", "text");
-    x.setAttribute("name", "grade");
+    x.setAttribute("name", "gradelevel");
     x.setAttribute("value", grade.textContent);
     x.classList.add("input");
     x.setAttribute("id", "gradeInput")
@@ -68,7 +68,7 @@ function cancel() {
     let gradeInput = document.getElementById("gradeInput");
     let name = document.getElementById("name");
     let email = document.getElementById("email");
-    let grade = document.getElementById("grade");
+    let grade = document.getElementById("gradelevel");
 
     let editBtn = document.createElement("BUTTON");
     editBtn.classList.add("button")

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AGGS.ViewModels;
 using AGGS.Data.Repositories;
 using AGGS.Data;
+using System;
 
 namespace AGGS.Controllers
 {
@@ -28,6 +29,19 @@ namespace AGGS.Controllers
             StudentToView.Classes = _adminRepository.GetStudentSchedule(studentid);
 
             return await Task.Run(() => View(StudentToView));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditStudentInfo(int? studentid, string name, string email, string gradelevel)
+        {
+            if(studentid == null)
+            {
+                return NotFound();
+            }
+
+            await _adminRepository.EditStudentInfo(studentid, name, email, Convert.ToByte(gradelevel));
+
+            return RedirectToAction("ViewStudent", new { studentid });
         }
 
         public async Task<IActionResult> Classes()

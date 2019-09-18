@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="column">
                                     <div class="is-pulled-right-desktop is-marginless" id="btns">
-                                        <button id="editBtn" class="button is-primary">Edit</button>
+                                        <button id="editBtn" type="button" class="button is-primary">Edit</button>
                                     </div>
                                 </div>
 
@@ -35,7 +35,7 @@
                                 <span id="emailLabel" class="has-text-weight-bold">Email:</span>
                                 <div id="email">@Html.DisplayFor(modelItem => Model.Email)</div>
                                 <span id="gradeLabel" class="has-text-weight-bold">Grade Level:</span>
-                                <div id="grade">@Html.DisplayFor(modelItem => Model.GradeLevel)</div>
+                                <div id="gradelevel">@Html.DisplayFor(modelItem => Model.GradeLevel)</div>
                             </div>
                         </div>
                         <input hidden name="studentid" value="@Model.StudentId"/>
