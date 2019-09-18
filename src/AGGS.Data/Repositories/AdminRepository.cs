@@ -99,7 +99,7 @@ namespace AGGS.Data.Repositories
 
             //Split name into firstname and lastname
             string studentfirstname = name.Substring(0, name.IndexOf(' '));
-            string studentlastname = name.Substring(name.IndexOf(' ') + 1, name.Length - name.IndexOf(' '));
+            string studentlastname = name.Substring(name.IndexOf(' ') + 1, name.Length - name.IndexOf(' ') - 1);
 
             //Update info from page
             studentToUpdate.StudentFirstName = studentfirstname;
@@ -110,14 +110,16 @@ namespace AGGS.Data.Repositories
             //Change student data in local database instance
             _context.Update(studentToUpdate);
 
+            /*
             //Grab user with same email as student
-            var userStudentToUpdate = _context.Users.First(u => u.Email == studentCurrentEmail);
+            var userStudentToUpdate = _context.Users.FirstOrDefault(u => u.Email == studentCurrentEmail);
 
             //Update user email to inputted email
             userStudentToUpdate.Email = email;
 
             //Save user data in local database instance
             _context.Update(userStudentToUpdate);
+            */
 
             //Flush changes to database
             await _context.SaveChangesAsync();
