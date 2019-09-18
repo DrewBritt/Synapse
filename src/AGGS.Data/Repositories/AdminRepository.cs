@@ -140,6 +140,7 @@ namespace AGGS.Data.Repositories
                              select new
                              {
                                  classes.ClassId,
+                                 classes.TeacherId,
                                  teachers.TeacherFirstName,
                                  teachers.TeacherLastName,
                                  teachers.Email,
@@ -151,6 +152,7 @@ namespace AGGS.Data.Repositories
 
             //Insert LINQ values into ViewClassVM
             ClassToView.ClassId = viewClass.ClassId;
+            ClassToView.TeacherId = viewClass.TeacherId;
             ClassToView.TeacherFirstName = viewClass.TeacherFirstName;
             ClassToView.TeacherLastName = viewClass.TeacherLastName;
             ClassToView.Email = viewClass.Email;
