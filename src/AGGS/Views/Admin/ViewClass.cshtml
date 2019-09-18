@@ -118,7 +118,7 @@
                             <td>Grade Percent</td>
                             <td>@Html.DisplayFor(modelItem => student.GradeLevel)</td>
                             <td>
-                                <a class="button is-primary is-small">
+                                <a class="button is-primary is-small" asp-area="" asp-controller="Admin" asp-action="ViewStudent" asp-route-studentid="@student.StudentId">
                                     View
                                 </a>
                             </td>
