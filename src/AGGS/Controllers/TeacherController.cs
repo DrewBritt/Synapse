@@ -40,5 +40,10 @@ namespace AGGS.Controllers
         {
             return await Task.Run(() => View());
         }
+
+        public async Task<IActionResult> ViewStudent(int studentid)
+        {
+            return await Task.Run(() => View());
+        }
     }
 }

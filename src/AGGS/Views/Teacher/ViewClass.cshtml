@@ -47,6 +47,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach(var item in Model.EnrolledStudents)
+                    {
+                        <tr>
+                            <td>@item.StudentFirstName</td>
+                            <td>@item.StudentLastName</td>
+                            <td>Grade Percent</td>
+                            <td>@item.GradeLevel</td>
+                            <td>
+                                <a class="button is-primary is-small" asp-area="" asp-controller="Teacher" asp-action="ViewStudent" asp-route-studentid=@item.StudentId>
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
