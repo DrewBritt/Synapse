@@ -66,7 +66,7 @@ namespace AGGS.Data.Repositories
                                 classes.Period,
                                 classes.Location,
                                 studentsclasses.StudentId
-                            }).Where(s => s.StudentId == studentid)
+                            }).Where(s => s.StudentId == studentid).OrderBy(c => c.Period)
                             .ToList();
 
             List<ClassWithTeacherInfo> EnrolledClasses = new List<ClassWithTeacherInfo>();
