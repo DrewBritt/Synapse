@@ -1,5 +1,6 @@
 ﻿using AGGS.Data;
 using AGGS.Data.Repositories;
+using AGGS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,10 +12,12 @@ namespace AGGS.Controllers
     public class TeacherController : Controller
     {
         private TeacherRepository _teacherRepository;
+        private AdminRepository _adminRepository;
 
         public TeacherController(AGGSContext dbContext)
         {
             _teacherRepository = new TeacherRepository(dbContext);
+            _adminRepository = new AdminRepository(dbContext);
         }
 
         public async Task<IActionResult> Classes()
@@ -27,7 +30,10 @@ namespace AGGS.Controllers
 
         public async Task<IActionResult> ViewClass(int classid)
         {
-            return await Task.Run(() => View());
+            ViewClassVM classToView = _adminRepository.GetClass(classid);
+            classToView.EnrolledStudents = _adminRepository.GetEnrolledStudents(classid);
+
+            return await Task.Run(() => View(classToView));
         }
 
         public async Task<IActionResult> Grades(int classid)
