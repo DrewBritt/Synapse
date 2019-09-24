@@ -170,7 +170,7 @@ CREATE TABLE `aspnetuserroles` (
 
 LOCK TABLES `aspnetuserroles` WRITE;
 /*!40000 ALTER TABLE `aspnetuserroles` DISABLE KEYS */;
-INSERT INTO `aspnetuserroles` VALUES ('a599b245-f3ae-46fc-b011-06f97ba15edc','1e6570a1-c310-4793-91fd-8f14db7e23fb'),('01bf3742-be86-4301-b9a1-7ab7fdf05544','aeb2ab58-d2c1-4e1e-b7f3-e27d57e8476c'),('19f0a0cc-272b-40e1-88bd-c29d27f83e63','e5544f6c-32db-47df-8529-903e8c37fde4'),('9b8c5a6d-2efd-4798-99cc-19a2812b8a84','e5544f6c-32db-47df-8529-903e8c37fde4');
+INSERT INTO `aspnetuserroles` VALUES ('c306c84a-6f03-41ca-b4c2-57ceecb0550c','1e6570a1-c310-4793-91fd-8f14db7e23fb'),('01bf3742-be86-4301-b9a1-7ab7fdf05544','aeb2ab58-d2c1-4e1e-b7f3-e27d57e8476c'),('19f0a0cc-272b-40e1-88bd-c29d27f83e63','e5544f6c-32db-47df-8529-903e8c37fde4'),('9b8c5a6d-2efd-4798-99cc-19a2812b8a84','e5544f6c-32db-47df-8529-903e8c37fde4');
 /*!40000 ALTER TABLE `aspnetuserroles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +209,7 @@ CREATE TABLE `aspnetusers` (
 
 LOCK TABLES `aspnetusers` WRITE;
 /*!40000 ALTER TABLE `aspnetusers` DISABLE KEYS */;
-INSERT INTO `aspnetusers` VALUES ('01bf3742-be86-4301-b9a1-7ab7fdf05544','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAEG//19q2NW6y+8waJ8iyxhu2bK5czTqhwUeX6QY1NW6x9L9VyG72uz4P4nwLFfWSuA==','YV7WHXLOENP7QEJJQZUOA457FMLV7EXN','a94fe8a0-d3b0-42fc-9009-0fc62a5a00d7',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('19f0a0cc-272b-40e1-88bd-c29d27f83e63','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAELzKlyKICLyczHoCeP22A0BUznUtvQfhAsRLYON3oJmyrPED4Vn4oKytmK4wHsar2A==','TR2M3HSS6REJMDZE4EZJ7VRHGFW7GA4M','ad79366a-51c4-49b5-849a-32fbdb8816c8',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('9b8c5a6d-2efd-4798-99cc-19a2812b8a84','lyonjenkins@gmail.com','LYONJENKINS@GMAIL.COM','lyonjenkins@gmail.com','LYONJENKINS@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAEB5AB8W5RPo7l7tsxqhZ5Jqc1P6UmojH0ar/d5Kwb850xfBPTiy+by7oSygPajLiAw==','LE5C2TW3PQ4BNFXX2PS3QRSPKKJC6O47','39e36231-341d-4dbe-a336-a053c486749a',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('a599b245-f3ae-46fc-b011-06f97ba15edc','teacheraccount@gmail.com','TEACHERACCOUNT@GMAIL.COM','teacheraccount@gmail.com','TEACHERACCOUNT@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAEO9bKd3g3A0MFpSPBnog2mhK+DzJdPo9UwCzE/H/+O4pw3FNIOG3lYO+yPNcjJwcVw==','D3IROGSHHVYFFJBENPHGEMLUTLYXFYL7','b3aefceb-6657-4e40-89c9-33dc55873139',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
+INSERT INTO `aspnetusers` VALUES ('01bf3742-be86-4301-b9a1-7ab7fdf05544','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM','ajbritt2002@gmail.com','AJBRITT2002@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAEG//19q2NW6y+8waJ8iyxhu2bK5czTqhwUeX6QY1NW6x9L9VyG72uz4P4nwLFfWSuA==','YV7WHXLOENP7QEJJQZUOA457FMLV7EXN','a94fe8a0-d3b0-42fc-9009-0fc62a5a00d7',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('19f0a0cc-272b-40e1-88bd-c29d27f83e63','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM','drewbritt02@gmail.com','DREWBRITT02@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAELzKlyKICLyczHoCeP22A0BUznUtvQfhAsRLYON3oJmyrPED4Vn4oKytmK4wHsar2A==','TR2M3HSS6REJMDZE4EZJ7VRHGFW7GA4M','ad79366a-51c4-49b5-849a-32fbdb8816c8',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('9b8c5a6d-2efd-4798-99cc-19a2812b8a84','lyonjenkins@gmail.com','LYONJENKINS@GMAIL.COM','lyonjenkins@gmail.com','LYONJENKINS@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAEB5AB8W5RPo7l7tsxqhZ5Jqc1P6UmojH0ar/d5Kwb850xfBPTiy+by7oSygPajLiAw==','LE5C2TW3PQ4BNFXX2PS3QRSPKKJC6O47','28a97a95-9eeb-4724-a4a4-90e16bbe9776',NULL,_binary '\0',_binary '\0',NULL,_binary '',0),('c306c84a-6f03-41ca-b4c2-57ceecb0550c','teacheraccount@gmail.com','TEACHERACCOUNT@GMAIL.COM','teacheraccount@gmail.com','TEACHERACCOUNT@GMAIL.COM',_binary '\0','AQAAAAEAACcQAAAAEKoI5wjGKtPs/KR5jFIeAVYQ+JaUFzRpmNNp4GD3PLQhEIXgrVzVAFJGU3q3FPcRaw==','TMCE72XHHM3KFDWYEXL2CMC65WRVNT3V','a51c3d82-2e8a-4694-8344-39fe6fabd528',NULL,_binary '\0',_binary '\0',NULL,_binary '',0);
 /*!40000 ALTER TABLE `aspnetusers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,11 +249,11 @@ DROP TABLE IF EXISTS `assignmentcategories`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `assignmentcategories` (
   `categoryid` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `classid` mediumint(9) NOT NULL,
+  `teacherid` mediumint(9) NOT NULL,
   `categoryname` varchar(50) NOT NULL,
   `categoryweight` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`categoryid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,6 +262,7 @@ CREATE TABLE `assignmentcategories` (
 
 LOCK TABLES `assignmentcategories` WRITE;
 /*!40000 ALTER TABLE `assignmentcategories` DISABLE KEYS */;
+INSERT INTO `assignmentcategories` VALUES (1,2,'Tests',50),(2,2,'Daily Work',50);
 /*!40000 ALTER TABLE `assignmentcategories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,7 +279,7 @@ CREATE TABLE `assignments` (
   `assignmentname` varchar(100) NOT NULL,
   `categoryid` mediumint(9) NOT NULL,
   PRIMARY KEY (`assignmentid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -287,6 +288,7 @@ CREATE TABLE `assignments` (
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
+INSERT INTO `assignments` VALUES (1,5,'Java Test 3',1),(2,5,'Java Practice 4',2),(3,5,'Java Test 4',1);
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,7 +340,7 @@ CREATE TABLE `classes` (
 
 LOCK TABLES `classes` WRITE;
 /*!40000 ALTER TABLE `classes` DISABLE KEYS */;
-INSERT INTO `classes` VALUES (1,1,'Wind Ensemble 1','1st','Band Hall'),(2,1,'Wind Ensemble 2','1st','Band Hall'),(3,1,'Wind Ensemble 3','1st','Band Hall'),(4,1,'Wind Ensemble 4','1st','Band Hall'),(5,2,'AP Computer Science','6th','2417'),(6,2,'Computer Science Pre-AP','5th','2417'),(7,6,'Computer Science 3','6th','2414'),(8,5,'English 2 Pre-AP','4th','1412'),(9,3,'English 2 Pre-AP','8th','1412'),(10,3,'English 3 AP','7th','1412'),(11,4,'AP Microeconomics','2nd','1206'),(12,4,'AP Microeconomics','4th','1206'),(13,5,'World History','4th','1208'),(14,5,'AP World History','7th','1208'),(15,6,'AP World History','7th','1207'),(16,7,'Dance 1','1st','Dance Gym'),(17,7,'Dance 2','1st','Dance Gym');
+INSERT INTO `classes` VALUES (1,1,'Wind Ensemble 1','1st','Band Hall'),(2,1,'Wind Ensemble 2','1st','Band Hall'),(3,1,'Wind Ensemble 3','1st','Band Hall'),(4,1,'Wind Ensemble 4','1st','Band Hall'),(5,2,'AP Computer Science','6th','2417'),(6,2,'Computer Science Pre-AP','5th','2417'),(7,2,'Computer Science 3','6th','2414'),(8,3,'English 2 Pre-AP','4th','1023'),(9,3,'English 2 Pre-AP','8th','1412'),(10,3,'English 3 AP','7th','1412'),(11,4,'AP Microeconomics','2nd','1206'),(12,4,'AP Microeconomics','4th','1206'),(13,1,'World History','4th','1208'),(14,5,'AP World History','7th','1208'),(15,6,'AP World History','7th','1207'),(16,7,'Dance 1','1st','Dance Gym'),(17,7,'Dance 2','1st','Dance Gym');
 /*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -356,7 +358,7 @@ CREATE TABLE `grades` (
   `studentid` mediumint(9) NOT NULL,
   `gradevalue` varchar(3) NOT NULL,
   PRIMARY KEY (`gradeid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,6 +367,7 @@ CREATE TABLE `grades` (
 
 LOCK TABLES `grades` WRITE;
 /*!40000 ALTER TABLE `grades` DISABLE KEYS */;
+INSERT INTO `grades` VALUES (1,1,5,1,'100'),(2,2,5,1,'50'),(3,3,5,1,'M'),(4,1,5,3,'80'),(5,2,5,3,'80'),(6,3,5,3,'60');
 /*!40000 ALTER TABLE `grades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -416,7 +419,7 @@ CREATE TABLE `referrals` (
 
 LOCK TABLES `referrals` WRITE;
 /*!40000 ALTER TABLE `referrals` DISABLE KEYS */;
-INSERT INTO `referrals` VALUES (1,4,2,'2019-09-07','Existed.',_binary '\0'),(2,6,5,'2019-09-07','Made too good of music.',_binary ''),(3,6,5,'2019-09-05','Beat another kid with his drumsticks.',_binary ''),(4,9,3,'2019-08-31','Test Description.',_binary '\0'),(5,10,1,'2019-09-03','Michael sux lol.',_binary '\0');
+INSERT INTO `referrals` VALUES (1,4,2,'2019-09-07','Existed.',_binary ''),(2,6,5,'2019-09-07','Made too good of music.',_binary ''),(3,6,5,'2019-09-05','Beat another kid with his drumsticks.',_binary ''),(4,9,3,'2019-08-31','Test Description.',_binary ''),(5,10,1,'2019-09-03','Michael sux lol.',_binary '');
 /*!40000 ALTER TABLE `referrals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,7 +496,7 @@ CREATE TABLE `teachers` (
 
 LOCK TABLES `teachers` WRITE;
 /*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
-INSERT INTO `teachers` VALUES (1,'Amy','Suggs','amy.suggs@leanderisd.org'),(2,'Daniel','Nawrocki','daniel.nawrocki@leanderisd.org'),(3,'Zachary','Long','zachary.long@leanderisd.org'),(4,'Uncle','Sam','uncle.sam@leanderisd.org'),(5,'Grant','Britton','grant.britton@leanderisd.org'),(6,'Matt','Riley','matt.riley@leanderisd.org'),(7,'Katy','Reeves','katy.reeves@leanderisd.org');
+INSERT INTO `teachers` VALUES (1,'Amy','Suggs','amy.suggs@leanderisd.org'),(2,'Daniel','Nawrocki','teacheraccount@gmail.com'),(3,'Zachary','Long','zachary.long@leanderisd.org'),(4,'Uncle','Sam','uncle.sam@leanderisd.org'),(5,'Grant','Britton','grant.britton@leanderisd.org'),(6,'Matt','Riley','matt.riley@leanderisd.org'),(7,'Katy','Reeves','katy.reeves@leanderisd.org');
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -510,4 +513,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-18 11:31:59
+-- Dump completed on 2019-09-24 11:46:58
