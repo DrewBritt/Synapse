@@ -18,6 +18,9 @@ namespace AGGS.Data
         public DbSet<Referral> Referrals { get; set; }
         public DbSet<StudentsClass> StudentsClasses { get; set; }
         public DbSet<IdentityUser> AspNetUsers { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<AssignmentCategory> AssignmentCategories { get; set; }
+        public DbSet<Grade> Grades { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -29,6 +32,9 @@ namespace AGGS.Data
             builder.Entity<Referral>().ToTable("Referrals");
             builder.Entity<StudentsClass>().ToTable("StudentsClasses").HasKey(c => new { c.StudentId, c.ClassId });
             builder.Entity<IdentityUser>().ToTable("aspnetusers");
+            builder.Entity<Assignment>().ToTable("Assignments");
+            builder.Entity<AssignmentCategory>().ToTable("AssignmentCategories");
+            builder.Entity<Grade>().ToTable("Grades");
         }
     }
 }

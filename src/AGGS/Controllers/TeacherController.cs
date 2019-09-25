@@ -38,7 +38,14 @@ namespace AGGS.Controllers
 
         public async Task<IActionResult> Grades(int classid)
         {
-            return await Task.Run(() => View());
+            GradesVM gradeVM = _teacherRepository.ViewGradesForClass(classid);
+
+            gradeVM.AssignmentCategories = _teacherRepository.GetAssignmentCategories(classid);
+            gradeVM.ClassAssignments = _teacherRepository.GetClassAssignments(classid);
+            gradeVM.EnrolledStudents = _adminRepository.GetEnrolledStudents(classid);
+            gradeVM.StudentGrades = _teacherRepository.GetEnrolledStudentsGrades(classid);
+
+            return await Task.Run(() => View(gradeVM));
         }
 
         public async Task<IActionResult> ViewStudent(int studentid)
