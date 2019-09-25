@@ -44,6 +44,11 @@ namespace AGGS.Controllers
             return RedirectToAction("ViewStudent", new { studentid });
         }
 
+        public async Task<IActionResult> AddStudent()
+        {
+            return await Task.Run(() => View());
+        }
+
         public async Task<IActionResult> Classes()
         {
             return await Task.Run(() => View(_adminRepository.GetAllClasses()));
