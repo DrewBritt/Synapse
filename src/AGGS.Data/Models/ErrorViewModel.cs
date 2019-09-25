@@ -1,6 +1,6 @@
 using System;
 
-namespace AGGS.Models
+namespace AGGS.Data.Models
 {
     public class ErrorViewModel
     {

@@ -1,4 +1,4 @@
-﻿using AGGS.Models;
+﻿using AGGS.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
 

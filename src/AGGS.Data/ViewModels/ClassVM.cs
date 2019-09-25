@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AGGS.ViewModels
+namespace AGGS.Data.ViewModels
 {
     public class ClassVM
     {

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AGGS.Models;
+using AGGS.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using AGGS.Data;
 

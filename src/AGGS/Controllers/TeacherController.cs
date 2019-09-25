@@ -1,6 +1,6 @@
 ﻿using AGGS.Data;
 using AGGS.Data.Repositories;
-using AGGS.ViewModels;
+using AGGS.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

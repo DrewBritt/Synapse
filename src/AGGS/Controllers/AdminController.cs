@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using AGGS.ViewModels;
+using AGGS.Data.ViewModels;
 using AGGS.Data.Repositories;
 using AGGS.Data;
 using System;

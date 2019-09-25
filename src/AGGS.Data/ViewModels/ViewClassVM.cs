@@ -1,10 +1,10 @@
-﻿using AGGS.Models;
+﻿using AGGS.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AGGS.ViewModels
+namespace AGGS.Data.ViewModels
 {
     public class ViewClassVM
     {

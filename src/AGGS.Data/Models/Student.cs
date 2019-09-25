@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AGGS.Models
+namespace AGGS.Data.Models
 {
     public partial class Student
     {

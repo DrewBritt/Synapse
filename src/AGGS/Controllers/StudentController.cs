@@ -17,10 +17,10 @@ namespace AGGS.Controllers
             _adminRepository = new AdminRepository(dbContext);
             _studentRepository = new StudentRepository(dbContext);
         }
-        public async Task<IActionResult> Grades()
+       /*public async Task<IActionResult> Grades()
         {
             return await Task.Run(() => View(_adminRepository.GetStudentSchedule()));
-        }
+        }*/
 
         public async Task<IActionResult> Attendance()
         {
