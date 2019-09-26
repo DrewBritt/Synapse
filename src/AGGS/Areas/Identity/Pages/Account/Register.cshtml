@@ -11,21 +11,35 @@
         <section>
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                 <hr />
-                <div asp-validation-summary="All" class="has-text-danger"></div>
                 <div class="field">
                     <label class="label" asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="input" />
-                    <span asp-validation-for="Input.Email" class="has-text-danger"></span>
+                    <div class="control has-icons-left has-icons-right">
+                        <input asp-for="Input.Email" class="input" />
+                        <span asp-validation-for="Input.Email" class="has-text-danger"></span>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </div>
                 </div>
                 <div class="field">
                     <label class="label" asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="input" />
-                    <span asp-validation-for="Input.Password" class="has-text-danger"></span>
+                    <div class="control has-icons-left">
+                        <input asp-for="Input.Password" class="input" />
+                        <span asp-validation-for="Input.Password" class="has-text-danger"></span>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </div>
                 </div>
                 <div class="field">
                     <label class="label" asp-for="Input.ConfirmPassword"></label>
-                    <input asp-for="Input.ConfirmPassword" class="input" />
-                    <span asp-validation-for="Input.ConfirmPassword" class="has-text-danger"></span>
+                    <div class="control has-icons-left">
+                        <input asp-for="Input.ConfirmPassword" class="input" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="has-text-danger"></span>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </div>
                 </div>
                 <button type="submit" class="button is-primary">Register</button>
             </form>
