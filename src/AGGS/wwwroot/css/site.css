@@ -81,3 +81,12 @@ body {
 .gradesTable th {
     min-width: 10rem;
 }
+
+.gradesTable {
+    font-size: .75rem;
+    margin-bottom: 1rem;
+}
+
+.gradesTable input {
+    font-size: .75rem;
+}}
