@@ -128,14 +128,16 @@ namespace AGGS.Data.Repositories
             List<Grade> enrolledStudentsGrades = new List<Grade>();
 
             var gradesQuery = (from grades in _context.Grades
+                               join students in _context.Students on grades.StudentId equals students.StudentId
                                select new
                                {
                                    grades.GradeId,
                                    grades.AssignmentId,
                                    grades.ClassId,
                                    grades.StudentId,
-                                   grades.GradeValue
-                               }).Where(g => g.ClassId == classid).ToList();
+                                   grades.GradeValue,
+                                   students.StudentLastName
+                               }).Where(g => g.ClassId == classid).OrderBy(s => s.StudentLastName).ToList();
 
             foreach(var grade in gradesQuery)
             {

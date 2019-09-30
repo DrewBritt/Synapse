@@ -10,5 +10,13 @@ namespace AGGS.Data.Models
         public string StudentLastName { get; set; }
         public string Email { get; set; }
         public byte GradeLevel { get; set; }
+
+        public string StudentFullName
+        {
+            get
+            {
+                return StudentFirstName + " " + StudentLastName;
+            }
+        }
     }
 }

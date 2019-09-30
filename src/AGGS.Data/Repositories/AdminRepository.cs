@@ -214,7 +214,7 @@ namespace AGGS.Data.Repositories
                                              students.Email,
                                              students.GradeLevel,
                                              studentclasses.ClassId
-                                         });
+                                         }).OrderBy(s => s.StudentLastName);
 
             List<Student> ListOfStudentsEnrolled = new List<Student>();
             foreach (var item in listOfStudentsInClass)
