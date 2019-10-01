@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AGGS.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using AGGS.Data;
 using AGGS.Data.Repositories;
+using AGGS.Hubs;
 
 namespace AGGS
 {
@@ -50,6 +46,8 @@ namespace AGGS
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddSignalR();
+
             services.AddSingleton<AdminRepository>();
             services.AddSingleton<TeacherRepository>();
         }
@@ -74,6 +72,11 @@ namespace AGGS
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<GradesHub>("/gradesHub");
+            });
 
             app.UseMvc(routes =>
             {
