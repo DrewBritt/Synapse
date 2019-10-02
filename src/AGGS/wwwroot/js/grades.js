@@ -17,3 +17,12 @@ function enableInputs() {
 }
 
 //Disable updating of grades until SignalR connection is established
+disableInputs();
+
+//Enable grades input when SignalR connection is established
+connection.start().then(function () {
+    enableInputs();
+}).catch(function (errMessage) {
+    return console.error(errMessage.toString());
+})
+
