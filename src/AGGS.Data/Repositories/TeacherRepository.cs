@@ -164,6 +164,9 @@ namespace AGGS.Data.Repositories
             //Update gradevalue for this grade
             gradeToUpdate.GradeValue = gradevalue;
 
+            //Explicitly setting gradeid to avoid duplicates
+            gradeToUpdate.GradeId = gradeid;
+
             //Save and flush changes to database
             _context.Update(gradeToUpdate);
             await _context.SaveChangesAsync();
