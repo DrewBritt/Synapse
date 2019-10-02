@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using AGGS.Data.Models;
 
 namespace AGGS.Data.Repositories
 {
@@ -24,6 +25,35 @@ namespace AGGS.Data.Repositories
                              }).Where(s => s.Email == email).FirstOrDefault();
 
             return studentidquery.StudentId;
+        }
+
+        public List<Grade> GetAllStudentGrades(int studentid)
+        {
+            var getgradesquery = (from grades in _context.Grades
+                                  select new
+                                  {
+                                      grades.GradeId,
+                                      grades.AssignmentId,
+                                      grades.ClassId,
+                                      grades.StudentId,
+                                      grades.GradeValue
+                                  }).Where(g => g.StudentId == studentid)
+                                  .OrderBy(g => g.ClassId);
+
+            List<Grade> studentGrades = new List<Grade>();
+
+            foreach(var grade in getgradesquery)
+            {
+                Grade newGrade = new Grade();
+
+                newGrade.GradeId = grade.GradeId;
+                newGrade.AssignmentId = grade.AssignmentId;
+                newGrade.ClassId = grade.ClassId;
+                newGrade.StudentId = grade.StudentId;
+                newGrade.GradeValue = grade.GradeValue;
+            }
+
+            return studentGrades;
         }
     }
 }
