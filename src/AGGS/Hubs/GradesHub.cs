@@ -15,14 +15,9 @@ namespace AGGS.Hubs
             _teacherRepository = new TeacherRepository(context);
         }
 
-        public async Task UpdateGrade(int gradeid, string newgradevalue)
+        public async Task UpdateGrade(int gradeid, string gradevalue)
         {
-            
-        }
-
-        public async Task Test()
-        {
-            Console.WriteLine("GradesHub.Test()");
+            await _teacherRepository.SubmitGrade(gradeid, gradevalue);
         }
     }
 }

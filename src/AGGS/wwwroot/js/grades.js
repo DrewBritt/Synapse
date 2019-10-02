@@ -81,4 +81,8 @@ $('input').donetyping(function () {
 function onCallback(input) {
     const gradeId = input.name;
     const gradeValue = input.value;
+
+    connection.invoke("UpdateGrade", gradeId, gradeValue).catch(function (err) {
+        return console.error(err.ToString())
+    });
 }
