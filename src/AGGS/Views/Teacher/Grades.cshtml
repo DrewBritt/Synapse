@@ -4,7 +4,7 @@
     ViewData["Title"] = "Grades";
 }
 
-    <div class="container" style="width: 75%; margin-left: auto; margin-right: auto;">
+    <div class="container">
         <div>
             <h1 class="title" style="font-weight: normal;">Viewing class grades for <span class="has-text-weight-bold">@Model.ClassName</span></h1>
             <hr>
@@ -37,7 +37,68 @@
                                 }
                             </tbody>
                         </table>
-                    </div>
-                </div>
+            </div>
         </div>
     </div>
+</div>
+
+<div class="container">
+    <div>
+        <h1 class="title" style="font-weight: normal;">Viewing subject <span class="has-text-weight-bold">AP Computer Science</span></h1>
+        <h2 class="subtitle">Viewing all grades for this subject you teach.</h2>
+        <hr>
+        <div class="" style="margin-bottom: 2rem;">
+            <div class="table-container">
+                <table id="subjects" name="subjects" class="table is-fullwidth is-narrow gradesTable">
+                    <thead>
+                        <tr>
+                            <th>Assignment Name</th>
+                            <th>Grade Weight</th>
+                            <th>Due Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input class="input" type="text" value="Edhesive Quiz" /></td>
+                            <td><input class="input" type="text" value="1"/></td>
+                            <td><input class="input" type="date" value="2019-09-30"/></td>
+                            <td><button onclick="editRow(1)" class="button is-success is-small">Save&nbsp;<span class="fas fa-edit"></span></button>&nbsp;<button onclick="deleteRow(1)" class="button is-danger is-small">Delete&nbsp;<span class="fas fa-trash-alt"></span></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h6 class="is-size-5 has-text-weight-bold">Add Assignment</h6>
+                <div class="columns is-desktop">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Assignment Name</label>
+                            <input class="input" type="text" placeholder="add assignment name" />
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Grade Weight</label>
+                            <input class="input" type="number" placeholder="add grade weight" />
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Due Date</label>
+                            <input class="input" type="date" placeholder="add due date" />
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Action</label>
+                            <button class="button is-success is-vcentered">Add Assignment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/subjectsEdit.js"></script>
