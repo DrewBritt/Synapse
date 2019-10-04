@@ -2,6 +2,7 @@
 using AGGS.Data.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AGGS.Data.Repositories
 {
@@ -153,6 +154,22 @@ namespace AGGS.Data.Repositories
             }
 
             return enrolledStudentsGrades;
+        }
+
+        public async Task SubmitGrade(int gradeid, string gradevalue)
+        {
+            //Grab grade object from database
+            var gradeToUpdate = _context.Grades.FirstOrDefault(g => g.GradeId == gradeid);
+
+            //Update gradevalue for this grade
+            gradeToUpdate.GradeValue = gradevalue;
+
+            //Explicitly setting gradeid to avoid duplicates
+            gradeToUpdate.GradeId = gradeid;
+
+            //Save and flush changes to database
+            _context.Update(gradeToUpdate);
+            await _context.SaveChangesAsync();
         }
     }
 }
