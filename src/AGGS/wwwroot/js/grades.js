@@ -38,7 +38,7 @@ connection.start().then(function () {
     ; (function ($) {
         $.fn.extend({
             donetyping: function (callback, timeout) {
-                timeout = timeout || 200; // 200ms timeout
+                timeout = timeout || 50; // 50ms timeout
                 var timeoutReference,
                     doneTyping = function (el) {
                         if (!timeoutReference) return;
