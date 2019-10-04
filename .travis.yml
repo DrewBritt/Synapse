@@ -3,8 +3,7 @@ mono: none
 dotnet: 2.2.401
 
 install:
- - dotnet restore aggs.sln
+ - dotnet restore src
 
 script:
- - cd src
- - dotnet build aggs.sln
+ - dotnet build src
