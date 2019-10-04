@@ -1,4 +1,6 @@
 # AGGS
+[![Build Status](https://travis-ci.com/DrewBritt/AGGS.svg?token=4rByHCezJSmruU5cvesW&branch=master)](https://travis-ci.com/DrewBritt/AGGS)
+
 A Good Gradebook System: A webapp built for the US Congressional App Challenge 2019
 
 # Stack
