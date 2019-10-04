@@ -1,10 +1,10 @@
 language: csharp
-solution: ./src/aggs.sln
 mono: none
 dotnet: 2.2.401
 
 install:
- - dotnet restore ./src/aggs.sln
+ - dotnet restore aggs.sln
 
 script:
- - dotnet build ./src/aggs.sln
+ - cd src
+ - dotnet build aggs.sln
