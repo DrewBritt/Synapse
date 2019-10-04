@@ -1,7 +1,10 @@
 language: csharp
-solution: AGGS.sln
+solution: src/aggs.sln
 mono: none
 dotnet: 2.2.401
-script:
+
+install:
  - dotnet restore
+
+script:
  - dotnet build
