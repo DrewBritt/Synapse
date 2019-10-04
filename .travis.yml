@@ -7,4 +7,4 @@ install:
  - dotnet restore ./src/aggs.sln
 
 script:
- - dotnet build./src/aggs.sln
+ - dotnet build ./src/aggs.sln
