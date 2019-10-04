@@ -65,7 +65,7 @@ connection.start().then(function () {
                             // callback
                             doneTyping(el);
                         }, timeout);
-                    }).on('blur', function () {
+                    }).on('focusout', function () {
                         // If we can, fire the event since we're leaving the field
                         doneTyping(el);
                     });
@@ -74,15 +74,11 @@ connection.start().then(function () {
         });
     })(jQuery);
 
-$('input').donetyping(function () {
-    
-});
-
 function onCallback(input) {
     const gradeId = input.name;
     const gradeValue = input.value;
 
     connection.invoke("UpdateGrade", gradeId, gradeValue).catch(function (err) {
-        return console.error(err.ToString())
+        return console.error(err)
     });
 }
