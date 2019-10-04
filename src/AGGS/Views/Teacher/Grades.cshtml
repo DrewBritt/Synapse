@@ -4,7 +4,7 @@
     ViewData["Title"] = "Grades";
 }
 
-<div class="container" style="width: 75%; margin-left: auto; margin-right: auto;">
+<div class="container" style="margin-left: auto; margin-right: auto;">
     <div>
         <h1 class="title" style="font-weight: normal;">Viewing class grades for <span class="has-text-weight-bold">@Model.ClassName</span></h1>
         <hr>
@@ -30,7 +30,7 @@
                                 @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
                                 {
                                     <td>
-                                        <input value="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeValue" name="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeId" class="input" style="width: 5rem" max="100" />
+                                        <input maxlength="3" value="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeValue" name="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeId" class="input" style="width: 5rem" max="100" />
                                     </td>
                                 }
                             </tr>
