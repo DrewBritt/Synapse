@@ -24,6 +24,12 @@ namespace AGGS.Hubs
             }
 
             await _teacherRepository.SubmitGrade(gradeid, gradevalue);
+            DoneCallback();
+        }
+
+        public void DoneCallback()
+        {
+            Clients.All.SendAsync("DoneCallback");
         }
     }
 }

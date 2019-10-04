@@ -74,14 +74,22 @@ connection.start().then(function () {
         });
     })(jQuery);
 
+let count = 0;
 $('input').donetyping(function () {
+    
 });
 
 function onCallback(input) {
     const gradeId = input.name;
     const gradeValue = input.value;
 
-    connection.invoke("UpdateGrade", gradeId, gradeValue).catch(function (err) {
-        return console.error(err)
+    connection.invoke("UpdateGrade", gradeId, gradeValue).catch(function (err){
+        console.error(err);
     });
 }
+
+connection.on("DoneCallback", function () {
+    let output = document.getElementById("output");
+    count++;
+    output.textContent = "fired: " + count;
+});
