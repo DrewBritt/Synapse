@@ -38,7 +38,7 @@ connection.start().then(function () {
     ; (function ($) {
         $.fn.extend({
             donetyping: function (callback, timeout) {
-                timeout = timeout || 1e3; // 1 second default timeout
+                timeout = timeout || 200; // 200ms timeout
                 var timeoutReference,
                     doneTyping = function (el) {
                         if (!timeoutReference) return;
@@ -73,6 +73,9 @@ connection.start().then(function () {
             }
         });
     })(jQuery);
+
+$('input').donetyping(function () {
+});
 
 function onCallback(input) {
     const gradeId = input.name;
