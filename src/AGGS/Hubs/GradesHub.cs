@@ -17,6 +17,12 @@ namespace AGGS.Hubs
 
         public async Task UpdateGrade(int gradeid, string gradevalue)
         {
+            //Server side truncation of gradevalue if greater than 3 characters
+            if(gradevalue.Length > 3)
+            {
+                gradevalue = gradevalue.Substring(0, 3);
+            }
+
             await _teacherRepository.SubmitGrade(gradeid, gradevalue);
         }
     }
