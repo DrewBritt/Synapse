@@ -75,7 +75,7 @@ $('input').donetyping(function () {
     
 });
 
-let saved = false;
+let saved = true;
 let saving = document.getElementById("saving");
 function onCallback(input) {
     const gradeId = input.name;
@@ -102,3 +102,17 @@ window.addEventListener("beforeunload", function (e) {
         return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
     }
 });
+
+function change() {
+    const change = document.getElementById("test");
+    let input = document.getElementById("input");
+    let assignment = document.getElementById("assignment");
+    console.log(change.value);
+    if (change.value == "Input Grades") {
+        input.removeAttribute("hidden");
+        assignment.setAttribute("hidden", "true");
+    } else if (change.value == "Add Assignments") {
+        assignment.removeAttribute("hidden");
+        input.setAttribute("hidden", "true");
+    }
+}

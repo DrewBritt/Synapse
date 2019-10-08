@@ -4,44 +4,84 @@
     ViewData["Title"] = "Grades";
 }
 
-<div class="container" style="margin-left: auto; margin-right: auto;">
-    <div>
-        <h1 class="title" style="font-weight: normal;">Viewing class grades for <span class="has-text-weight-bold">@Model.ClassName</span></h1>
-        <hr>
-        <div class="" style="margin-bottom: 2rem;">
-            <div class="table-container">
-                <table id="grades" class="table is-fullwidth is-narrow gradesTable">
+    <div class="container" style="margin-left: auto; margin-right: auto;">
+        <div class="select" id="change">
+            <select onchange="change()" id="test">
+                <option>Input Grades</option>
+                <option>Add Assignments</option>
+            </select>
+        </div>
+        <div id="input">
+            <h1 class="title" style="font-weight: normal;">Viewing class grades for <span class="has-text-weight-bold">@Model.ClassName</span></h1>
+            <hr>
+            <div class="" style="margin-bottom: 2rem;">
+                <div class="table-container">
+                    <table id="grades" class="table is-fullwidth is-narrow gradesTable">
+                        <thead>
+                            <tr>
+                                <th width="10%">Student Name</th>
+                                <th>Average</th>
+                                @foreach (var assignment in Model.ClassAssignments)
+                                {
+                                    <th>@assignment.AssignmentName</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int studentIndex = 0; studentIndex < Model.EnrolledStudents.Count; studentIndex++)
+                            {
+                                <tr>
+                                    <td>@Model.EnrolledStudents[studentIndex].StudentFullName</td>
+                                    <td>100%</td>
+                                    @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
+                                    {
+                                        <td>
+                                            <input maxlength="3" value="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeValue" name="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeId" class="input" style="width: 5rem" max="100" />
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div id="saving"></div>
+                </div>
+            </div>
+        </div>
+        <div id="assignment" hidden>
+            <div class="container has-text-centered" style="margin-bottom: 2rem;">
+                <h1 class="title">View Assignments</h1>
+                <h2 class="subtitle">
+                    View your assignments.
+                </h2>
+                <table class="table" style="width: 65%; margin-left: auto; margin-right: auto">
                     <thead>
                         <tr>
-                            <th width="10%">Student Name</th>
-                            <th>Average</th>
-                            @foreach (var assignment in Model.ClassAssignments)
-                            {
-                                <th>@assignment.AssignmentName</th>
-                            }
+                            <th>Name</th>
+                            <th>Due Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @for (int studentIndex = 0; studentIndex < Model.EnrolledStudents.Count; studentIndex++)
-                        {
-                            <tr>
-                                <td>@Model.EnrolledStudents[studentIndex].StudentFullName</td>
-                                <td>100%</td>
-                                @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
-                                {
-                                    <td>
-                                        <input maxlength="3" value="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeValue" name="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeId" class="input" style="width: 5rem" max="100" />
-                                    </td>
-                                }
-                            </tr>
-                        }
+                        <tr>
+                            <td><input class="input" type="text" value="Edhesive Quiz 1"/></td>
+                            <td><input class="input" type="date" value="2019-02-10"/></td>
+                            <td><a class="button is-primary">Open</a></td>
+                        </tr>
                     </tbody>
                 </table>
-                <div id="saving"></div>
+                <form>
+                    <input class="input" type="text" />
+                    <div class="select">
+                        <select>
+                            <option>Test</option>
+                            <option>Quiz</option>
+                        </select>
+                    </div>
+                    <input class="input" type="date" value="2019-02-10" />
+                </form>
             </div>
         </div>
     </div>
-</div>
 
 <script src="~/lib/signalr/dist/browsers/signalr.js"></script>
 <script src="~/js/grades.js"></script>
