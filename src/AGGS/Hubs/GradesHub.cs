@@ -24,6 +24,12 @@ namespace AGGS.Hubs
             }
 
             await _teacherRepository.SubmitGrade(gradeid, gradevalue);
+            await UpdateGradeFinished();
+        }
+
+        public async Task UpdateGradeFinished()
+        {
+            await Clients.All.SendAsync("UpdateGradeFinished");
         }
     }
 }

@@ -75,11 +75,30 @@ $('input').donetyping(function () {
     
 });
 
+let saved = false;
+let saving = document.getElementById("saving");
 function onCallback(input) {
     const gradeId = input.name;
     const gradeValue = input.value;
-
-    connection.invoke("UpdateGrade", gradeId, gradeValue).catch(function (err){
+    saved = false;
+    saving.textContent = "Saving...";
+    connection.invoke("UpdateGrade", gradeId, gradeValue).catch(function (err) {
         console.error(err);
     });
 }
+
+connection.on("UpdateGradeFinished", function () {
+    saved = true;
+    saving.textContent = "Changes Saved";
+});
+
+
+window.addEventListener("beforeunload", function (e) {
+    if (saved === false) {
+        var confirmationMessage = 'It looks like you have been editing something. '
+            + 'If you leave before saving, your changes will be lost.';
+
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+    }
+});
