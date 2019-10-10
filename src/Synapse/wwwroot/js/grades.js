@@ -39,7 +39,7 @@ connection.start().then(function () {
                 timeout = timeout || 50; // 50ms timeout
                 var timeoutReference,
                     doneTyping = function (el) {
-                        if (!timeoutReference) return;
+                        if (!timeoutReference || changeText.value != "Input Grades") return;
                         timeoutReference = null;
                         callback.call(el);
                         onCallback(el);
@@ -103,15 +103,15 @@ window.addEventListener("beforeunload", function (e) {
     }
 });
 
+const changeText = document.getElementById("test");
 function change() {
-    const change = document.getElementById("test");
     let input = document.getElementById("input");
     let assignment = document.getElementById("assignment");
-    console.log(change.value);
-    if (change.value == "Input Grades") {
+    console.log(changeText.value);
+    if (changeText.value == "Input Grades") {
         input.removeAttribute("hidden");
         assignment.setAttribute("hidden", "true");
-    } else if (change.value == "Add Assignments") {
+    } else if (changeText.value == "Add Assignments") {
         assignment.removeAttribute("hidden");
         input.setAttribute("hidden", "true");
     }
