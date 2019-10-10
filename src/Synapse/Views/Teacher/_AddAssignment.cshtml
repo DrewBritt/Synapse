@@ -2,7 +2,7 @@
 
 <div id="assignment" hidden>
     <div class="container has-text-centered" style="margin-bottom: 2rem; width: 100%;">
-        <h1 class="title">View Assignments</h1>
+        <h1 class="title">Viewing assignments for @Model.ClassName</h1>
         <hr />
         <table class="table" style="width: 100%; margin-left: auto; margin-right: auto">
             <thead>
@@ -21,18 +21,20 @@
                         <td>
                             <div class="select" style="width: 100%">
                                 <select style="width: 100%">
-                                    <option>@Model.AssignmentCategories.Find(c => c.CategoryId == assignment.CategoryId).CategoryName</option>
-                                    @foreach(var c in Model.AssignmentCategories)
+                                    @foreach (var category in Model.AssignmentCategories)
                                     {
-                                        if(c.CategoryId != assignment.CategoryId)
+                                        @if (category.CategoryId == assignment.CategoryId)
                                         {
-                                            <option>@c.CategoryName</option>
+                                            <option id="@category.CategoryId" selected>@category.CategoryName (@category.CategoryWeight%)</option>
+                                        } else
+                                        {
+                                            <option id="@category.CategoryId">@category.CategoryName (@category.CategoryWeight%)</option>
                                         }
                                     }
                                 </select>
                             </div>
                         </td>
-                        <td><input class="input" type="date" value="2019-02-10" /></td>
+                        <td><input class="input" type="date" value="@assignment.DueDateString" /></td>
                         <td><a class="button is-danger">Delete</a></td>
                     </tr>
                 }
@@ -55,8 +57,11 @@
                         <label class="label">Assignment Category</label>
                         <div class="select" style="width: 100%">
                             <select style="width: 100%">
-                                <option>Test</option>
-                                <option>Quiz</option>
+                                <option value="" selected disabled hidden>Select Category</option>
+                                @foreach (var category in Model.AssignmentCategories)
+                                {
+                                    <option id="@category.CategoryId">@category.CategoryName (@category.CategoryWeight%)</option>
+                                }
                             </select>
                         </div>
                     </div>
