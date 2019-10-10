@@ -1,5 +1,5 @@
 # Synapse
-[![Build Status](https://travis-ci.com/DrewBritt/AGGS.svg?token=4rByHCezJSmruU5cvesW&branch=master)](https://travis-ci.com/DrewBritt/AGGS)
+[![Build Status](https://travis-ci.com/DrewBritt/Synapse.svg?token=4rByHCezJSmruU5cvesW&branch=master)](https://travis-ci.com/DrewBritt/Synapse)
 
 Synapse: A gradebook webapp built for the US Congressional App Challenge 2019
 
