@@ -10,5 +10,14 @@ namespace Synapse.Data.Models
         public int ClassId { get; set; }
         public string AssignmentName { get; set; }
         public int CategoryId { get; set; }
+        public DateTime DueDate { get; set; }
+
+        public string DueDateString
+        {
+            get
+            {
+                return DueDate.ToString("yyyy-MM-dd");
+            }
+        }
     }
 }
