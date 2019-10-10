@@ -1,0 +1,54 @@
+﻿@model List<Synapse.Data.Models.Student>
+
+@{
+    ViewData["Title"] = "Students";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container has-text-centered">
+    <h1 class="title">View Students</h1>
+    <h2 class="subtitle">
+        View and search through all students.
+    </h2>
+    <div class="is-centered">
+        <a class="button is-primary" asp-controller="Admin" asp-action="AddStudent">Add Student</a>
+    </div>
+    <br />
+    <label>
+        <input class="input" type="text" placeholder="Search for students by name..." style="width: 65%; margin-left: auto; margin-right: auto" id="studentsSearchBar" onkeyup="studentsTableSearchBar('studentsTable', 'studentsSearchBar')">
+    </label>
+    <div class="is-centered">
+        
+        <table id="studentsTable" class="table" style="width: 65%; margin-left: auto; margin-right: auto">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Grade Level</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var student in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.StudentFirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.StudentLastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.GradeLevel)
+                        </td>
+                        <td>
+                            <a class="button is-primary is-small" asp-area="" asp-controller="Admin" asp-action="ViewStudent" asp-route-studentid=@student.StudentId>
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
