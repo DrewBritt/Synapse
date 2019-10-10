@@ -249,7 +249,7 @@ DROP TABLE IF EXISTS `assignmentcategories`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `assignmentcategories` (
   `categoryid` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `teacherid` mediumint(9) NOT NULL,
+  `classid` mediumint(9) NOT NULL,
   `categoryname` varchar(50) NOT NULL,
   `categoryweight` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`categoryid`)
@@ -262,7 +262,7 @@ CREATE TABLE `assignmentcategories` (
 
 LOCK TABLES `assignmentcategories` WRITE;
 /*!40000 ALTER TABLE `assignmentcategories` DISABLE KEYS */;
-INSERT INTO `assignmentcategories` VALUES (1,2,'Tests',50),(2,2,'Daily Work',50);
+INSERT INTO `assignmentcategories` VALUES (1,5,'Tests',80),(2,5,'Daily Work',20);
 /*!40000 ALTER TABLE `assignmentcategories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,6 +278,7 @@ CREATE TABLE `assignments` (
   `classid` mediumint(9) NOT NULL,
   `assignmentname` varchar(100) NOT NULL,
   `categoryid` mediumint(9) NOT NULL,
+  `duedate` date NOT NULL,
   PRIMARY KEY (`assignmentid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -288,7 +289,7 @@ CREATE TABLE `assignments` (
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES (1,5,'Java Test 3',1),(2,5,'Java Practice 4',2),(3,5,'Java Test 4',1),(4,5,'Test 1',1),(5,5,'Test 2',1);
+INSERT INTO `assignments` VALUES (1,5,'Java Test 3',1,'2019-10-11'),(2,5,'Java Practice 4',2,'2019-10-11'),(3,5,'Java Test 4',1,'2019-10-11'),(4,5,'Test 1',1,'2019-10-11'),(5,5,'Test 2',1,'2019-10-11');
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,7 +341,7 @@ CREATE TABLE `classes` (
 
 LOCK TABLES `classes` WRITE;
 /*!40000 ALTER TABLE `classes` DISABLE KEYS */;
-INSERT INTO `classes` VALUES (1,1,'Wind Ensemble 1','1st','Band Hall'),(2,1,'Wind Ensemble 2','1st','Band Hall'),(3,1,'Wind Ensemble 3','1st','Band Hall'),(4,1,'Wind Ensemble 4','1st','Band Hall'),(5,2,'AP Computer Science','6th','2417'),(6,2,'Computer Science Pre-AP','5th','2417'),(7,2,'Computer Science 3','6th','2414'),(8,3,'English 2 Pre-AP','4th','1023'),(9,3,'English 2 Pre-AP','8th','1412'),(10,3,'English 3 AP','7th','1412'),(11,4,'AP Microeconomics','2nd','1206'),(12,4,'AP Microeconomics','4th','1206'),(13,1,'World History','4th','1208'),(14,5,'AP World History','7th','1208'),(15,6,'AP World History','7th','1207'),(16,7,'Dance 1','1st','Dance Gym'),(17,7,'Dance 2','1st','Dance Gym');
+INSERT INTO `classes` VALUES (1,1,'Wind Ensemble 1','1st','Band Hall'),(2,1,'Wind Ensemble 2','1st','Band Hall'),(3,1,'Wind Ensemble 3','1st','Band Hall'),(4,1,'Wind Ensemble 4','1st','Band Hall'),(5,2,'AP Computer Science','6th','2417'),(6,2,'Computer Science Pre-AP','5th','2417'),(7,2,'Computer Science 3','6th','2414'),(8,5,'English 2 Pre-AP','4th','1023'),(9,3,'English 2 Pre-AP','8th','1412'),(10,3,'English 3 AP','7th','1412'),(11,4,'AP Microeconomics','2nd','1206'),(12,4,'AP Microeconomics','4th','1206'),(13,1,'World History','4th','1208'),(14,5,'AP World History','7th','1208'),(15,6,'AP World History','7th','1207'),(16,7,'Dance 1','1st','Dance Gym'),(17,7,'Dance 2','1st','Dance Gym');
 /*!40000 ALTER TABLE `classes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +368,7 @@ CREATE TABLE `grades` (
 
 LOCK TABLES `grades` WRITE;
 /*!40000 ALTER TABLE `grades` DISABLE KEYS */;
-INSERT INTO `grades` VALUES (1,1,5,1,'t'),(2,2,5,1,'t'),(3,3,5,1,'t'),(4,1,5,3,'t'),(5,2,5,3,'t'),(6,3,5,3,'t'),(7,1,5,2,'t'),(8,2,5,2,'t'),(9,3,5,2,'t'),(10,1,5,4,'t'),(11,2,5,4,'t'),(12,3,5,4,'t'),(13,1,5,5,'t'),(14,2,5,5,'t'),(15,3,5,5,'t'),(16,1,5,6,'t'),(17,2,5,6,'t'),(18,3,5,6,'t'),(19,4,5,1,'t'),(20,5,5,2,'t'),(21,4,5,3,'t'),(22,5,5,3,'t'),(23,4,5,5,'t'),(24,5,5,5,'b'),(25,4,5,6,'b'),(26,5,5,6,'t'),(27,4,5,1,'t'),(28,5,5,2,'t'),(29,4,5,4,'t'),(30,5,5,4,'t');
+INSERT INTO `grades` VALUES (1,1,5,1,'100'),(2,2,5,1,'100'),(3,3,5,1,'100'),(4,1,5,3,'100'),(5,2,5,3,'100'),(6,3,5,3,'100'),(7,1,5,2,'100'),(8,2,5,2,'100'),(9,3,5,2,'100'),(10,1,5,4,'100'),(11,2,5,4,'100'),(12,3,5,4,'100'),(13,1,5,5,'100'),(14,2,5,5,'100'),(15,3,5,5,'60'),(16,1,5,6,'100'),(17,2,5,6,'100'),(18,3,5,6,'100'),(19,4,5,1,'100'),(20,5,5,2,'100'),(21,4,5,3,'100'),(22,5,5,3,'100'),(23,4,5,5,'100'),(24,5,5,5,'100'),(25,4,5,6,'100'),(26,5,5,6,'100'),(27,4,5,1,'100'),(28,5,5,2,'100'),(29,4,5,4,'100'),(30,5,5,4,'100');
 /*!40000 ALTER TABLE `grades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -513,4 +514,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-04 11:19:17
+-- Dump completed on 2019-10-10 17:24:34

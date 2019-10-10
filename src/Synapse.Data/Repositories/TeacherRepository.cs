@@ -106,7 +106,8 @@ namespace Synapse.Data.Repositories
                                         assignments.AssignmentId,
                                         assignments.AssignmentName,
                                         assignments.ClassId,
-                                        assignments.CategoryId
+                                        assignments.CategoryId,
+                                        assignments.DueDate
                                     }).Where(a => a.ClassId == classid).ToList();
 
             foreach(var assignment in assignmentsQuery)
@@ -117,6 +118,7 @@ namespace Synapse.Data.Repositories
                 newAssignment.AssignmentName = assignment.AssignmentName;
                 newAssignment.ClassId = assignment.ClassId;
                 newAssignment.CategoryId = assignment.CategoryId;
+                newAssignment.DueDate = assignment.DueDate;
 
                 assignmentsList.Add(newAssignment);
             }
