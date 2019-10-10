@@ -1,0 +1,36 @@
+﻿@model AGGS.Data.ViewModels.GradesVM
+
+    <div id="assignment" hidden>
+        <div class="container has-text-centered" style="margin-bottom: 2rem;">
+            <h1 class="title">View Assignments</h1>
+            <h2 class="subtitle">
+                View your assignments.
+            </h2>
+            <table class="table" style="width: 65%; margin-left: auto; margin-right: auto">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input class="input" type="text" value="Edhesive Quiz 1" /></td>
+                        <td><input class="input" type="date" value="2019-02-10" /></td>
+                        <td><a class="button is-primary">Open</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <form>
+                <input class="input" type="text" />
+                <div class="select">
+                    <select>
+                        <option>Test</option>
+                        <option>Quiz</option>
+                    </select>
+                </div>
+                <input class="input" type="date" value="2019-02-10" />
+            </form>
+        </div>
+    </div>
