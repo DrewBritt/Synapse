@@ -14,19 +14,28 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input class="input" type="text" value="Edhesive Quiz 1" /></td>
-                    <td>
-                        <div class="select" style="width: 100%">
-                            <select style="width: 100%">
-                                <option>Test</option>
-                                <option>Quiz</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td><input class="input" type="date" value="2019-02-10" /></td>
-                    <td><a class="button is-danger">Delete</a></td>
-                </tr>
+                @foreach(var assignment in Model.ClassAssignments)
+                {
+                    <tr>
+                        <td><input class="input" type="text" value="@assignment.AssignmentName" /></td>
+                        <td>
+                            <div class="select" style="width: 100%">
+                                <select style="width: 100%">
+                                    <option>@Model.AssignmentCategories.Find(c => c.CategoryId == assignment.CategoryId).CategoryName</option>
+                                    @foreach(var c in Model.AssignmentCategories)
+                                    {
+                                        if(c.CategoryId != assignment.CategoryId)
+                                        {
+                                            <option>@c.CategoryName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </td>
+                        <td><input class="input" type="date" value="2019-02-10" /></td>
+                        <td><a class="button is-danger">Delete</a></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -37,13 +46,13 @@
             <div class="columns">
                 <div class="column">
                     <div class="field">
-                        <label class="label">Enter Assignment Title</label>
-                        <input class="input" type="text" placeholder="assignment title" />
+                        <label class="label">Assignment Name</label>
+                        <input class="input" type="text" placeholder="Enter Assignment Name..." />
                     </div>
                 </div>
                 <div class="column">
                     <div class="field">
-                        <label class="label">Enter Assignment Category</label>
+                        <label class="label">Assignment Category</label>
                         <div class="select" style="width: 100%">
                             <select style="width: 100%">
                                 <option>Test</option>
@@ -54,14 +63,14 @@
                 </div>
                 <div class="column">
                     <div class="field">
-                        <label class="label">Enter Assingment Due Date</label>
+                        <label class="label">Assignment Due Date</label>
                         <input class="input" type="date" />
                     </div>
                 </div>
                 <div class="column">
                     <div class="field">
-                        <label class="label">Submit</label>
-                        <input class="input button is-primary" type="submit" value="Add Assingment" />
+                        <label class="label">Actions</label>
+                        <input class="input button is-primary" type="submit" value="Submit" />
                     </div>
                 </div>
             </div>

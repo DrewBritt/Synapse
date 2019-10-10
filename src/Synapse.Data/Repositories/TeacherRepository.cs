@@ -68,7 +68,7 @@ namespace Synapse.Data.Repositories
             return gradeVM;
         }
 
-        public List<AssignmentCategory> GetAssignmentCategories(int teacherid)
+        public List<AssignmentCategory> GetAssignmentCategories(int classid)
         {
             List<AssignmentCategory> assignmentCategories = new List<AssignmentCategory>();
 
@@ -76,17 +76,17 @@ namespace Synapse.Data.Repositories
                                              select new
                                              {
                                                  assignmentcategories.CategoryId,
-                                                 assignmentcategories.TeacherId,
+                                                 assignmentcategories.ClassId,
                                                  assignmentcategories.CategoryName,
                                                  assignmentcategories.CategoryWeight
-                                             }).Where(a => a.TeacherId == teacherid).ToList();
+                                             }).Where(a => a.ClassId == classid).ToList();
 
             foreach(var category in assignmentCategoriesQuery)
             {
                 AssignmentCategory newCategory = new AssignmentCategory();
 
                 newCategory.CategoryId = category.CategoryId;
-                newCategory.TeacherId = category.TeacherId;
+                newCategory.ClassId = category.ClassId;
                 newCategory.CategoryName = category.CategoryName;
                 newCategory.CategoryWeight = category.CategoryWeight;
 
