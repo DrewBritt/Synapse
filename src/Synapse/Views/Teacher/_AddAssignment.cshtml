@@ -1,36 +1,70 @@
 ﻿@model Synapse.Data.ViewModels.GradesVM
 
-    <div id="assignment" hidden>
-        <div class="container has-text-centered" style="margin-bottom: 2rem;">
-            <h1 class="title">View Assignments</h1>
-            <h2 class="subtitle">
-                View your assignments.
-            </h2>
-            <table class="table" style="width: 65%; margin-left: auto; margin-right: auto">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Due Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input class="input" type="text" value="Edhesive Quiz 1" /></td>
-                        <td><input class="input" type="date" value="2019-02-10" /></td>
-                        <td><a class="button is-primary">Open</a></td>
-                    </tr>
-                </tbody>
-            </table>
-            <form>
-                <input class="input" type="text" />
-                <div class="select">
-                    <select>
-                        <option>Test</option>
-                        <option>Quiz</option>
-                    </select>
-                </div>
-                <input class="input" type="date" value="2019-02-10" />
-            </form>
-        </div>
+<div id="assignment" hidden>
+    <div class="container has-text-centered" style="margin-bottom: 2rem; width: 100%;">
+        <h1 class="title">View Assignments</h1>
+        <hr />
+        <table class="table" style="width: 100%; margin-left: auto; margin-right: auto">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Due Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input class="input" type="text" value="Edhesive Quiz 1" /></td>
+                    <td>
+                        <div class="select" style="width: 100%">
+                            <select style="width: 100%">
+                                <option>Test</option>
+                                <option>Quiz</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td><input class="input" type="date" value="2019-02-10" /></td>
+                    <td><a class="button is-danger">Delete</a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div class="container" style="margin-bottom: 2rem;">
+        <h1 class="title has-text-centered">Add Assignment</h1>
+        <hr />
+        <form>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Enter Assignment Title</label>
+                        <input class="input" type="text" placeholder="assignment title" />
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Enter Assignment Category</label>
+                        <div class="select" style="width: 100%">
+                            <select style="width: 100%">
+                                <option>Test</option>
+                                <option>Quiz</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Enter Assingment Due Date</label>
+                        <input class="input" type="date" />
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Submit</label>
+                        <input class="input button is-primary" type="submit" value="Add Assingment" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
