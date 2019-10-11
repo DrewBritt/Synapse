@@ -1,0 +1,48 @@
+﻿@model Synapse.Data.ViewModels.ViewClassVM
+@using System.Web;
+
+<div class="modal" id="teacherSearchModal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Select Teacher</p>
+            <button type="button" class="delete modalClose" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <label>
+                <input class="input" type="text" placeholder="Search for teachers by name..." id="teachersSearchBar" onkeyup="teachersSearchTable('teachersTable', 'teachersSearchBar')">
+            </label>
+            <div class="is-centered">
+
+                <table id="teachersTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var teacher in Model.AllTeachers)
+                        {
+                            <tr>
+                                <td>@teacher.TeacherFirstName</td>
+                                <td>@teacher.TeacherLastName</td>
+                                <td>
+                                    <a>
+                                        <button type="button" onclick="newTeacher('@Html.Raw(HttpUtility.JavaScriptStringEncode(teacher.TeacherFirstName + " " + teacher.TeacherLastName))','@Html.Raw(teacher.TeacherId)')" class="button is-primary is-small modalClose">
+                                            Select Teacher
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button type="button" class="button modalClose">Cancel</button>
+        </footer>
+    </div>
+</div>
