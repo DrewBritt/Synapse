@@ -1,5 +1,6 @@
 ﻿using Synapse.Data.Models;
 using Synapse.Data.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -140,7 +141,7 @@ namespace Synapse.Data.Repositories
                                    grades.StudentId,
                                    grades.GradeValue,
                                    students.StudentLastName
-                               }).Where(g => g.ClassId == classid).OrderBy(s => s.StudentLastName).ToList();
+                               }).Where(g => g.ClassId == classid).OrderBy(s => s.StudentLastName).ThenBy(s => s.GradeId).ToList();
 
             foreach(var grade in gradesQuery)
             {
@@ -171,6 +172,59 @@ namespace Synapse.Data.Repositories
 
             //Save and flush changes to database
             _context.Update(gradeToUpdate);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddAssignment(int classid, string assignmentname, int categoryid, string duedate)
+        {
+            //Create Assignment object with data
+            var assignment = new Assignment()
+            {
+                ClassId = classid,
+                AssignmentName = assignmentname,
+                CategoryId = categoryid,
+                DueDate = Convert.ToDateTime(duedate)
+            };
+
+            //Add to Assignments table
+            _context.Assignments.Add(assignment);         
+            await _context.SaveChangesAsync();
+
+            //Create filler grades in database for new assignment
+            await AddFillerGrades(classid, assignmentname);
+        }
+
+        public async Task AddFillerGrades(int classid, string assignmentname)
+        {
+            //Get new assignment from database
+            var newAssignment = (from assignments in _context.Assignments
+                                 select new
+                                 {
+                                     assignments.AssignmentId,
+                                     assignments.AssignmentName
+                                 }).Where(a => a.AssignmentName == assignmentname).FirstOrDefault();
+
+            var enrolledStudentsIds = (from studentsclasses in _context.StudentsClasses
+                                       select new
+                                       {
+                                           studentsclasses.StudentId,
+                                           studentsclasses.ClassId
+                                       }).Where(s => s.ClassId == classid).ToList();
+
+            List<Grade> fillerGrades = new List<Grade>();
+
+            foreach (var id in enrolledStudentsIds)
+            {
+                Grade fillerGrade = new Grade();
+                fillerGrade.AssignmentId = newAssignment.AssignmentId;
+                fillerGrade.ClassId = classid;
+                fillerGrade.StudentId = id.StudentId;
+                fillerGrade.GradeValue = "";
+
+                fillerGrades.Add(fillerGrade);
+            }
+
+            _context.Grades.AddRange(fillerGrades);
             await _context.SaveChangesAsync();
         }
     }
