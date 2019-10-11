@@ -2,7 +2,7 @@
 
 <div id="assignment" hidden>
     <div class="container has-text-centered" style="margin-bottom: 2rem; width: 100%;">
-        <h1 class="title">Viewing assignments for @Model.ClassName</h1>
+        <h1 class="title">Viewing assignments for <span class="has-text-weight-bold">@Model.ClassName</span></h1>
         <hr />
         <table class="table" style="width: 100%; margin-left: auto; margin-right: auto">
             <thead>
@@ -44,12 +44,13 @@
     <div class="container" style="margin-bottom: 2rem;">
         <h1 class="title has-text-centered">Add Assignment</h1>
         <hr />
-        <form>
+        @using (Html.BeginForm("AddAssignment", "Teacher", FormMethod.Post))
+        {
             <div class="columns">
                 <div class="column">
                     <div class="field">
                         <label class="label">Assignment Name</label>
-                        <input class="input" type="text" placeholder="Enter Assignment Name..." />
+                        <input name="assignmentname" class="input" type="text" placeholder="Enter Assignment Name..." />
                     </div>
                 </div>
                 <div class="column">
@@ -60,7 +61,7 @@
                                 <option value="" selected disabled hidden>Select Category</option>
                                 @foreach (var category in Model.AssignmentCategories)
                                 {
-                                    <option id="@category.CategoryId">@category.CategoryName (@category.CategoryWeight%)</option>
+                                    <option value="@category.CategoryId">@category.CategoryName (@category.CategoryWeight%)</option>
                                 }
                             </select>
                         </div>
@@ -69,7 +70,7 @@
                 <div class="column">
                     <div class="field">
                         <label class="label">Assignment Due Date</label>
-                        <input class="input" type="date" />
+                        <input name="duedate" class="input" type="date" />
                     </div>
                 </div>
                 <div class="column">
@@ -78,7 +79,8 @@
                         <input class="input button is-primary" type="submit" value="Submit" />
                     </div>
                 </div>
+                <input name="classid" value="@Model.ClassId" hidden />
             </div>
-        </form>
+        }
     </div>
 </div>
