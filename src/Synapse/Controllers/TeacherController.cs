@@ -52,5 +52,13 @@ namespace Synapse.Controllers
         {
             return await Task.Run(() => View());
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddAssignment(int classid, string assignmentname, int categoryid, string duedate)
+        {
+            await _teacherRepository.AddAssignment(classid, assignmentname, categoryid, duedate);
+
+            return RedirectToAction("Grades", new { classid });
+        }
     }
 }
