@@ -75,11 +75,13 @@ $('input').donetyping(function () {
     
 });
 
+let savingBar = document.getElementById("savingbar");
 let saved = true;
 let saving = document.getElementById("saving");
 function onCallback(input) {
     const gradeId = input.name;
     const gradeValue = input.value;
+    savingBar.classList.remove("is-hidden");
     saved = false;
     saving.textContent = "Saving...";
     connection.invoke("UpdateGrade", gradeId, gradeValue).catch(function (err) {
@@ -89,6 +91,7 @@ function onCallback(input) {
 
 connection.on("UpdateGradeFinished", function () {
     saved = true;
+    savingBar.classList.add("is-hidden");
     saving.textContent = "Changes Saved";
 });
 
@@ -103,16 +106,36 @@ window.addEventListener("beforeunload", function (e) {
     }
 });
 
-const changeText = document.getElementById("test");
+const changeText = document.getElementById("changeSection");
+let input = document.getElementById("input");
+let assignment = document.getElementById("assignment");
 function change() {
-    let input = document.getElementById("input");
-    let assignment = document.getElementById("assignment");
-    console.log(changeText.value);
     if (changeText.value == "Input Grades") {
-        input.removeAttribute("hidden");
-        assignment.setAttribute("hidden", "true");
+        inputGradesChange();
     } else if (changeText.value == "Add Assignments") {
-        assignment.removeAttribute("hidden");
-        input.setAttribute("hidden", "true");
+        addAssignmentsChange();
     }
 }
+
+function inputGradesChange() {
+    input.removeAttribute("hidden");
+    assignment.setAttribute("hidden", "true");
+    document.cookie = "selectedSection=input";
+}
+
+function addAssignmentsChange() {
+    assignment.removeAttribute("hidden");
+    input.setAttribute("hidden", "true");
+    document.cookie = "selectedSection=assignments";
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    let cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)selectedSection\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    if (cookieValue == "assignments") {
+        changeText.selectedIndex = 1;
+        addAssignmentsChange();
+    } else if (cookieValue == "input") {
+        changeText.selectedIndex = 0;
+        inputGradesChange();
+    }
+});
