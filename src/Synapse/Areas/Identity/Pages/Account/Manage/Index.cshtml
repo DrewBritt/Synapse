@@ -26,8 +26,14 @@
                 }
                 else
                 {
-                    <input asp-for="Input.Email" class="input" />
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="button is-link">Send verification email</button>
+                <div class="columns">
+                    <div class="column is-half">
+                        <input asp-for="Input.Email" class="input" />
+                    </div>
+                    <div class="column is-half">
+                        <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="button is-link">Send verification email</button>
+                    </div>
+                </div>
                 }
                 <span asp-validation-for="Input.Email" class="has-text-danger"></span>
             </div>
