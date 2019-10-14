@@ -35,7 +35,12 @@
                             </div>
                         </td>
                         <td><input class="input" type="date" value="@assignment.DueDateString" /></td>
-                        <td><a class="button is-danger">Delete</a></td>
+                        <td>
+                            <a asp-area="" asp-controller="Teacher" asp-action="DeleteAssignment" asp-route-assignmentid=@assignment.AssignmentId 
+                               asp-route-classid=@Model.ClassId class="button is-danger">
+                                Delete
+                            </a>
+                        </td>
                     </tr>
                 }
             </tbody>

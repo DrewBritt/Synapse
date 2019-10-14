@@ -60,5 +60,13 @@ namespace Synapse.Controllers
 
             return RedirectToAction("Grades", new { classid });
         }
+
+        public async Task<IActionResult> DeleteAssignment(int assignmentid, int classid)
+        {
+            await _teacherRepository.DeleteAssignment(assignmentid);
+            await _teacherRepository.DeleteGrades(assignmentid);
+
+            return RedirectToAction("Grades", new { classid });
+        }
     }
 }

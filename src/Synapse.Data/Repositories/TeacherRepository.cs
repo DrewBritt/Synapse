@@ -109,7 +109,7 @@ namespace Synapse.Data.Repositories
                                         assignments.ClassId,
                                         assignments.CategoryId,
                                         assignments.DueDate
-                                    }).Where(a => a.ClassId == classid).ToList();
+                                    }).Where(a => a.ClassId == classid).OrderBy(a => a.DueDate).ToList();
 
             foreach(var assignment in assignmentsQuery)
             {
@@ -225,6 +225,39 @@ namespace Synapse.Data.Repositories
             }
 
             _context.Grades.AddRange(fillerGrades);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAssignment(int assignmentid)
+        {
+            var assignmentToDelete = _context.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentid);
+
+            _context.Assignments.Remove(assignmentToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteGrades(int assignmentid)
+        {
+            List<Grade> gradesOfAssignment = new List<Grade>();
+
+            var gradesQuery = (from grades in _context.Grades
+                               select new
+                               {
+                                   grades.GradeId,
+                                   grades.AssignmentId
+                               }).Where(g => g.AssignmentId == assignmentid).ToList();
+
+            foreach(var grade in gradesQuery)
+            {
+                Grade gradeToDelete = new Grade();
+
+                gradeToDelete.GradeId = grade.GradeId;
+                gradeToDelete.AssignmentId = grade.AssignmentId;
+
+                gradesOfAssignment.Add(gradeToDelete);
+            }
+
+            _context.Grades.RemoveRange(gradesOfAssignment);
             await _context.SaveChangesAsync();
         }
     }
