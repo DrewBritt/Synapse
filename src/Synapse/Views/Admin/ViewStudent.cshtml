@@ -47,6 +47,12 @@
     <div class="columns is-desktop">
         <div class="column is-full has-text-centered">
             <p class="title">Schedule</p>
+            @if (Model.Classes.Count == 0)
+            {
+                <p>No classes in student's schedule!</p>
+            }
+            else
+            {
             <table id="studentsTable" class="table" style="width: 100%;">
                 <thead>
                     <tr>
@@ -76,6 +82,7 @@
                     }
                 </tbody>
             </table>
+            }
         </div>
     </div>
 </div>
