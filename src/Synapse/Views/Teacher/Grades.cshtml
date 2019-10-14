@@ -7,12 +7,12 @@
     <div class="container" style="margin-left: auto; margin-right: auto;">
         <div class="select" id="change">
             <select onchange="change()" id="changeSection">
-                <option>Input Grades</option>
-                <option>Add Assignments</option>
+                <option>View Grades</option>
+                <option>Manage Assignments</option>
             </select>
         </div>
-        <partial name="~/Views/Teacher/_InputGrades.cshtml" />
-        <partial name="~/Views/Teacher/_AddAssignment.cshtml" />
+        <partial name="~/Views/Teacher/_ViewGrades.cshtml" />
+        <partial name="~/Views/Teacher/_ManageAssignments.cshtml" />
     </div>
 
 <script src="~/lib/signalr/dist/browsers/signalr.js"></script>

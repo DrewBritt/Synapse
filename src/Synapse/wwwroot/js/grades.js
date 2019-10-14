@@ -39,7 +39,7 @@ connection.start().then(function () {
                 timeout = timeout || 50; // 50ms timeout
                 var timeoutReference,
                     doneTyping = function (el) {
-                        if (!timeoutReference || changeText.value != "Input Grades") return;
+                        if (!timeoutReference || changeText.value != "View Grades") return;
                         timeoutReference = null;
                         callback.call(el);
                         onCallback(el);
@@ -110,20 +110,20 @@ const changeText = document.getElementById("changeSection");
 let input = document.getElementById("input");
 let assignment = document.getElementById("assignment");
 function change() {
-    if (changeText.value == "Input Grades") {
-        inputGradesChange();
-    } else if (changeText.value == "Add Assignments") {
-        addAssignmentsChange();
+    if (changeText.value == "View Grades") {
+        viewGradesChange();
+    } else if (changeText.value == "Manage Assignments") {
+        manageAssignmentsChange();
     }
 }
 
-function inputGradesChange() {
+function viewGradesChange() {
     input.removeAttribute("hidden");
     assignment.setAttribute("hidden", "true");
     document.cookie = "selectedSection=input";
 }
 
-function addAssignmentsChange() {
+function manageAssignmentsChange() {
     assignment.removeAttribute("hidden");
     input.setAttribute("hidden", "true");
     document.cookie = "selectedSection=assignments";
@@ -133,9 +133,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)selectedSection\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     if (cookieValue == "assignments") {
         changeText.selectedIndex = 1;
-        addAssignmentsChange();
+        manageAssignmentsChange();
     } else if (cookieValue == "input") {
         changeText.selectedIndex = 0;
-        inputGradesChange();
+        viewGradesChange();
     }
 });
