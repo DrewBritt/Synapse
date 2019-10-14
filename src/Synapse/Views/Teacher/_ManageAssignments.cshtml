@@ -4,48 +4,57 @@
     <div class="container has-text-centered" style="margin-bottom: 2rem; width: 100%;">
         <h1 class="title">Managing assignments for <span class="has-text-weight-bold">@Model.ClassName</span></h1>
         <hr />
-        <table class="table" style="width: 100%; margin-left: auto; margin-right: auto">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Due Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach(var assignment in Model.ClassAssignments)
-                {
+
+        @if (Model.ClassAssignments.Count == 0)
+        {
+            <p>No Assignments exist for this class!</p>
+        }
+        else
+        {
+            <table class="table" style="width: 100%; margin-left: auto; margin-right: auto">
+                <thead>
                     <tr>
-                        <td><input class="input" type="text" value="@assignment.AssignmentName" /></td>
-                        <td>
-                            <div class="select" style="width: 100%">
-                                <select style="width: 100%">
-                                    @foreach (var category in Model.AssignmentCategories)
-                                    {
-                                        @if (category.CategoryId == assignment.CategoryId)
-                                        {
-                                            <option id="@category.CategoryId" selected>@category.CategoryName (@category.CategoryWeight%)</option>
-                                        } else
-                                        {
-                                            <option id="@category.CategoryId">@category.CategoryName (@category.CategoryWeight%)</option>
-                                        }
-                                    }
-                                </select>
-                            </div>
-                        </td>
-                        <td><input class="input" type="date" value="@assignment.DueDateString" /></td>
-                        <td>
-                            <a asp-area="" asp-controller="Teacher" asp-action="DeleteAssignment" asp-route-assignmentid=@assignment.AssignmentId 
-                               asp-route-classid=@Model.ClassId class="button is-danger">
-                                Delete
-                            </a>
-                        </td>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach (var assignment in Model.ClassAssignments)
+                    {
+                        <tr>
+                            <td><input class="input" type="text" value="@assignment.AssignmentName" /></td>
+                            <td>
+                                <div class="select" style="width: 100%">
+                                    <select style="width: 100%">
+                                        @foreach (var category in Model.AssignmentCategories)
+                                        {
+                                            @if (category.CategoryId == assignment.CategoryId)
+                                            {
+                                                <option id="@category.CategoryId" selected>@category.CategoryName (@category.CategoryWeight%)</option>
+                                            }
+                                            else
+                                            {
+                                                <option id="@category.CategoryId">@category.CategoryName (@category.CategoryWeight%)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                            <td><input class="input" type="date" value="@assignment.DueDateString" /></td>
+                            <td>
+                                <a asp-area="" asp-controller="Teacher" asp-action="DeleteAssignment" asp-route-assignmentid=@assignment.AssignmentId
+                                   asp-route-classid=@Model.ClassId class="button is-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        </div>
     <div class="container" style="margin-bottom: 2rem;">
         <h1 class="title has-text-centered">Add Assignment</h1>
         <hr />
