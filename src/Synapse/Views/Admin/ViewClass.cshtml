@@ -54,6 +54,12 @@
     <div class="columns is-desktop">
         <div class="column is-full has-text-centered">
             <p class="title">Enrolled Students</p>
+            @if (Model.EnrolledStudents.Count == 0)
+            {
+            <p>No students are enrolled in this class!</p>
+            }
+            else
+            {
             <table id="studentsTable" class="table" style="width: 100%;">
                 <thead>
                     <tr>
@@ -67,20 +73,21 @@
                 <tbody>
                     @foreach (var student in Model.EnrolledStudents)
                     {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => student.StudentFirstName)</td>
-                            <td>@Html.DisplayFor(modelItem => student.StudentLastName)</td>
-                            <td>Grade Percent</td>
-                            <td>@Html.DisplayFor(modelItem => student.GradeLevel)</td>
-                            <td>
-                                <a class="button is-primary is-small" asp-area="" asp-controller="Admin" asp-action="ViewStudent" asp-route-studentid="@student.StudentId">
-                                    View
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => student.StudentFirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => student.StudentLastName)</td>
+                        <td>Grade Percent</td>
+                        <td>@Html.DisplayFor(modelItem => student.GradeLevel)</td>
+                        <td>
+                            <a class="button is-primary is-small" asp-area="" asp-controller="Admin" asp-action="ViewStudent" asp-route-studentid="@student.StudentId">
+                                View
+                            </a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
+            }
         </div>
     </div>
 </div>
