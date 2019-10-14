@@ -36,6 +36,12 @@
     <div class="columns is-desktop">
         <div class="column is-full has-text-centered">
             <p class="title">Enrolled Students</p>
+            @if (Model.EnrolledStudents.Count == 0)
+            {
+                <p>No students are enrolled in this class!</p>
+            }
+            else
+            {
             <table id="studentsTable" class="table" style="width: 100%;">
                 <thead>
                     <tr>
@@ -47,7 +53,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var item in Model.EnrolledStudents)
+                    @foreach (var item in Model.EnrolledStudents)
                     {
                         <tr>
                             <td>@item.StudentFirstName</td>
@@ -63,6 +69,7 @@
                     }
                 </tbody>
             </table>
+            }
         </div>
     </div>
 </div>
