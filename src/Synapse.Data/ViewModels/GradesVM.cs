@@ -37,6 +37,11 @@ namespace Synapse.Data.ViewModels
                 {
                     Grade gradeToAccess = StudentGrades[assignmentsIndex + (studentsIndex * ClassAssignments.Count)];
 
+                    if (gradeToAccess.GradeValue == "")
+                    {
+                        break;
+                    }
+
                     int gradeWeight = AssignmentCategories.Find(c => c.CategoryId == ClassAssignments[assignmentsIndex].CategoryId).CategoryWeight;
                     weightTotal += gradeWeight;
 
