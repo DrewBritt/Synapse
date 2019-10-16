@@ -39,7 +39,7 @@ connection.start().then(function () {
                 timeout = timeout || 50; // 50ms timeout
                 var timeoutReference,
                     doneTyping = function (el) {
-                        if (!timeoutReference || changeText.value != "View Grades") return;
+                        if (!timeoutReference || changeSection.value != "View Grades") return;
                         timeoutReference = null;
                         callback.call(el);
                         onCallback(el);
