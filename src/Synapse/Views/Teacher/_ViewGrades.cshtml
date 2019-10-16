@@ -33,7 +33,7 @@
                         {
                         <tr>
                             <td>@Model.EnrolledStudents[studentIndex].StudentFullName</td>
-                            <td>100%</td>
+                            <td>@Model.StudentAverages[studentIndex]</td>
                             @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
                             {
                             <td>

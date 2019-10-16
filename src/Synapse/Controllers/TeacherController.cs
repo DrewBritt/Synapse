@@ -44,6 +44,7 @@ namespace Synapse.Controllers
             gradeVM.ClassAssignments = _teacherRepository.GetClassAssignments(classid);
             gradeVM.EnrolledStudents = _adminRepository.GetEnrolledStudents(classid);
             gradeVM.StudentGrades = _teacherRepository.GetEnrolledStudentsGrades(classid);
+            gradeVM.PopulateStudentAverages();
 
             return await Task.Run(() => View(gradeVM));
         }
