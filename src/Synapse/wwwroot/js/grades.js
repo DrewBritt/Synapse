@@ -106,13 +106,13 @@ window.addEventListener("beforeunload", function (e) {
     }
 });
 
-const changeText = document.getElementById("changeSection");
-let input = document.getElementById("input");
+const changeSection = document.getElementById("changeSection");
+let input = document.getElementById("view");
 let assignment = document.getElementById("assignment");
 function change() {
-    if (changeText.value == "View Grades") {
+    if (changeSection.value == "View Grades") {
         viewGradesChange();
-    } else if (changeText.value == "Manage Assignments") {
+    } else if (changeSection.value == "Manage Assignments") {
         manageAssignmentsChange();
     }
 }
@@ -120,7 +120,7 @@ function change() {
 function viewGradesChange() {
     input.removeAttribute("hidden");
     assignment.setAttribute("hidden", "true");
-    document.cookie = "selectedSection=input";
+    document.cookie = "selectedSection=view";
 }
 
 function manageAssignmentsChange() {
@@ -132,10 +132,10 @@ function manageAssignmentsChange() {
 document.addEventListener('DOMContentLoaded', function () {
     let cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)selectedSection\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     if (cookieValue == "assignments") {
-        changeText.selectedIndex = 1;
+        changeSection.selectedIndex = 1;
         manageAssignmentsChange();
-    } else if (cookieValue == "input") {
-        changeText.selectedIndex = 0;
+    } else {
+        changeSection.selectedIndex = 0;
         viewGradesChange();
     }
 });
