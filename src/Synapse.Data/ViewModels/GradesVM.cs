@@ -39,7 +39,7 @@ namespace Synapse.Data.ViewModels
 
                     if (gradeToAccess.GradeValue == "")
                     {
-                        break;
+                        continue;
                     }
 
                     int gradeWeight = AssignmentCategories.Find(c => c.CategoryId == ClassAssignments[assignmentsIndex].CategoryId).CategoryWeight;

@@ -75,7 +75,7 @@
                                 <option value="" selected disabled hidden>Select Category</option>
                                 @foreach (var category in Model.AssignmentCategories)
                                 {
-                                    <option name="categoryid" value="@category.CategoryId">@category.CategoryName (@category.CategoryWeight%)</option>
+                                    <option name="categoryid" value=@category.CategoryId>@category.CategoryName (@category.CategoryWeight%)</option>
                                 }
                             </select>
                         </div>
