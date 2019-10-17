@@ -55,17 +55,17 @@
                 <tbody>
                     @for(int studentIndex = 0; studentIndex < Model.EnrolledStudents.Count; studentIndex++)
                     {
-                        <tr>
-                            <td>@Model.EnrolledStudents[studentIndex].StudentFirstName</td>
-                            <td>@Model.EnrolledStudents[studentIndex].StudentLastName</td>
-                            <td>@Model.StudentAverages[studentIndex]</td>
-                            <td>@Model.EnrolledStudents[studentIndex].GradeLevel</td>
-                            <td>
-                                <a class="button is-primary is-small" asp-area="" asp-controller="Teacher" asp-action="ViewStudent" asp-route-studentid=@Model.EnrolledStudents[studentIndex].StudentId>
-                                    View
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>@Model.EnrolledStudents[studentIndex].StudentFirstName</td>
+                        <td>@Model.EnrolledStudents[studentIndex].StudentLastName</td>
+                        <td>@Model.StudentAverages[studentIndex]</td>
+                        <td>@Model.EnrolledStudents[studentIndex].GradeLevel</td>
+                        <td>
+                            <a class="button is-primary is-small" asp-area="" asp-controller="Teacher" asp-action="ViewStudent" asp-route-studentid=@Model.EnrolledStudents[studentIndex].StudentId>
+                                View
+                            </a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
