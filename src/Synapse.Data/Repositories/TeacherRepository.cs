@@ -209,6 +209,37 @@ namespace Synapse.Data.Repositories
             List<Student> EnrolledStudents = GetEnrolledStudents(classid);
             List<Grade> StudentGrades = GetEnrolledStudentsGrades(classid);
 
+            //Iterate through all enrolled students, keep index for grades math
+            for (int studentsIndex = 0; studentsIndex < EnrolledStudents.Count; studentsIndex++)
+            {
+                double studentAverage = 0;
+
+                int weightTotal = 0;
+                int gradesWithWeightTotal = 0;
+
+                for (int assignmentsIndex = 0; assignmentsIndex < ClassAssignments.Count; assignmentsIndex++)
+                {
+                    Grade gradeToAccess = StudentGrades[assignmentsIndex + (studentsIndex * ClassAssignments.Count)];
+
+                    if (gradeToAccess.GradeValue == "")
+                    {
+                        continue;
+                    }
+
+                    int gradeWeight = AssignmentCategories.Find(c => c.CategoryId == ClassAssignments[assignmentsIndex].CategoryId).CategoryWeight;
+                    weightTotal += gradeWeight;
+
+                    if (gradeToAccess.GradeValue != "M" && gradeToAccess.GradeValue != "m")
+                    {
+                        gradesWithWeightTotal += Int32.Parse(gradeToAccess.GradeValue) * gradeWeight;
+                    }
+                }
+
+                studentAverage += (double)gradesWithWeightTotal / weightTotal;
+
+                averages.Add((int)Math.Round(studentAverage, MidpointRounding.AwayFromZero));
+            }
+
             return averages;
         }
 

@@ -11,16 +11,18 @@ namespace Synapse.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private AdminRepository _adminRepository;
+        private readonly AdminRepository _adminRepository;
+        private readonly TeacherRepository _teacherRepository;
 
         public AdminController(SynapseContext dbContext)
         {
             _adminRepository = new AdminRepository(dbContext);
+            _teacherRepository = new TeacherRepository(dbContext);
         }
 
         public async Task<IActionResult> Students()
         {
-            return View(_adminRepository.GetAllStudents());
+            return await Task.Run(() => View(_adminRepository.GetAllStudents()));
         }
 
         public async Task<IActionResult> ViewStudent(int studentid)
@@ -57,7 +59,7 @@ namespace Synapse.Controllers
         public async Task<IActionResult> ViewClass(int classid)
         {
             ViewClassVM classToView = _adminRepository.GetClass(classid);
-            classToView.EnrolledStudents = _adminRepository.GetEnrolledStudents(classid);
+            classToView.EnrolledStudents = _teacherRepository.GetEnrolledStudents(classid);
             classToView.AllTeachers = _adminRepository.GetTeachers();
 
             return await Task.Run(() => View(classToView));
