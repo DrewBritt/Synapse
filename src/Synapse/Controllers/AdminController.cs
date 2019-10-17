@@ -60,6 +60,7 @@ namespace Synapse.Controllers
         {
             ViewClassVM classToView = _adminRepository.GetClass(classid);
             classToView.EnrolledStudents = _teacherRepository.GetEnrolledStudents(classid);
+            classToView.StudentAverages = _teacherRepository.GetStudentAverages(classid);
             classToView.AllTeachers = _adminRepository.GetTeachers();
 
             return await Task.Run(() => View(classToView));

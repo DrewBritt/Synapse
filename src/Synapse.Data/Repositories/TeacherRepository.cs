@@ -86,7 +86,7 @@ namespace Synapse.Data.Repositories
             return ListOfStudentsEnrolled;
         }
 
-        public GradesVM ViewGradesForClass(int classid)
+        public GradesVM GetGradesForClass(int classid)
         {
             GradesVM gradeVM = new GradesVM();
 
@@ -200,7 +200,7 @@ namespace Synapse.Data.Repositories
             return enrolledStudentsGrades;
         }
 
-        public List<int> CalculateStudentAverages(int classid)
+        public List<int> GetStudentAverages(int classid)
         {
             List<int> averages = new List<int>();
 

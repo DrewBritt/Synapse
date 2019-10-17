@@ -32,14 +32,14 @@ namespace Synapse.Controllers
         {
             ViewClassVM classToView = _adminRepository.GetClass(classid);
             classToView.EnrolledStudents = _teacherRepository.GetEnrolledStudents(classid);
-            classToView.StudentAverages = _teacherRepository.CalculateStudentAverages(classid);
+            classToView.StudentAverages = _teacherRepository.GetStudentAverages(classid);
 
             return await Task.Run(() => View(classToView));
         }
 
         public async Task<IActionResult> Grades(int classid)
         {
-            GradesVM gradeVM = _teacherRepository.ViewGradesForClass(classid);
+            GradesVM gradeVM = _teacherRepository.GetGradesForClass(classid);
 
             gradeVM.AssignmentCategories = _teacherRepository.GetAssignmentCategories(classid);
             gradeVM.ClassAssignments = _teacherRepository.GetClassAssignments(classid);
