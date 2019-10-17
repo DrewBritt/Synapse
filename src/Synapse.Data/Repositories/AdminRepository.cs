@@ -129,6 +129,22 @@ namespace Synapse.Data.Repositories
 
         }
 
+        public async Task AddStudent(string firstname, string lastname, string email, byte gradelevel)
+        {
+            //Create student object to add to database
+            Student student = new Student()
+            {
+                StudentFirstName = firstname,
+                StudentLastName = lastname,
+                Email = email,
+                GradeLevel = gradelevel
+            };
+
+            //Add student to table
+            _context.Students.Add(student);
+            await _context.SaveChangesAsync();
+        }
+
         public List<ClassVM> GetAllClasses()
         {
             List<ClassVM> AllClasses = new List<ClassVM>();

@@ -10,29 +10,33 @@
 
         <hr />
         <div style="width: 50%; margin-left: auto; margin-right: auto;">
+            @using (Html.BeginForm("AddStudent", "Admin", FormMethod.Post))
+            {
             <div class="field">
                 <label class="label">First Name</label>
                 <div class="control has-icons-right">
-                    <input type="text" class="input" name="firstname" id="firstnameInput" placeholder="first name" />
+                    <input type="text" class="input" name="firstname" id="firstnameInput" placeholder="Enter student first name..." />
                 </div>                
             </div>
             <div class="field">
                 <label class="label">Last Name</label>
                 <div class="control">
-                    <input type="text" class="input" name="lastname" id="lastnameInput" placeholder="last name" />
+                    <input type="text" class="input" name="lastname" id="lastnameInput" placeholder="Enter student last name..." />
                 </div>
             </div>
             <div class="field">
                 <label class="label">Email Address</label>
                 <div class="control">
-                    <input type="text" class="input" name="email" id="emailInput" placeholder="student email" />
+                    <input type="text" class="input" name="email" id="emailInput" placeholder="Enter student email..." />
                 </div>
             </div>
             <div class="field">
                 <label class="label">Grade Level</label>
                 <div class="control">
-                    <input type="number" class="input" name="gradelevel" id="gradelevelInput" placeholder="grade level" />
+                    <input type="number" class="input" name="gradelevel" id="gradelevelInput" placeholder="Enter grade level..." />
                 </div>
             </div>
+            <button class="button is-primary">Submit</button>
+            }
         </div>
     </div>

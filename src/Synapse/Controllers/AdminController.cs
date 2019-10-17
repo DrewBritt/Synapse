@@ -34,7 +34,7 @@ namespace Synapse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditStudentInfo(int? studentid, string name, string email, string gradelevel)
+        public async Task<IActionResult> EditStudentInfo(int? studentid, string name, string email, int gradelevel)
         {
             if(studentid == null)
             {
@@ -49,6 +49,14 @@ namespace Synapse.Controllers
         public async Task<IActionResult> AddStudent()
         {
             return await Task.Run(() => View());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddStudent(string firstname, string lastname, string email, int gradelevel)
+        {
+            await _adminRepository.AddStudent(firstname, lastname, email, Convert.ToByte(gradelevel));
+
+            return RedirectToAction("Students");
         }
 
         public async Task<IActionResult> Classes()

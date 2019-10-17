@@ -29,7 +29,7 @@ function editClass() {
     const grade = document.getElementById("gradelevel");
     const gradeLabel = document.getElementById("gradeLabel");
     var x = document.createElement("INPUT");
-    x.setAttribute("type", "text");
+    x.setAttribute("type", "number");
     x.setAttribute("name", "gradelevel");
     x.setAttribute("value", grade.textContent);
     x.classList.add("input");
