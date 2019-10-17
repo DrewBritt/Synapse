@@ -270,11 +270,7 @@ namespace Synapse.Data.Repositories
                                  classes.ClassName,
                                  classes.Period,
                                  classes.Location
-                             })
-                             .ToList();
-
-            //Order classes by teacher last name
-            classList = classList.OrderBy(classes => classes.TeacherLastName).ToList();
+                             }).OrderBy(c => c.TeacherLastName).ThenBy(c => c.Period).ToList();
 
             //Add query results to List<ClassVM>
             foreach (var item in classList)
