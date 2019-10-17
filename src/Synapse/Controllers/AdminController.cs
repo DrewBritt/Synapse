@@ -20,6 +20,7 @@ namespace Synapse.Controllers
             _teacherRepository = new TeacherRepository(dbContext);
         }
 
+        #region Student Pages
         public async Task<IActionResult> Students()
         {
             return await Task.Run(() => View(_adminRepository.GetAllStudents()));
@@ -58,7 +59,9 @@ namespace Synapse.Controllers
 
             return RedirectToAction("Students");
         }
+        #endregion
 
+        #region Teacher Pages
         public async Task<IActionResult> Teachers()
         {
             return await Task.Run(() => View(_adminRepository.GetAllTeachers()));
@@ -84,7 +87,9 @@ namespace Synapse.Controllers
 
             return RedirectToAction("ViewTeacher", new { teacherid });
         }
+        #endregion
 
+        #region Class Pages
         public async Task<IActionResult> Classes()
         {
             return await Task.Run(() => View(_adminRepository.GetAllClasses()));
@@ -112,7 +117,9 @@ namespace Synapse.Controllers
 
             return RedirectToAction("ViewClass", new { classid });
         }
+        #endregion
 
+        #region Referral Pages
         public async Task<IActionResult> Referrals()
         {
             return await Task.Run(() => View(_adminRepository.GetAllReferrals()));
@@ -136,5 +143,6 @@ namespace Synapse.Controllers
 
             return RedirectToAction(nameof(Referrals));
         }
+        #endregion
     }
 }

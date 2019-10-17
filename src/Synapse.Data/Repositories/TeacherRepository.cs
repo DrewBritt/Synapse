@@ -16,6 +16,7 @@ namespace Synapse.Data.Repositories
             _context = context;
         }
 
+        #region Class Functions
         public List<Class> GetTeacherClasses(string email)
         {
             List<Class> teacherClasses = new List<Class>();
@@ -85,28 +86,9 @@ namespace Synapse.Data.Repositories
 
             return ListOfStudentsEnrolled;
         }
+        #endregion
 
-        public GradesVM GetGradesForClass(int classid)
-        {
-            GradesVM gradeVM = new GradesVM();
-
-            var gradesQuery = (from classes in _context.Classes
-                               select new
-                               {
-                                   classes.ClassId,
-                                   classes.TeacherId,
-                                   classes.ClassName,
-                                   classes.Period
-                               }).Where(c => c.ClassId == classid).FirstOrDefault();
-
-            gradeVM.ClassId = gradesQuery.ClassId;
-            gradeVM.TeacherId = gradesQuery.TeacherId;
-            gradeVM.ClassName = gradesQuery.ClassName;
-            gradeVM.Period = gradesQuery.Period;
-
-            return gradeVM;
-        }
-
+        #region Assignment Functions
         public List<AssignmentCategory> GetAssignmentCategories(int classid)
         {
             List<AssignmentCategory> assignmentCategories = new List<AssignmentCategory>();
@@ -165,6 +147,56 @@ namespace Synapse.Data.Repositories
             }
 
             return assignmentsList;
+        }
+
+        public async Task AddAssignment(int classid, string assignmentname, int categoryid, string duedate)
+        {
+            //Create Assignment object with data
+            var assignment = new Assignment()
+            {
+                ClassId = classid,
+                AssignmentName = assignmentname,
+                CategoryId = categoryid,
+                DueDate = Convert.ToDateTime(duedate)
+            };
+
+            //Add to Assignments table
+            _context.Assignments.Add(assignment);
+            await _context.SaveChangesAsync();
+
+            //Create filler grades in database for new assignment
+            await AddFillerGrades(classid, assignmentname);
+        }
+
+        public async Task DeleteAssignment(int assignmentid)
+        {
+            var assignmentToDelete = _context.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentid);
+
+            _context.Assignments.Remove(assignmentToDelete);
+            await _context.SaveChangesAsync();
+        }
+        #endregion
+
+        #region Grade Functions
+        public GradesVM GetGradesForClass(int classid)
+        {
+            GradesVM gradeVM = new GradesVM();
+
+            var gradesQuery = (from classes in _context.Classes
+                               select new
+                               {
+                                   classes.ClassId,
+                                   classes.TeacherId,
+                                   classes.ClassName,
+                                   classes.Period
+                               }).Where(c => c.ClassId == classid).FirstOrDefault();
+
+            gradeVM.ClassId = gradesQuery.ClassId;
+            gradeVM.TeacherId = gradesQuery.TeacherId;
+            gradeVM.ClassName = gradesQuery.ClassName;
+            gradeVM.Period = gradesQuery.Period;
+
+            return gradeVM;
         }
 
         public List<Grade> GetEnrolledStudentsGrades(int classid)
@@ -259,25 +291,6 @@ namespace Synapse.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddAssignment(int classid, string assignmentname, int categoryid, string duedate)
-        {
-            //Create Assignment object with data
-            var assignment = new Assignment()
-            {
-                ClassId = classid,
-                AssignmentName = assignmentname,
-                CategoryId = categoryid,
-                DueDate = Convert.ToDateTime(duedate)
-            };
-
-            //Add to Assignments table
-            _context.Assignments.Add(assignment);         
-            await _context.SaveChangesAsync();
-
-            //Create filler grades in database for new assignment
-            await AddFillerGrades(classid, assignmentname);
-        }
-
         public async Task AddFillerGrades(int classid, string assignmentname)
         {
             //Get new assignment from database
@@ -314,14 +327,6 @@ namespace Synapse.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAssignment(int assignmentid)
-        {
-            var assignmentToDelete = _context.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentid);
-
-            _context.Assignments.Remove(assignmentToDelete);
-            await _context.SaveChangesAsync();
-        }
-
         public async Task DeleteGrades(int assignmentid)
         {
             List<Grade> gradesOfAssignment = new List<Grade>();
@@ -333,7 +338,7 @@ namespace Synapse.Data.Repositories
                                    grades.AssignmentId
                                }).Where(g => g.AssignmentId == assignmentid).ToList();
 
-            foreach(var grade in gradesQuery)
+            foreach (var grade in gradesQuery)
             {
                 Grade gradeToDelete = new Grade
                 {
@@ -347,5 +352,6 @@ namespace Synapse.Data.Repositories
             _context.Grades.RemoveRange(gradesOfAssignment);
             await _context.SaveChangesAsync();
         }
+        #endregion
     }
 }

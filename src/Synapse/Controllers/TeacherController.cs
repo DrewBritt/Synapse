@@ -20,6 +20,7 @@ namespace Synapse.Controllers
             _adminRepository = new AdminRepository(dbContext);
         }
 
+        #region Class Pages
         public async Task<IActionResult> Classes()
         {
             //Name is always email
@@ -36,7 +37,9 @@ namespace Synapse.Controllers
 
             return await Task.Run(() => View(classToView));
         }
+        #endregion
 
+        #region Grades/Assignment Pages
         public async Task<IActionResult> Grades(int classid)
         {
             GradesVM gradeVM = _teacherRepository.GetGradesForClass(classid);
@@ -48,11 +51,6 @@ namespace Synapse.Controllers
             gradeVM.PopulateStudentAverages();
 
             return await Task.Run(() => View(gradeVM));
-        }
-
-        public async Task<IActionResult> ViewStudent(int studentid)
-        {
-            return await Task.Run(() => View());
         }
 
         [HttpPost]
@@ -69,6 +67,12 @@ namespace Synapse.Controllers
             await _teacherRepository.DeleteGrades(assignmentid);
 
             return RedirectToAction("Grades", new { classid });
+        }
+        #endregion
+
+        public async Task<IActionResult> ViewStudent(int studentid)
+        {
+            return await Task.Run(() => View());
         }
     }
 }
