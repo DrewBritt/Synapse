@@ -87,6 +87,19 @@ namespace Synapse.Controllers
 
             return RedirectToAction("ViewTeacher", new { teacherid });
         }
+
+        public async Task<IActionResult> AddTeacher()
+        {
+            return await Task.Run(() => View());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTeacher(string firstname, string lastname, string email)
+        {
+            await _adminRepository.AddTeacher(firstname, lastname, email);
+
+            return RedirectToAction("Teachers");
+        }
         #endregion
 
         #region Class Pages

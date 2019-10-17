@@ -250,6 +250,21 @@ namespace Synapse.Data.Repositories
             _context.Update(teacherToUpdate);
             await _context.SaveChangesAsync();
         }
+
+        public async Task AddTeacher(string firstname, string lastname, string email)
+        {
+            //Create Teacher object to add to database
+            Teacher teacher = new Teacher()
+            {
+                TeacherFirstName = firstname,
+                TeacherLastName = lastname,
+                Email = email
+            };
+
+            //Add Teacher to teachers table
+            _context.Teachers.Add(teacher);
+            await _context.SaveChangesAsync();
+        }
         #endregion
 
         #region Class Functions

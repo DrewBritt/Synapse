@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "AddStudent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container has-text-centered" style="width: 65%;">
+    <h1 class="title">Add Teachers</h1>
+    <h2 class="subtitle">Add a teacher to the gradebook</h2>
+
+    <hr />
+    <div style="width: 50%; margin-left: auto; margin-right: auto;">
+        @using (Html.BeginForm("AddTeacher", "Admin", FormMethod.Post))
+        {
+            <div class="field">
+                <label class="label">First Name</label>
+                <div class="control has-icons-right">
+                    <input type="text" class="input" name="firstname" id="firstnameInput" placeholder="Enter teacher first name..." />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Last Name</label>
+                <div class="control">
+                    <input type="text" class="input" name="lastname" id="lastnameInput" placeholder="Enter teacher last name..." />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Email Address</label>
+                <div class="control">
+                    <input type="text" class="input" name="email" id="emailInput" placeholder="Enter teacher email..." />
+                </div>
+            </div>
+            <button class="button is-primary">Submit</button>
+        }
+    </div>
+</div>
