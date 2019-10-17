@@ -1,9 +1,9 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     const editBtn = document.getElementById("editBtn");
-    if (editBtn.addEventListener) editBtn.addEventListener('click', editStudent, false);
+    if (editBtn.addEventListener) editBtn.addEventListener('click', editTeacher, false);
 });
 
-function editStudent() {
+function editTeacher() {
     const name = document.getElementById("name");
     const nameLabel = document.getElementById("nameLabel");
     var x = document.createElement("INPUT");
@@ -25,17 +25,6 @@ function editStudent() {
     x.classList.add("input");
     emailLabel.appendChild(x);
     email.setAttribute("hidden", "true");
-
-    const grade = document.getElementById("gradelevel");
-    const gradeLabel = document.getElementById("gradeLabel");
-    var x = document.createElement("INPUT");
-    x.setAttribute("type", "number");
-    x.setAttribute("name", "gradelevel");
-    x.setAttribute("value", grade.textContent);
-    x.classList.add("input");
-    x.setAttribute("id", "gradeInput")
-    gradeLabel.appendChild(x);
-    grade.setAttribute("hidden", "true")
 
     const btns = document.getElementById("btns");
     const editBtn = document.getElementById("editBtn");
@@ -65,10 +54,7 @@ function cancel() {
     let cancelBtn = document.getElementById("cancelBtn");
     let nameInput = document.getElementById("nameInput");
     let emailInput = document.getElementById("emailInput");
-    let gradeInput = document.getElementById("gradeInput");
     let name = document.getElementById("name");
-    let email = document.getElementById("email");
-    let grade = document.getElementById("gradelevel");
 
     let editBtn = document.createElement("BUTTON");
     editBtn.classList.add("button")
@@ -76,16 +62,14 @@ function cancel() {
     editBtn.setAttribute("id", "editBtn");
     editBtn.textContent = "Edit";
     btns.appendChild(editBtn);
-    editBtn.addEventListener('click', editStudent, false);
+    editBtn.addEventListener('click', editTeacher, false);
 
 
     name.removeAttribute("hidden");
     email.removeAttribute("hidden");
-    grade.removeAttribute("hidden");
 
     nameInput.parentNode.removeChild(nameInput);
     emailInput.parentNode.removeChild(emailInput);
-    gradeInput.parentNode.removeChild(gradeInput);
 
     btns.removeChild(cancelBtn);
     btns.removeChild(submitBtn);

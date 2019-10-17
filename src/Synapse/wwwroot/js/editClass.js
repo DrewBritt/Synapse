@@ -52,7 +52,7 @@ function editClass() {
     btns.appendChild(submitBtn);
 
     let cancelBtn = document.createElement("BUTTON");
-    cancelBtn.setAttribute("type", "cancel");
+    cancelBtn.setAttribute("type", "button");
     cancelBtn.setAttribute("id", "cancelBtn")
     cancelBtn.textContent = "Cancel";
     cancelBtn.classList.add("button");
