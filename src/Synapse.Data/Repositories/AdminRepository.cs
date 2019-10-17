@@ -18,6 +18,7 @@ namespace Synapse.Data.Repositories
             _context = context;
         }
 
+        #region Student Functions
         public List<Student> GetAllStudents()
         {
             var students = from s in _context.Students
@@ -144,7 +145,114 @@ namespace Synapse.Data.Repositories
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
         }
+        #endregion
 
+        #region Teacher Functions
+        public List<Teacher> GetAllTeachers()
+        {
+            var allTeachers = (from teachers in _context.Teachers
+                               select new
+                               {
+                                   teachers.TeacherId,
+                                   teachers.TeacherFirstName,
+                                   teachers.TeacherLastName,
+                                   teachers.Email
+                               }).OrderBy(teachers => teachers.TeacherLastName).ToList();
+
+            List<Teacher> TeachersList = new List<Teacher>();
+            foreach (var teacher in allTeachers)
+            {
+                Teacher newTeacher = new Teacher
+                {
+                    TeacherId = teacher.TeacherId,
+                    TeacherFirstName = teacher.TeacherFirstName,
+                    TeacherLastName = teacher.TeacherLastName,
+                    Email = teacher.Email
+                };
+
+                TeachersList.Add(newTeacher);
+            }
+
+            return TeachersList;
+        }
+
+        public ViewTeacherVM GetTeacher(int teacherid)
+        {
+            var teacher = (from teachers in _context.Teachers
+                           select new
+                           {
+                               teachers.TeacherId,
+                               teachers.TeacherFirstName,
+                               teachers.TeacherLastName,
+                               teachers.Email
+                           }).Where(t => t.TeacherId == teacherid).FirstOrDefault();
+
+            ViewTeacherVM teacherToView = new ViewTeacherVM
+            {
+                TeacherId = teacher.TeacherId,
+                TeacherFirstName = teacher.TeacherFirstName,
+                TeacherLastName = teacher.TeacherLastName,
+                Email = teacher.Email
+            };
+
+            return teacherToView;
+        }
+        
+        public List<Class> GetTeacherSchedule(int teacherid)
+        {
+            List<Class> teacherSchedule = new List<Class>();
+
+            var classesQuery = (from classes in _context.Classes
+                                select new
+                                {
+                                    classes.ClassId,
+                                    classes.TeacherId,
+                                    classes.ClassName,
+                                    classes.Period,
+                                    classes.Location
+                                }).Where(c => c.TeacherId == teacherid).OrderBy(c => c.Period).ToList();
+
+            foreach(var c in classesQuery)
+            {
+                Class teacherClass = new Class()
+                {
+                    ClassId = c.ClassId,
+                    TeacherId = teacherid,
+                    ClassName = c.ClassName,
+                    Period = c.Period,
+                    Location = c.Location
+                };
+
+                teacherSchedule.Add(teacherClass);
+            }
+
+            return teacherSchedule;
+        }
+
+        public async Task EditTeacherInfo(int? teacherid, string name, string email)
+        {
+            //Grab teacher from database based on teacherid
+            var teacherToUpdate = _context.Teachers.FirstOrDefault(s => s.TeacherId == teacherid);
+
+            //Save student's current email as string for changing their user data
+            string teacherCurrentEmail = teacherToUpdate.Email;
+
+            //Split name into firstname and lastname
+            string teacherfirstname = name.Substring(0, name.IndexOf(' '));
+            string teacherlastname = name.Substring(name.IndexOf(' ') + 1, name.Length - name.IndexOf(' ') - 1);
+
+            //Update info from page
+            teacherToUpdate.TeacherFirstName = teacherfirstname;
+            teacherToUpdate.TeacherLastName = teacherlastname;
+            teacherToUpdate.Email = email;
+
+            //Change student data in local database instance
+            _context.Update(teacherToUpdate);
+            await _context.SaveChangesAsync();
+        }
+        #endregion
+
+        #region Class Functions
         public List<ClassVM> GetAllClasses()
         {
             List<ClassVM> AllClasses = new List<ClassVM>();
@@ -220,35 +328,9 @@ namespace Synapse.Data.Repositories
 
             return ClassToView;
         }
+        #endregion
 
-        public List<Teacher> GetTeachers()
-        {
-            var allTeachers = (from teachers in _context.Teachers
-                               select new
-                               {
-                                   teachers.TeacherId,
-                                   teachers.TeacherFirstName,
-                                   teachers.TeacherLastName,
-                                   teachers.Email
-                               }).OrderBy(teachers => teachers.TeacherLastName).ToList();
-
-            List<Teacher> TeachersList = new List<Teacher>();
-            foreach (var teacher in allTeachers)
-            {
-                Teacher newTeacher = new Teacher
-                {
-                    TeacherId = teacher.TeacherId,
-                    TeacherFirstName = teacher.TeacherFirstName,
-                    TeacherLastName = teacher.TeacherLastName,
-                    Email = teacher.Email
-                };
-
-                TeachersList.Add(newTeacher);
-            }
-
-            return TeachersList;
-        }
-
+        #region Referral Functions
         public List<ReferralVM> GetAllReferrals()
         {
             List<ReferralVM> ReferralVMList = new List<ReferralVM>();
@@ -396,5 +478,6 @@ namespace Synapse.Data.Repositories
             _context.Update(referralToUpdate);
             await _context.SaveChangesAsync();                
         }
+        #endregion
     }
 }
