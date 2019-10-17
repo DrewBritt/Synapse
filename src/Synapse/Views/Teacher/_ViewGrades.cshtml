@@ -15,47 +15,50 @@
         }
         else
         {
-        <div class="" style="margin-bottom: 2rem;">
-            <div class="table-container">
-                <table id="grades" class="table is-fullwidth is-narrow gradesTable">
-                    <thead>
-                        <tr>
-                            <th width="10%">Student Name</th>
-                            <th>Average</th>
-                            @foreach (var assignment in Model.ClassAssignments)
-                            {
-                            <th>@assignment.AssignmentName</th>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int studentIndex = 0; studentIndex < Model.EnrolledStudents.Count; studentIndex++)
-                        {
-                        <tr>
-                            <td>@Model.EnrolledStudents[studentIndex].StudentFullName</td>
-                            <td>@Model.StudentAverages[studentIndex]</td>
-                            @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
-                            {
-                            <td>
-                                <input maxlength="3" value="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeValue" name="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeId" class="input" style="width: 5rem" max="100" />
-                            </td>
-                            }
-                        </tr>
-                        }
-                    </tbody>
-                </table>
+            <div class="column">
+                <button class="button is-primary tooltip" data-tooltip="Tooltip Text">Tooltip</button>
             </div>
-            <div class="columns">
-                <div class="column is-one-fifth">
-                    <div id="saving"></div>
+            <div class="" style="margin-bottom: 2rem;">
+                <div class="table-container">
+                    <table id="grades" class="table is-fullwidth is-narrow gradesTable">
+                        <thead>
+                            <tr>
+                                <th width="10%">Student Name</th>
+                                <th>Average</th>
+                                @foreach (var assignment in Model.ClassAssignments)
+                                {
+                                    <th class="tooltip" data-tooltip="Tooltip Text">@assignment.AssignmentName</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int studentIndex = 0; studentIndex < Model.EnrolledStudents.Count; studentIndex++)
+                            {
+                                <tr>
+                                    <td>@Model.EnrolledStudents[studentIndex].StudentFullName</td>
+                                    <td>@Model.StudentAverages[studentIndex]</td>
+                                    @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
+                                    {
+                                        <td>
+                                            <input maxlength="3" value="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeValue" name="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeId" class="input" style="width: 5rem" max="100" />
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <div id="saving"></div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <progress id="savingbar" class="progress is-small is-info is-hidden" style="width: 7rem;" max="100"></progress>
+                    </div>
                 </div>
             </div>
-            <div class="columns">
-                <div class="column is-one-fifth">
-                    <progress id="savingbar" class="progress is-small is-info is-hidden" style="width: 7rem;" max="100"></progress>
-                </div>
-            </div>
-        </div>
         }
     </div>
 </div>
