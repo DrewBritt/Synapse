@@ -61,7 +61,28 @@ namespace Synapse.Controllers
 
         public async Task<IActionResult> Teachers()
         {
-            return await Task.Run(() => View(_adminRepository.GetTeachers()));
+            return await Task.Run(() => View(_adminRepository.GetAllTeachers()));
+        }
+
+        public async Task<IActionResult> ViewTeacher(int teacherid)
+        {
+            ViewTeacherVM TeacherToView = _adminRepository.GetTeacher(teacherid);
+            TeacherToView.Classes = _adminRepository.GetTeacherSchedule(teacherid);
+
+            return await Task.Run(() => View(TeacherToView));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTeacherInfo(int? teacherid, string name, string email)
+        {
+            if(teacherid == null)
+            {
+                return NotFound();
+            }
+
+            await _adminRepository.EditTeacherInfo(teacherid, name, email);
+
+            return RedirectToAction("ViewTeacher", new { teacherid });
         }
 
         public async Task<IActionResult> Classes()
@@ -74,13 +95,13 @@ namespace Synapse.Controllers
             ViewClassVM classToView = _adminRepository.GetClass(classid);
             classToView.EnrolledStudents = _teacherRepository.GetEnrolledStudents(classid);
             classToView.StudentAverages = _teacherRepository.GetStudentAverages(classid);
-            classToView.AllTeachers = _adminRepository.GetTeachers();
+            classToView.AllTeachers = _adminRepository.GetAllTeachers();
 
             return await Task.Run(() => View(classToView));
         }
 
         [HttpPost]
-        public async Task<IActionResult> ViewClass(int? classid, int teacherid, string location, string period)
+        public async Task<IActionResult> EditClassInfo(int? classid, int teacherid, string location, string period)
         {
             if(classid == null)
             {
