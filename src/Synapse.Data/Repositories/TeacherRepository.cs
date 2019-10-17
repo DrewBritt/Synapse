@@ -34,18 +34,56 @@ namespace Synapse.Data.Repositories
 
             foreach(var teacherClass in teacherClassesQuery)
             {
-                Class newClass = new Class();
-
-                newClass.ClassId = teacherClass.ClassId;
-                newClass.TeacherId = teacherClass.TeacherId;
-                newClass.ClassName = teacherClass.ClassName;
-                newClass.Period = teacherClass.Period;
-                newClass.Location = teacherClass.Location;
+                Class newClass = new Class
+                {
+                    ClassId = teacherClass.ClassId,
+                    TeacherId = teacherClass.TeacherId,
+                    ClassName = teacherClass.ClassName,
+                    Period = teacherClass.Period,
+                    Location = teacherClass.Location
+                };
 
                 teacherClasses.Add(newClass);
             }
 
             return teacherClasses;
+        }
+
+        public List<Student> GetEnrolledStudents(int classid)
+        {
+            var listOfStudentsInClass = (from students in _context.Students
+                                         join studentclasses in _context.StudentsClasses on students.StudentId equals studentclasses.StudentId
+                                         join classes in _context.Classes on studentclasses.ClassId equals classes.ClassId
+                                         select new
+                                         {
+                                             students.StudentId,
+                                             students.StudentFirstName,
+                                             students.StudentLastName,
+                                             students.Email,
+                                             students.GradeLevel,
+                                             studentclasses.ClassId
+                                         }).OrderBy(s => s.StudentLastName);
+
+            List<Student> ListOfStudentsEnrolled = new List<Student>();
+            foreach (var item in listOfStudentsInClass)
+            {
+                if (item.ClassId == classid)
+                {
+                    Student newStudent = new Student
+                    {
+                        StudentId = item.StudentId,
+                        StudentFirstName = item.StudentFirstName,
+                        StudentLastName = item.StudentLastName,
+                        Email = item.Email,
+                        GradeLevel = item.GradeLevel
+                    };
+
+                    ListOfStudentsEnrolled.Add(newStudent);
+                }
+
+            }
+
+            return ListOfStudentsEnrolled;
         }
 
         public GradesVM ViewGradesForClass(int classid)
@@ -84,12 +122,13 @@ namespace Synapse.Data.Repositories
 
             foreach(var category in assignmentCategoriesQuery)
             {
-                AssignmentCategory newCategory = new AssignmentCategory();
-
-                newCategory.CategoryId = category.CategoryId;
-                newCategory.ClassId = category.ClassId;
-                newCategory.CategoryName = category.CategoryName;
-                newCategory.CategoryWeight = category.CategoryWeight;
+                AssignmentCategory newCategory = new AssignmentCategory
+                {
+                    CategoryId = category.CategoryId,
+                    ClassId = category.ClassId,
+                    CategoryName = category.CategoryName,
+                    CategoryWeight = category.CategoryWeight
+                };
 
                 assignmentCategories.Add(newCategory);
             }
@@ -113,13 +152,14 @@ namespace Synapse.Data.Repositories
 
             foreach(var assignment in assignmentsQuery)
             {
-                Assignment newAssignment = new Assignment();
-
-                newAssignment.AssignmentId = assignment.AssignmentId;
-                newAssignment.AssignmentName = assignment.AssignmentName;
-                newAssignment.ClassId = assignment.ClassId;
-                newAssignment.CategoryId = assignment.CategoryId;
-                newAssignment.DueDate = assignment.DueDate;
+                Assignment newAssignment = new Assignment
+                {
+                    AssignmentId = assignment.AssignmentId,
+                    AssignmentName = assignment.AssignmentName,
+                    ClassId = assignment.ClassId,
+                    CategoryId = assignment.CategoryId,
+                    DueDate = assignment.DueDate
+                };
 
                 assignmentsList.Add(newAssignment);
             }
@@ -145,18 +185,31 @@ namespace Synapse.Data.Repositories
 
             foreach(var grade in gradesQuery)
             {
-                Grade newGrade = new Grade();
-
-                newGrade.GradeId = grade.GradeId;
-                newGrade.AssignmentId = grade.AssignmentId;
-                newGrade.ClassId = grade.ClassId;
-                newGrade.StudentId = grade.StudentId;
-                newGrade.GradeValue = grade.GradeValue;
+                Grade newGrade = new Grade
+                {
+                    GradeId = grade.GradeId,
+                    AssignmentId = grade.AssignmentId,
+                    ClassId = grade.ClassId,
+                    StudentId = grade.StudentId,
+                    GradeValue = grade.GradeValue
+                };
 
                 enrolledStudentsGrades.Add(newGrade);
             }
 
             return enrolledStudentsGrades;
+        }
+
+        public List<int> CalculateStudentAverages(int classid)
+        {
+            List<int> averages = new List<int>();
+
+            List<AssignmentCategory> AssignmentCategories = GetAssignmentCategories(classid);
+            List<Assignment> ClassAssignments = GetClassAssignments(classid);
+            List<Student> EnrolledStudents = GetEnrolledStudents(classid);
+            List<Grade> StudentGrades = GetEnrolledStudentsGrades(classid);
+
+            return averages;
         }
 
         public async Task SubmitGrade(int gradeid, string gradevalue)
@@ -215,11 +268,13 @@ namespace Synapse.Data.Repositories
 
             foreach (var id in enrolledStudentsIds)
             {
-                Grade fillerGrade = new Grade();
-                fillerGrade.AssignmentId = newAssignment.AssignmentId;
-                fillerGrade.ClassId = classid;
-                fillerGrade.StudentId = id.StudentId;
-                fillerGrade.GradeValue = "";
+                Grade fillerGrade = new Grade
+                {
+                    AssignmentId = newAssignment.AssignmentId,
+                    ClassId = classid,
+                    StudentId = id.StudentId,
+                    GradeValue = ""
+                };
 
                 fillerGrades.Add(fillerGrade);
             }
@@ -249,10 +304,11 @@ namespace Synapse.Data.Repositories
 
             foreach(var grade in gradesQuery)
             {
-                Grade gradeToDelete = new Grade();
-
-                gradeToDelete.GradeId = grade.GradeId;
-                gradeToDelete.AssignmentId = grade.AssignmentId;
+                Grade gradeToDelete = new Grade
+                {
+                    GradeId = grade.GradeId,
+                    AssignmentId = grade.AssignmentId
+                };
 
                 gradesOfAssignment.Add(gradeToDelete);
             }

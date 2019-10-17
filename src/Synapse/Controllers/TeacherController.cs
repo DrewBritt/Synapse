@@ -11,8 +11,8 @@ namespace Synapse.Controllers
     [Authorize(Roles = "Teacher")]
     public class TeacherController : Controller
     {
-        private TeacherRepository _teacherRepository;
-        private AdminRepository _adminRepository;
+        private readonly TeacherRepository _teacherRepository;
+        private readonly AdminRepository _adminRepository;
 
         public TeacherController(SynapseContext dbContext)
         {
@@ -31,7 +31,8 @@ namespace Synapse.Controllers
         public async Task<IActionResult> ViewClass(int classid)
         {
             ViewClassVM classToView = _adminRepository.GetClass(classid);
-            classToView.EnrolledStudents = _adminRepository.GetEnrolledStudents(classid);
+            classToView.EnrolledStudents = _teacherRepository.GetEnrolledStudents(classid);
+            classToView.StudentAverages = _teacherRepository.CalculateStudentAverages(classid);
 
             return await Task.Run(() => View(classToView));
         }
@@ -42,7 +43,7 @@ namespace Synapse.Controllers
 
             gradeVM.AssignmentCategories = _teacherRepository.GetAssignmentCategories(classid);
             gradeVM.ClassAssignments = _teacherRepository.GetClassAssignments(classid);
-            gradeVM.EnrolledStudents = _adminRepository.GetEnrolledStudents(classid);
+            gradeVM.EnrolledStudents = _teacherRepository.GetEnrolledStudents(classid);
             gradeVM.StudentGrades = _teacherRepository.GetEnrolledStudentsGrades(classid);
             gradeVM.PopulateStudentAverages();
 

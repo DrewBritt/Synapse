@@ -40,13 +40,14 @@ namespace Synapse.Data.Repositories
                                students.GradeLevel
                            }).Where(s => s.StudentId == studentid).FirstOrDefault();
 
-            ViewStudentVM studentToView = new ViewStudentVM();
-
-            studentToView.StudentId = student.StudentId;
-            studentToView.StudentFirstName = student.StudentFirstName;
-            studentToView.StudentLastName = student.StudentLastName;
-            studentToView.Email = student.Email;
-            studentToView.GradeLevel = student.GradeLevel;
+            ViewStudentVM studentToView = new ViewStudentVM
+            {
+                StudentId = student.StudentId,
+                StudentFirstName = student.StudentFirstName,
+                StudentLastName = student.StudentLastName,
+                Email = student.Email,
+                GradeLevel = student.GradeLevel
+            };
 
             return studentToView;
         }
@@ -73,15 +74,16 @@ namespace Synapse.Data.Repositories
 
             foreach (var item in schedule)
             {
-                ClassWithTeacherInfo studentClass = new ClassWithTeacherInfo();
-
-                studentClass.ClassId = item.ClassId;
-                studentClass.TeacherId = item.TeacherId;
-                studentClass.TeacherFirstName = item.TeacherFirstName;
-                studentClass.TeacherLastName = item.TeacherLastName;
-                studentClass.ClassName = item.ClassName;
-                studentClass.Period = item.Period;
-                studentClass.Location = item.Location;
+                ClassWithTeacherInfo studentClass = new ClassWithTeacherInfo
+                {
+                    ClassId = item.ClassId,
+                    TeacherId = item.TeacherId,
+                    TeacherFirstName = item.TeacherFirstName,
+                    TeacherLastName = item.TeacherLastName,
+                    ClassName = item.ClassName,
+                    Period = item.Period,
+                    Location = item.Location
+                };
 
                 EnrolledClasses.Add(studentClass);
             }
@@ -153,14 +155,16 @@ namespace Synapse.Data.Repositories
             //Add query results to List<ClassVM>
             foreach (var item in classList)
             {
-                ClassVM newClass = new ClassVM();
-                newClass.ClassId = item.ClassId;
-                newClass.TeacherFirstName = item.TeacherFirstName;
-                newClass.TeacherLastName = item.TeacherLastName;
-                newClass.Email = item.Email;
-                newClass.ClassName = item.ClassName;
-                newClass.Period = item.Period;
-                newClass.Location = item.Location;
+                ClassVM newClass = new ClassVM
+                {
+                    ClassId = item.ClassId,
+                    TeacherFirstName = item.TeacherFirstName,
+                    TeacherLastName = item.TeacherLastName,
+                    Email = item.Email,
+                    ClassName = item.ClassName,
+                    Period = item.Period,
+                    Location = item.Location
+                };
 
                 AllClasses.Add(newClass);
             }
@@ -201,42 +205,6 @@ namespace Synapse.Data.Repositories
             return ClassToView;
         }
 
-        public List<Student> GetEnrolledStudents(int classid)
-        {
-            var listOfStudentsInClass = (from students in _context.Students
-                                         join studentclasses in _context.StudentsClasses on students.StudentId equals studentclasses.StudentId
-                                         join classes in _context.Classes on studentclasses.ClassId equals classes.ClassId
-                                         select new
-                                         {
-                                             students.StudentId,
-                                             students.StudentFirstName,
-                                             students.StudentLastName,
-                                             students.Email,
-                                             students.GradeLevel,
-                                             studentclasses.ClassId
-                                         }).OrderBy(s => s.StudentLastName);
-
-            List<Student> ListOfStudentsEnrolled = new List<Student>();
-            foreach (var item in listOfStudentsInClass)
-            {
-                if (item.ClassId == classid)
-                {
-                    Student newStudent = new Student();
-
-                    newStudent.StudentId = item.StudentId;
-                    newStudent.StudentFirstName = item.StudentFirstName;
-                    newStudent.StudentLastName = item.StudentLastName;
-                    newStudent.Email = item.Email;
-                    newStudent.GradeLevel = item.GradeLevel;
-
-                    ListOfStudentsEnrolled.Add(newStudent);
-                }
-
-            }
-
-            return ListOfStudentsEnrolled;
-        }
-
         public List<Teacher> GetTeachers()
         {
             var allTeachers = (from teachers in _context.Teachers
@@ -251,12 +219,13 @@ namespace Synapse.Data.Repositories
             List<Teacher> TeachersList = new List<Teacher>();
             foreach (var teacher in allTeachers)
             {
-                Teacher newTeacher = new Teacher();
-
-                newTeacher.TeacherId = teacher.TeacherId;
-                newTeacher.TeacherFirstName = teacher.TeacherFirstName;
-                newTeacher.TeacherLastName = teacher.TeacherLastName;
-                newTeacher.Email = teacher.Email;
+                Teacher newTeacher = new Teacher
+                {
+                    TeacherId = teacher.TeacherId,
+                    TeacherFirstName = teacher.TeacherFirstName,
+                    TeacherLastName = teacher.TeacherLastName,
+                    Email = teacher.Email
+                };
 
                 TeachersList.Add(newTeacher);
             }
@@ -293,17 +262,19 @@ namespace Synapse.Data.Repositories
             //Add query results to List<ReferralVM>
             foreach (var item in referralList)
             {
-                ReferralVM newReferral = new ReferralVM();
-                newReferral.ReferralId = item.ReferralId;
-                newReferral.StudentId = item.StudentId;
-                newReferral.StudentFirstName = item.StudentFirstName;
-                newReferral.StudentLastName = item.StudentLastName;
-                newReferral.TeacherId = item.TeacherId;
-                newReferral.TeacherFirstName = item.TeacherFirstName;
-                newReferral.TeacherLastName = item.TeacherLastName;
-                newReferral.DateIssued = item.DateIssued;
-                newReferral.Description = item.Description;
-                newReferral.Handled = item.Handled;
+                ReferralVM newReferral = new ReferralVM
+                {
+                    ReferralId = item.ReferralId,
+                    StudentId = item.StudentId,
+                    StudentFirstName = item.StudentFirstName,
+                    StudentLastName = item.StudentLastName,
+                    TeacherId = item.TeacherId,
+                    TeacherFirstName = item.TeacherFirstName,
+                    TeacherLastName = item.TeacherLastName,
+                    DateIssued = item.DateIssued,
+                    Description = item.Description,
+                    Handled = item.Handled
+                };
 
                 ReferralVMList.Add(newReferral);
             }
@@ -331,17 +302,19 @@ namespace Synapse.Data.Repositories
                                  })
                                   .Where(s => s.ReferralId == referralid).FirstOrDefault();
 
-            ViewReferralVM referralToView = new ViewReferralVM();
-            referralToView.ReferralId = referralQuery.ReferralId;
-            referralToView.StudentId = referralQuery.StudentId;
-            referralToView.StudentFirstName = referralQuery.StudentFirstName;
-            referralToView.StudentLastName = referralQuery.StudentLastName;
-            referralToView.TeacherId = referralQuery.TeacherId;
-            referralToView.TeacherFirstName = referralQuery.TeacherFirstName;
-            referralToView.TeacherLastName = referralQuery.TeacherLastName;
-            referralToView.DateIssued = referralQuery.DateIssued;
-            referralToView.Description = referralQuery.Description;
-            referralToView.Handled = referralQuery.Handled;
+            ViewReferralVM referralToView = new ViewReferralVM
+            {
+                ReferralId = referralQuery.ReferralId,
+                StudentId = referralQuery.StudentId,
+                StudentFirstName = referralQuery.StudentFirstName,
+                StudentLastName = referralQuery.StudentLastName,
+                TeacherId = referralQuery.TeacherId,
+                TeacherFirstName = referralQuery.TeacherFirstName,
+                TeacherLastName = referralQuery.TeacherLastName,
+                DateIssued = referralQuery.DateIssued,
+                Description = referralQuery.Description,
+                Handled = referralQuery.Handled
+            };
 
             var otherReferralsQuery = (from referrals in _context.Referrals
                                        join students in _context.Students on referrals.StudentId equals students.StudentId
@@ -364,17 +337,19 @@ namespace Synapse.Data.Repositories
             List<ReferralVM> otherReferrals = new List<ReferralVM>();
             foreach (var referral in otherReferralsQuery)
             {
-                ReferralVM curReferral = new ReferralVM();
-                curReferral.ReferralId = referral.ReferralId;
-                curReferral.StudentId = referral.StudentId;
-                curReferral.StudentFirstName = referral.StudentFirstName;
-                curReferral.StudentLastName = referral.StudentLastName;
-                curReferral.TeacherId = referral.TeacherId;
-                curReferral.TeacherFirstName = referral.TeacherFirstName;
-                curReferral.TeacherLastName = referral.TeacherLastName;
-                curReferral.DateIssued = referral.DateIssued;
-                curReferral.Description = referral.Description;
-                curReferral.Handled = referral.Handled;
+                ReferralVM curReferral = new ReferralVM
+                {
+                    ReferralId = referral.ReferralId,
+                    StudentId = referral.StudentId,
+                    StudentFirstName = referral.StudentFirstName,
+                    StudentLastName = referral.StudentLastName,
+                    TeacherId = referral.TeacherId,
+                    TeacherFirstName = referral.TeacherFirstName,
+                    TeacherLastName = referral.TeacherLastName,
+                    DateIssued = referral.DateIssued,
+                    Description = referral.Description,
+                    Handled = referral.Handled
+                };
 
                 otherReferrals.Add(curReferral);
             }
