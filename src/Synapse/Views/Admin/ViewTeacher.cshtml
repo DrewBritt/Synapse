@@ -1,0 +1,86 @@
+﻿@model Synapse.Data.ViewModels.ViewTeacherVM
+
+@{
+    ViewData["Title"] = "ViewTeacher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="width: 65%; margin-left: auto; margin-right: auto;">
+    <div>
+        <h1 class="title" style="font-weight: normal;">Viewing teacher <span class="has-text-weight-bold">@Html.DisplayFor(teacher => Model.TeacherFullName)</span></h1>
+        <hr>
+        <div class="columns">
+            <div class="is-full" style="width: 100%; margin-bottom: 2rem;">
+                <div class="card">
+                    @using (Html.BeginForm("EditTeacherInfo", "Admin", FormMethod.Post))
+                    {
+                        <div style="padding: .75rem;">
+                            <div class="columns">
+                                <div class="column">
+                                    <p class="title">Teacher Information</p>
+                                </div>
+                                <div class="column">
+                                    <div class="is-pulled-right-desktop is-marginless" id="btns">
+                                        <button id="editBtn" type="button" class="button is-primary">Edit</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr class="is-marginless">
+                        <div class="card-content">
+                            <div class="content">
+                                <span id="nameLabel" class="has-text-weight-bold">Name:</span>
+                                <div id="name">@Html.DisplayFor(modelItem => Model.TeacherFullName)</div>
+                                <span id="emailLabel" class="has-text-weight-bold">Email:</span>
+                                <div id="email">@Html.DisplayFor(modelItem => Model.Email)</div>
+                            </div>
+                        </div>
+                        <input hidden name="teacherid" value="@Model.TeacherId" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns is-desktop">
+        <div class="column is-full has-text-centered">
+            <p class="title">Schedule</p>
+            @if (Model.Classes.Count == 0)
+            {
+                <p>No classes in teacher's schedule!</p>
+            }
+            else
+            {
+                <table id="studentsTable" class="table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Class Name</th>
+                            <th>Location</th>
+                            <th>Period</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var teacherClass in Model.Classes)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => teacherClass.ClassName)</td>
+                                <td>@Html.DisplayFor(modelItem => teacherClass.Location)</td>
+                                <td>@Html.DisplayFor(modelItem => teacherClass.Period)</td>
+                                <td>
+                                    <a asp-area="" asp-controller="Admin" asp-action="ViewClass" asp-route-classid=@teacherClass.ClassId>
+                                        <button class="button is-primary is-small">
+                                            View
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/js/editTeacher.js"></script>
