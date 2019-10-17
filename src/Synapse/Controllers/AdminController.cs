@@ -59,6 +59,11 @@ namespace Synapse.Controllers
             return RedirectToAction("Students");
         }
 
+        public async Task<IActionResult> Teachers()
+        {
+            return await Task.Run(() => View(_adminRepository.GetTeachers()));
+        }
+
         public async Task<IActionResult> Classes()
         {
             return await Task.Run(() => View(_adminRepository.GetAllClasses()));

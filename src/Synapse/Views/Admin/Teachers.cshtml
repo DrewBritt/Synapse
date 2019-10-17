@@ -1,0 +1,50 @@
+﻿@model List<Synapse.Data.Models.Teacher>
+
+@{
+    ViewData["Title"] = "Teachers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container has-text-centered">
+        <h1 class="title">View Teachers</h1>
+        <h2 class="subtitle">
+            View and search through all teachers.
+        </h2>
+        <div class="is-centered">
+            <a class="button is-primary" asp-controller="Admin" asp-action="AddTeacher">Add Teacher</a>
+        </div>
+        <br />
+        <label>
+            <input class="input" type="text" placeholder="Search for teachers by name..." style="width: 65%; margin-left: auto; margin-right: auto" id="teachersSearchBar" onkeyup="namesTableSearchBar('teachersTable', 'teachersSearchBar')">
+        </label>
+        <div class="is-centered">
+
+            <table id="teachersTable" class="table" style="width: 65%; margin-left: auto; margin-right: auto">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var teacher in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => teacher.TeacherFirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => teacher.TeacherLastName)
+                            </td>
+                            <td>
+                                <a class="button is-primary is-small" asp-area="" asp-controller="Admin" asp-action="ViewTeacher" asp-route-teacherid=@teacher.TeacherId>
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

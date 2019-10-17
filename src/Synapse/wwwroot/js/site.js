@@ -1,5 +1,5 @@
-﻿//Provides functionality for filtering through table of students
-function studentsTableSearchBar(tableId, searchBarId) {
+﻿//Provides functionality for filtering through table of students or teachers
+function namesTableSearchBar(tableId, searchBarId) {
     var input, filter, table, tr, firstName, lastName, i, firstNameValue, lastNameValue;
     input = document.getElementById(searchBarId);
     filter = input.value.toUpperCase();
