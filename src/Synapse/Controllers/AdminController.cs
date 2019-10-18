@@ -126,7 +126,7 @@ namespace Synapse.Controllers
                 return NotFound();
             }
 
-            await _adminRepository.UpdateClassInfo(classid, teacherid, location, period);
+            await _adminRepository.EditClassInfo(classid, teacherid, location, period);
 
             return RedirectToAction("ViewClass", new { classid });
         }

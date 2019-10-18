@@ -339,6 +339,18 @@ namespace Synapse.Data.Repositories
 
             return ClassToView;
         }
+
+        public async Task EditClassInfo(int? classid, int teacherid, string location, string period)
+        {
+            var classToUpdate = _context.Classes.FirstOrDefault(s => s.ClassId == classid);
+
+            classToUpdate.TeacherId = teacherid;
+            classToUpdate.Location = location;
+            classToUpdate.Period = period;
+
+            _context.Update(classToUpdate);
+            await _context.SaveChangesAsync();
+        }
         #endregion
 
         #region Referral Functions
@@ -466,18 +478,6 @@ namespace Synapse.Data.Repositories
             referralToView.OtherReferrals = otherReferrals;
 
             return referralToView;
-        }
-
-        public async Task UpdateClassInfo(int? classid, int teacherid, string location, string period)
-        {
-            var classToUpdate = _context.Classes.FirstOrDefault(s => s.ClassId == classid);
-
-            classToUpdate.TeacherId = teacherid;
-            classToUpdate.Location = location;
-            classToUpdate.Period = period;
-
-            _context.Update(classToUpdate);
-            await _context.SaveChangesAsync();
         }
 
         public async Task MarkReferralAsHandled(int? referralid)
