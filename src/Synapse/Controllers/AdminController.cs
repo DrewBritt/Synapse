@@ -136,6 +136,7 @@ namespace Synapse.Controllers
             return await Task.Run(() => View());
         }
 
+        [HttpPost]
         public async Task<IActionResult> AddClass(string classname, int teacherid, string period, string location)
         {
             await _adminRepository.AddClass(classname, teacherid, period, location);
