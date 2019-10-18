@@ -70,10 +70,12 @@ namespace Synapse.Controllers
         [HttpGet]
         public async Task<IActionResult> _AddStudentToClass(int studentid)
         {
-            _AddStudentToClassVM model = new _AddStudentToClassVM();
-            model.AllClasses = _adminRepository.GetAllClasses();
-            model.CurrentClasses = _adminRepository.GetStudentSchedule(studentid);
-            model.StudentId = studentid;
+            _AddStudentToClassVM model = new _AddStudentToClassVM()
+            {
+                AllClasses = _adminRepository.GetAllClasses(),
+                CurrentClasses = _adminRepository.GetStudentSchedule(studentid),
+                StudentId = studentid
+            };
 
             return await Task.Run(() => PartialView(model));
         }

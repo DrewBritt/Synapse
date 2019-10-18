@@ -63,6 +63,7 @@ namespace Synapse.Data.Repositories
                                 classes.TeacherId,
                                 teachers.TeacherFirstName,
                                 teachers.TeacherLastName,
+                                teachers.Email,
                                 classes.ClassName,
                                 classes.Period,
                                 classes.Location,
@@ -80,6 +81,7 @@ namespace Synapse.Data.Repositories
                     TeacherId = item.TeacherId,
                     TeacherFirstName = item.TeacherFirstName,
                     TeacherLastName = item.TeacherLastName,
+                    Email = item.Email,
                     ClassName = item.ClassName,
                     Period = item.Period,
                     Location = item.Location
@@ -287,10 +289,9 @@ namespace Synapse.Data.Repositories
         #endregion
 
         #region Class Functions
-        public List<ClassVM> GetAllClasses()
+        public List<ClassWithTeacherInfo> GetAllClasses()
         {
-            List<ClassVM> AllClasses = new List<ClassVM>();
-
+            List<ClassWithTeacherInfo> AllClasses = new List<ClassWithTeacherInfo>();
 
             //LINQ Query to pull Classes + associated Teacher data
             var classList = (from classes in _context.Classes
@@ -298,6 +299,7 @@ namespace Synapse.Data.Repositories
                              select new
                              {
                                  classes.ClassId,
+                                 teachers.TeacherId,
                                  teachers.TeacherFirstName,
                                  teachers.TeacherLastName,
                                  teachers.Email,
@@ -306,12 +308,13 @@ namespace Synapse.Data.Repositories
                                  classes.Location
                              }).OrderBy(c => c.TeacherLastName).ThenBy(c => c.Period).ToList();
 
-            //Add query results to List<ClassVM>
+            //Add query results to List<ClassWithTeacherInfo>
             foreach (var item in classList)
             {
-                ClassVM newClass = new ClassVM
+                ClassWithTeacherInfo newClass = new ClassWithTeacherInfo()
                 {
                     ClassId = item.ClassId,
+                    TeacherId = item.TeacherId,
                     TeacherFirstName = item.TeacherFirstName,
                     TeacherLastName = item.TeacherLastName,
                     Email = item.Email,

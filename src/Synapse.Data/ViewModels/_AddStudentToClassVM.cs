@@ -7,8 +7,8 @@ namespace Synapse.Data.ViewModels
     {
         public int StudentId { get; set; }
 
-        public List<ClassVM> AllClasses { get; set; }
+        public List<ClassWithTeacherInfo> AllClasses { get; set; }
 
-        public List<Class> CurrentClasses { get; set; }
+        public List<ClassWithTeacherInfo> CurrentClasses { get; set; }
     }
 }
