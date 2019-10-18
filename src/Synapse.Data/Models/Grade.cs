@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Synapse.Data.Models
+﻿namespace Synapse.Data.Models
 {
     public partial class Grade
     {

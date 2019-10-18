@@ -1,5 +1,3 @@
-using System;
-
 namespace Synapse.Data.Models
 {
     public class ErrorViewModel

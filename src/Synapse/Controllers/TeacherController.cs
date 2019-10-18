@@ -3,7 +3,6 @@ using Synapse.Data.Repositories;
 using Synapse.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Synapse.Controllers

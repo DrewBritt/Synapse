@@ -2,7 +2,6 @@
 using Synapse.Data.Repositories;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
-using System;
 
 namespace Synapse.Hubs
 {
