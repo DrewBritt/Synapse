@@ -351,6 +351,22 @@ namespace Synapse.Data.Repositories
             _context.Update(classToUpdate);
             await _context.SaveChangesAsync();
         }
+
+        public async Task AddClass(string classname, int teacherid, string period, string location)
+        {
+            //Create Class object to add to database
+            Class newClass = new Class()
+            {
+                ClassName = classname,
+                TeacherId = teacherid,
+                Period = period,
+                Location = location
+            };
+
+            //Add Class to classes table
+            _context.Classes.Add(newClass);
+            await _context.SaveChangesAsync();
+        }
         #endregion
 
         #region Referral Functions

@@ -1,0 +1,41 @@
+﻿@model List<Synapse.Data.Models.Teacher>
+
+@{
+    ViewData["Title"] = "AddClass";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container has-text-centered" style="width: 65%;">
+    <h1 class="title">Add Class</h1>
+    <h2 class="subtitle">Add a teacher to the gradebook.</h2>
+
+    <hr />
+    <div style="width: 50%; margin-left: auto; margin-right: auto;">
+        @using (Html.BeginForm("AddClass", "Admin", FormMethod.Post))
+        {
+            <div class="field">
+                <label class="label">Class Name</label>
+                <div class="control has-icons-right">
+                    <input type="text" class="input" name="classname" id="classname" placeholder="Enter class name..." />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Teacher</label>
+                <button class="button is-primary">Select Teacher</button>
+            </div>
+            <div class="field">
+                <label class="label">Class Period</label>
+                <div class="control">
+                    <input type="text" class="input" name="period" id="periodInput" placeholder="Enter class period..." />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Class Location</label>
+                <div class="control">
+                    <input type="text" class="input" name="location" id="locationInput" placeholder="Enter class location..." />
+                </div>
+            </div>
+            <button class="button is-primary">Submit</button>
+        }
+    </div>
+</div>
