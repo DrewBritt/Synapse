@@ -10,3 +10,9 @@
         });
     });
 });
+
+function closeModal() {
+    var modal = document.getElementById('classSearchModal');
+
+    modal.parentNode.removeChild(modal);
+}

@@ -5,7 +5,7 @@
     <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">Select Class</p>
-            <button type="button" class="delete modalClose" aria-label="close"></button>
+            <button type="button" class="delete modalClose" aria-label="close" onclick="closeModal()"></button>
         </header>
         <section class="modal-card-body">
             <label>
@@ -26,7 +26,7 @@
                     <tbody>
                         @foreach (var newClass in Model.AllClasses)
                         {
-                            @if (!Model.CurrentClasses.Contains(new Class { ClassId = newClass.ClassId }))
+                            @if (Model.CurrentClasses.Contains(newClass) == false)
                             {
                             <tr>
                                 <td>@newClass.ClassName</td>
@@ -46,7 +46,7 @@
             </div>
         </section>
         <footer class="modal-card-foot">
-            <button type="button" class="button modalClose">Cancel</button>
+            <button type="button" class="button modalClose" onclick="closeModal()">Cancel</button>
         </footer>
     </div>
 </div>
