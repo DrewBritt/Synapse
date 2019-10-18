@@ -144,6 +144,14 @@ namespace Synapse.Data.Repositories
             _context.Students.Add(newStudent);
             await _context.SaveChangesAsync();
         }
+
+        public async Task RemoveStudentFromClass(int studentid, int classid)
+        {
+            var studentClassToRemove = _context.StudentsClasses.FirstOrDefault(c => c.StudentId == studentid && c.ClassId == classid);
+
+            _context.StudentsClasses.Remove(studentClassToRemove);
+            await _context.SaveChangesAsync();
+        }
         #endregion
 
         #region Teacher Functions

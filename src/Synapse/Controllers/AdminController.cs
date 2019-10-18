@@ -59,6 +59,13 @@ namespace Synapse.Controllers
 
             return RedirectToAction("Students");
         }
+
+        public async Task<IActionResult> RemoveStudentFromClass(int studentid, int classid)
+        {
+            await _adminRepository.RemoveStudentFromClass(studentid, classid);
+
+            return RedirectToAction("ViewStudent", new { studentid });
+        }
         #endregion
 
         #region Teacher Pages
