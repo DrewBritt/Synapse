@@ -35,12 +35,13 @@
                 </div>
                 <div class="field">
                     <div class="control">
-                        <label class="label" asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
+                        <input id="rememberMe" class="is-checkradio is-success is-small" type="checkbox" asp-for="Input.RememberMe" />
+                        <label class="label" for="rememberMe" asp-for="Input.RememberMe">
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
+                    </label>
                     </div>
                 </div>
+
                 <div class="field">
                     <button type="submit" class="button is-primary">Log in</button>
                 </div>

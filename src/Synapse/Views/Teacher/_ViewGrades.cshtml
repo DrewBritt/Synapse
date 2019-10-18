@@ -15,9 +15,6 @@
         }
         else
         {
-            <div class="column">
-                <button class="button is-primary tooltip" data-tooltip="Tooltip Text">Tooltip</button>
-            </div>
             <div class="" style="margin-bottom: 2rem;">
                 <div class="table-container">
                     <table id="grades" class="table is-fullwidth is-narrow gradesTable">
@@ -27,7 +24,10 @@
                                 <th>Average</th>
                                 @foreach (var assignment in Model.ClassAssignments)
                                 {
-                                    <th class="tooltip" data-tooltip="Tooltip Text">@assignment.AssignmentName</th>
+                                    <th id="@assignment.AssignmentName">
+                                        @assignment.AssignmentName - @Model.AssignmentCategories.Find(a => a.CategoryId == assignment.CategoryId).CategoryWeight%
+                                        <gradeWeight hidden id="@Model.AssignmentCategories.Find(a => a.CategoryId == assignment.CategoryId).CategoryWeight"/>
+                                    </th>
                                 }
                             </tr>
                         </thead>
@@ -36,7 +36,7 @@
                             {
                                 <tr>
                                     <td>@Model.EnrolledStudents[studentIndex].StudentFullName</td>
-                                    <td>@Model.StudentAverages[studentIndex]</td>
+                                    <td>@Model.StudentAverages[studentIndex]%</td>
                                     @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
                                     {
                                         <td>
