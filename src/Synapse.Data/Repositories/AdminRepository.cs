@@ -133,7 +133,7 @@ namespace Synapse.Data.Repositories
         public async Task AddStudent(string firstname, string lastname, string email, byte gradelevel)
         {
             //Create student object to add to database
-            Student student = new Student()
+            Student newStudent = new Student()
             {
                 StudentFirstName = firstname,
                 StudentLastName = lastname,
@@ -142,7 +142,7 @@ namespace Synapse.Data.Repositories
             };
 
             //Add student to table
-            _context.Students.Add(student);
+            _context.Students.Add(newStudent);
             await _context.SaveChangesAsync();
         }
         #endregion
@@ -254,7 +254,7 @@ namespace Synapse.Data.Repositories
         public async Task AddTeacher(string firstname, string lastname, string email)
         {
             //Create Teacher object to add to database
-            Teacher teacher = new Teacher()
+            Teacher newTeacher = new Teacher()
             {
                 TeacherFirstName = firstname,
                 TeacherLastName = lastname,
@@ -262,7 +262,7 @@ namespace Synapse.Data.Repositories
             };
 
             //Add Teacher to teachers table
-            _context.Teachers.Add(teacher);
+            _context.Teachers.Add(newTeacher);
             await _context.SaveChangesAsync();
         }
         #endregion
