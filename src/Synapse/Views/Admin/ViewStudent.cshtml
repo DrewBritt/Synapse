@@ -47,6 +47,13 @@
     <div class="columns is-desktop">
         <div class="column is-full has-text-centered">
             <p class="title">Schedule</p>
+
+            <div id="classesModal" data-url="@Url.Action("_AddStudentToClass", "Admin", new { Model.StudentId })">
+                <div id="classesModalContainer"></div>
+            </div>
+
+            <button id="showModalBtn" class="button is-primary">Add Student to Class</button>
+
             @if (Model.Classes.Count == 0)
             {
                 <p>No classes in student's schedule!</p>
@@ -89,4 +96,5 @@
     </div>
 </div>
 
+<script src="~/js/viewStudent.js"></script>
 <script src="~/js/editStudent.js"></script>   

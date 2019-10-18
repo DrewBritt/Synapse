@@ -66,6 +66,24 @@ namespace Synapse.Controllers
 
             return RedirectToAction("ViewStudent", new { studentid });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> _AddStudentToClass(int studentid)
+        {
+            _AddStudentToClassVM model = new _AddStudentToClassVM();
+            model.AllClasses = _adminRepository.GetAllClasses();
+            model.CurrentClasses = _adminRepository.GetStudentSchedule(studentid);
+            model.StudentId = studentid;
+
+            return await Task.Run(() => PartialView(model));
+        }
+
+        public async Task<IActionResult> AddStudentToClass(int studentid, int classid)
+        {
+            await _adminRepository.AddStudentToClass(studentid, classid);
+
+            return RedirectToAction("ViewStudent", new { studentid });
+        }
         #endregion
 
         #region Teacher Pages
