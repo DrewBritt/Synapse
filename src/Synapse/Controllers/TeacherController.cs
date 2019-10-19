@@ -20,6 +20,10 @@ namespace Synapse.Controllers
         }
 
         #region Class Pages
+        /// <summary>
+        /// Teacher page to view all classes in teacher's schedule
+        /// </summary>
+        /// <returns>View: Classes.cshtml</returns>
         public async Task<IActionResult> Classes()
         {
             //Name is always email
@@ -28,8 +32,15 @@ namespace Synapse.Controllers
             return await Task.Run(() => View(_teacherRepository.GetTeacherClasses(userEmail)));
         }
 
+        /// <summary>
+        /// Teacher page to view data of class mapped to classid
+        /// </summary>
+        /// <param name="classid">ID of class to view</param>
+        /// <returns>View: ViewClass?classid</returns>
         public async Task<IActionResult> ViewClass(int classid)
         {
+            //ADD VERIFICATION OF CLASS BEING IN TEACHER SCHEDULE
+
             ViewClassVM classToView = _adminRepository.GetClass(classid);
             classToView.EnrolledStudents = _teacherRepository.GetEnrolledStudents(classid);
             classToView.StudentAverages = _teacherRepository.GetStudentAverages(classid);
@@ -39,8 +50,15 @@ namespace Synapse.Controllers
         #endregion
 
         #region Grades/Assignment Pages
+        /// <summary>
+        /// Grades management page for teacher's class (includes setting grades, and adding assignments)
+        /// </summary>
+        /// <param name="classid">ID of class to update grades</param>
+        /// <returns>View: Grades?classid</returns>
         public async Task<IActionResult> Grades(int classid)
         {
+            //ADD VERIFICATION OF CLASS BEING IN TEACHER SCHEDULE
+
             GradesVM gradeVM = _teacherRepository.GetGradesForClass(classid);
 
             gradeVM.AssignmentCategories = _teacherRepository.GetAssignmentCategories(classid);
@@ -52,16 +70,34 @@ namespace Synapse.Controllers
             return await Task.Run(() => View(gradeVM));
         }
 
+        /// <summary>
+        /// Form Post to add new assignment for class mapped to classid
+        /// </summary>
+        /// <param name="classid">ID of class to add assignment to</param>
+        /// <param name="assignmentname">Name of new assignment</param>
+        /// <param name="categoryid">ID of AssignmentCategory to put assignment under (manages grade weights)</param>
+        /// <param name="duedate">Date that new assignment is due</param>
+        /// <returns>View: Grades?classid</returns>
         [HttpPost]
         public async Task<IActionResult> AddAssignment(int classid, string assignmentname, int categoryid, string duedate)
         {
+            //ADD VERIFICATION OF CLASS BEING IN TEACHER SCHEDULE
+
             await _teacherRepository.AddAssignment(classid, assignmentname, categoryid, duedate);
 
             return RedirectToAction("Grades", new { classid });
         }
 
+        /// <summary>
+        /// Function to delete assignment mapped to assignmentid from database
+        /// </summary>
+        /// <param name="assignmentid">ID of assignment to delete</param>
+        /// <param name="classid">ID of class to redirect view to</param>
+        /// <returns></returns>
         public async Task<IActionResult> DeleteAssignment(int assignmentid, int classid)
         {
+            //ADD VERIFICATION OF CLASS BEING IN TEACHER SCHEDULE
+
             await _teacherRepository.DeleteAssignment(assignmentid);
             await _teacherRepository.DeleteGrades(assignmentid);
 
