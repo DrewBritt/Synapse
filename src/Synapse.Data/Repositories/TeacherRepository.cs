@@ -16,6 +16,18 @@ namespace Synapse.Data.Repositories
             _context = context;
         }
 
+        public int GetTeacherIdFromEmail(string email)
+        {
+            var teacherQuery = (from teachers in _context.Teachers
+                                select new
+                                {
+                                    teachers.TeacherId,
+                                    teachers.Email
+                                }).Where(t => t.Email == email).FirstOrDefault();
+
+            return teacherQuery.TeacherId;
+        }
+
         #region Class Functions
         public List<Class> GetTeacherClasses(string email)
         {
@@ -85,6 +97,24 @@ namespace Synapse.Data.Repositories
             }
 
             return ListOfStudentsEnrolled;
+        }
+
+        /// <summary>
+        /// Verifies if the teacher of a class is the same as the teacher trying to access said class.
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to verify</param>
+        /// <param name="classid">ID of class to verify teacher of</param>
+        /// <returns>Class.TeacherID == teacherid</returns>
+        public bool IsTeacherForClass(int teacherid, int classid)
+        {
+            var classQuery = (from classes in _context.Classes
+                              select new
+                              {
+                                  classes.ClassId,
+                                  classes.TeacherId
+                              }).Where(c => c.ClassId == classid).FirstOrDefault();
+
+            return classQuery.TeacherId == teacherid;
         }
         #endregion
 

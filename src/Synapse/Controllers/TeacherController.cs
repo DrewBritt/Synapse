@@ -39,7 +39,12 @@ namespace Synapse.Controllers
         /// <returns>View: ViewClass?classid</returns>
         public async Task<IActionResult> ViewClass(int classid)
         {
-            //ADD VERIFICATION OF CLASS BEING IN TEACHER SCHEDULE
+            //Verification to ensure that teacher is tied to class
+            int teacherid = _teacherRepository.GetTeacherIdFromEmail(this.User.Identity.Name);
+            if(!_teacherRepository.IsTeacherForClass(teacherid, classid))
+            {
+                return RedirectToAction(nameof(Classes));
+            }
 
             ViewClassVM classToView = _adminRepository.GetClass(classid);
             classToView.EnrolledStudents = _teacherRepository.GetEnrolledStudents(classid);
@@ -57,7 +62,12 @@ namespace Synapse.Controllers
         /// <returns>View: Grades?classid</returns>
         public async Task<IActionResult> Grades(int classid)
         {
-            //ADD VERIFICATION OF CLASS BEING IN TEACHER SCHEDULE
+            //Verification to ensure that teacher is tied to class
+            int teacherid = _teacherRepository.GetTeacherIdFromEmail(this.User.Identity.Name);
+            if (!_teacherRepository.IsTeacherForClass(teacherid, classid))
+            {
+                return RedirectToAction(nameof(Classes));
+            }
 
             GradesVM gradeVM = _teacherRepository.GetGradesForClass(classid);
 
@@ -81,7 +91,12 @@ namespace Synapse.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAssignment(int classid, string assignmentname, int categoryid, string duedate)
         {
-            //ADD VERIFICATION OF CLASS BEING IN TEACHER SCHEDULE
+            //Verification to ensure that teacher is tied to class
+            int teacherid = _teacherRepository.GetTeacherIdFromEmail(this.User.Identity.Name);
+            if (!_teacherRepository.IsTeacherForClass(teacherid, classid))
+            {
+                return RedirectToAction(nameof(Classes));
+            }
 
             await _teacherRepository.AddAssignment(classid, assignmentname, categoryid, duedate);
 
@@ -96,7 +111,12 @@ namespace Synapse.Controllers
         /// <returns></returns>
         public async Task<IActionResult> DeleteAssignment(int assignmentid, int classid)
         {
-            //ADD VERIFICATION OF CLASS BEING IN TEACHER SCHEDULE
+            //Verification to ensure that teacher is tied to class
+            int teacherid = _teacherRepository.GetTeacherIdFromEmail(this.User.Identity.Name);
+            if (!_teacherRepository.IsTeacherForClass(teacherid, classid))
+            {
+                return RedirectToAction(nameof(Classes));
+            }
 
             await _teacherRepository.DeleteAssignment(assignmentid);
             await _teacherRepository.DeleteGrades(assignmentid);
