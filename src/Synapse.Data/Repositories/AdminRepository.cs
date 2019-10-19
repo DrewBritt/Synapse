@@ -18,6 +18,10 @@ namespace Synapse.Data.Repositories
         }
 
         #region Student Functions
+        /// <summary>
+        /// Gets list of all students in database
+        /// </summary>
+        /// <returns>List(Student) of all students</returns>
         public List<Student> GetAllStudents()
         {
             var students = from s in _context.Students
@@ -28,6 +32,11 @@ namespace Synapse.Data.Repositories
             return students.AsNoTracking().ToList();
         }
 
+        /// <summary>
+        /// Gets record of student mapped to studentid.
+        /// </summary>
+        /// <param name="studentid">ID of studentid to get record of</param>
+        /// <returns>ViewStudentVM with data of student</returns>
         public ViewStudentVM GetStudent(int studentid)
         {
             var student = (from students in _context.Students
@@ -52,6 +61,11 @@ namespace Synapse.Data.Repositories
             return studentToView;
         }
 
+        /// <summary>
+        /// Gets schedule of student mapped to studentid
+        /// </summary>
+        /// <param name="studentid">ID of student to get schedule of</param>
+        /// <returns>List(ClassWithTeacherInfo) of classes in student's schedule</returns>
         public List<ClassWithTeacherInfo> GetStudentSchedule(int studentid)
         {
             var schedule = (from studentsclasses in _context.StudentsClasses
@@ -93,6 +107,13 @@ namespace Synapse.Data.Repositories
             return EnrolledClasses;
         }
 
+        /// <summary>
+        /// Edit record of student mapped to studentid.
+        /// </summary>
+        /// <param name="studentid">ID of student to edit info of</param>
+        /// <param name="name">New name of student</param>
+        /// <param name="email">New email of student</param>
+        /// <param name="gradelevel">New grade level of student</param>
         public async Task EditStudentInfo(int? studentid, string name, string email, byte gradelevel)
         {
             //Grab student from database based on studentid
@@ -131,6 +152,13 @@ namespace Synapse.Data.Repositories
 
         }
 
+        /// <summary>
+        /// Adds new student to database
+        /// </summary>
+        /// <param name="firstname">First Name of new student</param>
+        /// <param name="lastname">Last Name of new student</param>
+        /// <param name="email">Email of new student</param>
+        /// <param name="gradelevel">Grade Level of new student</param>
         public async Task AddStudent(string firstname, string lastname, string email, byte gradelevel)
         {
             //Create student object to add to database
@@ -147,6 +175,11 @@ namespace Synapse.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Removes student from class in "studentsclasses" table
+        /// </summary>
+        /// <param name="studentid">ID of student to remove from class</param>
+        /// <param name="classid">ID of class to remove student from</param>
         public async Task RemoveStudentFromClass(int studentid, int classid)
         {
             var studentClassToRemove = _context.StudentsClasses.FirstOrDefault(c => c.StudentId == studentid && c.ClassId == classid);
@@ -155,6 +188,11 @@ namespace Synapse.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Adds student to a class in "studentsclasses" table
+        /// </summary>
+        /// <param name="studentid">ID of student to add to class</param>
+        /// <param name="classid">ID of class to add student to</param>
         public async Task AddStudentToClass(int studentid, int classid)
         {
             StudentsClass newClass = new StudentsClass()
@@ -169,6 +207,10 @@ namespace Synapse.Data.Repositories
         #endregion
 
         #region Teacher Functions
+        /// <summary>
+        /// Gets list of all teachers in database
+        /// </summary>
+        /// <returns>List(Teacher) of all teachers in database</returns>
         public List<Teacher> GetAllTeachers()
         {
             var allTeachers = (from teachers in _context.Teachers
@@ -197,6 +239,11 @@ namespace Synapse.Data.Repositories
             return TeachersList;
         }
 
+        /// <summary>
+        /// Gets data of teacher mapped to teacherid
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to get data of</param>
+        /// <returns>ViewTeacherVM with data of teacher</returns>
         public ViewTeacherVM GetTeacher(int teacherid)
         {
             var teacher = (from teachers in _context.Teachers
@@ -219,6 +266,11 @@ namespace Synapse.Data.Repositories
             return teacherToView;
         }
         
+        /// <summary>
+        /// Gets schedule of teacher mapped to teacherid.
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to get schedule of</param>
+        /// <returns>List(Class) of classes in teacher's schedule</returns>
         public List<Class> GetTeacherSchedule(int teacherid)
         {
             List<Class> teacherSchedule = new List<Class>();
@@ -250,6 +302,12 @@ namespace Synapse.Data.Repositories
             return teacherSchedule;
         }
 
+        /// <summary>
+        /// Edit data of teacher mapped to teacherid.
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to edit data of</param>
+        /// <param name="name">New name of teacher</param>
+        /// <param name="email">New email of teacher</param>
         public async Task EditTeacherInfo(int? teacherid, string name, string email)
         {
             //Grab teacher from database based on teacherid
@@ -272,6 +330,12 @@ namespace Synapse.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Add new teacher to database.
+        /// </summary>
+        /// <param name="firstname">First Name of new teacher</param>
+        /// <param name="lastname">Last Name of new teacher</param>
+        /// <param name="email">Email of new teacher</param>
         public async Task AddTeacher(string firstname, string lastname, string email)
         {
             //Create Teacher object to add to database
@@ -289,6 +353,10 @@ namespace Synapse.Data.Repositories
         #endregion
 
         #region Class Functions
+        /// <summary>
+        /// Gets list of all classes in database
+        /// </summary>
+        /// <returns>List(ClassWithTeacherInfo) of all classes in database</returns>
         public List<ClassWithTeacherInfo> GetAllClasses()
         {
             List<ClassWithTeacherInfo> AllClasses = new List<ClassWithTeacherInfo>();
@@ -329,6 +397,11 @@ namespace Synapse.Data.Repositories
             return AllClasses;
         }
 
+        /// <summary>
+        /// Gets data of class mapped to classid
+        /// </summary>
+        /// <param name="classid">ID of class to get data of</param>
+        /// <returns>ViewClassVM with data of class mapped to classid</returns>
         public ViewClassVM GetClass(int classid)
         {
             ViewClassVM ClassToView = new ViewClassVM();
@@ -362,6 +435,13 @@ namespace Synapse.Data.Repositories
             return ClassToView;
         }
 
+        /// <summary>
+        /// Edit data of class mapped to classid.
+        /// </summary>
+        /// <param name="classid">ID of class to edit data of</param>
+        /// <param name="teacherid">ID of new teacher for class</param>
+        /// <param name="location">New Location of class</param>
+        /// <param name="period">New Period of class</param>
         public async Task EditClassInfo(int? classid, int teacherid, string location, string period)
         {
             var classToUpdate = _context.Classes.FirstOrDefault(s => s.ClassId == classid);
@@ -374,6 +454,13 @@ namespace Synapse.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Add new class to database.
+        /// </summary>
+        /// <param name="classname">Name of new class</param>
+        /// <param name="teacherid">ID of teacher of new class</param>
+        /// <param name="period">Period of new class</param>
+        /// <param name="location">Location of new class</param>
         public async Task AddClass(string classname, int teacherid, string period, string location)
         {
             //Create Class object to add to database
@@ -392,6 +479,10 @@ namespace Synapse.Data.Repositories
         #endregion
 
         #region Referral Functions
+        /// <summary>
+        /// Gets list of all referrals in database.
+        /// </summary>
+        /// <returns>List(ReferralVM) of all referrals in database</returns>
         public List<ReferralVM> GetAllReferrals()
         {
             List<ReferralVM> ReferralVMList = new List<ReferralVM>();
@@ -441,6 +532,11 @@ namespace Synapse.Data.Repositories
             return ReferralVMList;
         }
 
+        /// <summary>
+        /// Gets record of referral mapped to referralid
+        /// </summary>
+        /// <param name="referralid">ID of referral to get record of</param>
+        /// <returns>ViewReferralVM with data of referral</returns>
         public ViewReferralVM GetReferral(int referralid)
         {
             var referralQuery = (from referrals in _context.Referrals
@@ -518,6 +614,10 @@ namespace Synapse.Data.Repositories
             return referralToView;
         }
 
+        /// <summary>
+        /// Marks referral mapped to referralid as "handled"
+        /// </summary>
+        /// <param name="referralid">ID of referral to mark as "handled"</param>
         public async Task MarkReferralAsHandled(int? referralid)
         {
             var referralToUpdate = _context.Referrals.FirstOrDefault(s => s.ReferralId == referralid);
