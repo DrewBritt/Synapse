@@ -16,6 +16,11 @@ namespace Synapse.Data.Repositories
             _context = context;
         }
 
+        /// <summary>
+        /// Gets TeacherID of teacher attached to email in database
+        /// </summary>
+        /// <param name="email">Email of teacher to look for.</param>
+        /// <returns>int: teacherid</returns>
         public int GetTeacherIdFromEmail(string email)
         {
             var teacherQuery = (from teachers in _context.Teachers
@@ -29,6 +34,11 @@ namespace Synapse.Data.Repositories
         }
 
         #region Class Functions
+        /// <summary>
+        /// Gets list of classes attached to teacher mapped to email
+        /// </summary>
+        /// <param name="email">Email of teacher to get classes for</param>
+        /// <returns>List(Class) of classes attached to teacher</returns>
         public List<Class> GetTeacherClasses(string email)
         {
             List<Class> teacherClasses = new List<Class>();
@@ -62,6 +72,11 @@ namespace Synapse.Data.Repositories
             return teacherClasses;
         }
 
+        /// <summary>
+        /// Gets list of students enrolled in class mapped to classid
+        /// </summary>
+        /// <param name="classid">ID of class to get enrolled students for.</param>
+        /// <returns>List(Student) of students enrolled</returns>
         public List<Student> GetEnrolledStudents(int classid)
         {
             var listOfStudentsInClass = (from students in _context.Students
@@ -119,6 +134,11 @@ namespace Synapse.Data.Repositories
         #endregion
 
         #region Assignment Functions
+        /// <summary>
+        /// Gets list of AssignmentCategories attached to classid
+        /// </summary>
+        /// <param name="classid">ID of class to get AssignmentCategories for</param>
+        /// <returns>List(AssignmentCategory) of categories attached to classid</returns>
         public List<AssignmentCategory> GetAssignmentCategories(int classid)
         {
             List<AssignmentCategory> assignmentCategories = new List<AssignmentCategory>();
@@ -148,6 +168,11 @@ namespace Synapse.Data.Repositories
             return assignmentCategories;
         }
 
+        /// <summary>
+        /// Gets list of Assignments attached to classid.
+        /// </summary>
+        /// <param name="classid">ID of class to get assignments for</param>
+        /// <returns>List(Assignment) of assignmetns attached to classid</returns>
         public List<Assignment> GetClassAssignments(int classid)
         {
             List<Assignment> assignmentsList = new List<Assignment>();
@@ -179,6 +204,13 @@ namespace Synapse.Data.Repositories
             return assignmentsList;
         }
 
+        /// <summary>
+        /// Adds new assignment to database.
+        /// </summary>
+        /// <param name="classid">ID of class to add assignment to</param>
+        /// <param name="assignmentname">Name of new assignment</param>
+        /// <param name="categoryid">ID of AssignmentCategory of new assignment</param>
+        /// <param name="duedate">Date that new assignment is due</param>
         public async Task AddAssignment(int classid, string assignmentname, int categoryid, string duedate)
         {
             //Create Assignment object with data
@@ -198,6 +230,10 @@ namespace Synapse.Data.Repositories
             await AddFillerGrades(classid, assignmentname);
         }
 
+        /// <summary>
+        /// Deletes assignment attached to assignmentid from database.
+        /// </summary>
+        /// <param name="assignmentid">ID of assignment to delete</param>
         public async Task DeleteAssignment(int assignmentid)
         {
             var assignmentToDelete = _context.Assignments.FirstOrDefault(a => a.AssignmentId == assignmentid);
@@ -208,6 +244,11 @@ namespace Synapse.Data.Repositories
         #endregion
 
         #region Grade Functions
+        /// <summary>
+        /// Gets list of Grades for class mapped to classid
+        /// </summary>
+        /// <param name="classid">ID of class to get grades for</param>
+        /// <returns>GradeVM with list of grades</returns>
         public GradesVM GetGradesForClass(int classid)
         {
             GradesVM gradeVM = new GradesVM();
@@ -229,6 +270,11 @@ namespace Synapse.Data.Repositories
             return gradeVM;
         }
 
+        /// <summary>
+        /// Gets list of Grades of students for class mapped to classid.
+        /// </summary>
+        /// <param name="classid">ID of class to get grades for</param>
+        /// <returns>List(Grade) of student's grades</returns>
         public List<Grade> GetEnrolledStudentsGrades(int classid)
         {
             List<Grade> enrolledStudentsGrades = new List<Grade>();
@@ -262,6 +308,11 @@ namespace Synapse.Data.Repositories
             return enrolledStudentsGrades;
         }
 
+        /// <summary>
+        /// Calculates averages of students in class mapped to classid
+        /// </summary>
+        /// <param name="classid">ID of class to calculate student averages for</param>
+        /// <returns>List(int) of student averages</returns>
         public List<int> GetStudentAverages(int classid)
         {
             List<int> averages = new List<int>();
@@ -305,6 +356,11 @@ namespace Synapse.Data.Repositories
             return averages;
         }
 
+        /// <summary>
+        /// Updates Grade record mapped to gradeid
+        /// </summary>
+        /// <param name="gradeid">ID of Grade record to update</param>
+        /// <param name="gradevalue">New value of Grade record</param>
         public async Task SubmitGrade(int gradeid, string gradevalue)
         {
             //Grab grade object from database
@@ -321,6 +377,11 @@ namespace Synapse.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Adds empty filler grades for new assignment (called by AddAssignment())
+        /// </summary>
+        /// <param name="classid">ID of class to add filler grades for</param>
+        /// <param name="assignmentname">Name of assignment to add filler grades for</param>
         public async Task AddFillerGrades(int classid, string assignmentname)
         {
             //Get new assignment from database
@@ -357,6 +418,10 @@ namespace Synapse.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Deletes all grades attached to assignment mapped to assignmentid.
+        /// </summary>
+        /// <param name="assignmentid">ID of assignment to delete grades for</param>
         public async Task DeleteGrades(int assignmentid)
         {
             List<Grade> gradesOfAssignment = new List<Grade>();
