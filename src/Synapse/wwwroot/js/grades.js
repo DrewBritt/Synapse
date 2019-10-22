@@ -156,6 +156,7 @@ function checkIfProperValue(gradeValue, input) {
         input.value = parsedGrade;
         return parsedGrade;
     } else {
-        return "0";
+        input.value = "";
+        return "";
     }
 }
