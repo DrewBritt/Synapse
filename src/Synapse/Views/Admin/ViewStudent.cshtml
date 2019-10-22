@@ -12,6 +12,7 @@
         <div class="columns">
             <div class="is-full" style="width: 100%; margin-bottom: 2rem;">
                 <div class="card">
+                    <partial name="~/Views/Admin/_DeleteStudentVerification.cshtml" />
                     @using (Html.BeginForm("EditStudentInfo", "Admin", FormMethod.Post))
                     {
                         <div style="padding: .75rem;">
@@ -20,6 +21,9 @@
                                     <p class="title">Student Information</p>
                                 </div>
                                 <div class="column">
+                                    <div class="is-pulled-right-desktop is-marginless" id="btns">
+                                        <button id="deleteBtn" type="button" class="button is-danger deleteBtn" onclick="deleteStudentVerification()">Delete</button>
+                                    </div>
                                     <div class="is-pulled-right-desktop is-marginless" id="btns">
                                         <button id="editBtn" type="button" class="button is-primary">Edit</button>
                                     </div>

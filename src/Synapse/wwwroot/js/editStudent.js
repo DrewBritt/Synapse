@@ -47,6 +47,10 @@ function editStudent() {
     submitBtn.classList.add("is-success");
     btns.appendChild(submitBtn);
 
+    let deleteBtn = document.getElementById("deleteBtn");
+    deleteBtn.setAttribute("hidden","true");
+
+
     let cancelBtn = document.createElement("BUTTON");
     cancelBtn.setAttribute("type", "button");
     cancelBtn.setAttribute("id", "cancelBtn")
@@ -57,6 +61,7 @@ function editStudent() {
 
     cancelBtn.addEventListener('click', cancel, false)
     editBtn.parentNode.removeChild(editBtn);
+    deleteBtn.parentNode.removeChild(deleteBtn);
 }
 
 function cancel() {
@@ -71,12 +76,23 @@ function cancel() {
     let grade = document.getElementById("gradelevel");
 
     let editBtn = document.createElement("BUTTON");
-    editBtn.classList.add("button")
-    editBtn.classList.add("is-primary")
+    editBtn.setAttribute("type", "button");
+    editBtn.classList.add("button");
+    editBtn.classList.add("is-primary");
     editBtn.setAttribute("id", "editBtn");
     editBtn.textContent = "Edit";
     btns.appendChild(editBtn);
     editBtn.addEventListener('click', editStudent, false);
+
+    let deleteBtn = document.createElement("BUTTON");
+    deleteBtn.setAttribute("type", "button");
+    deleteBtn.classList.add("button");
+    deleteBtn.classList.add("is-danger");
+    deleteBtn.classList.add("deleteBtn");
+    deleteBtn.setAttribute("id", "deleteBtn");
+    deleteBtn.textContent = "Delete";
+    btns.appendChild(deleteBtn);
+    deleteBtn.setAttribute("onclick", "deleteStudentVerification()");
 
 
     name.removeAttribute("hidden");
@@ -89,4 +105,9 @@ function cancel() {
 
     btns.removeChild(cancelBtn);
     btns.removeChild(submitBtn);
+}
+
+function deleteStudentVerification() {
+    let modal = document.getElementById("deleteStudentVerificationModal");
+    modal.classList.add("is-active");
 }

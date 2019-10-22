@@ -133,6 +133,22 @@ namespace Synapse.Controllers
 
             return RedirectToAction("ViewStudent", new { studentid });
         }
+
+        /// <summary>
+        /// Action called to delete student and all attached information from database
+        /// </summary>
+        /// <param name="studentid">ID of student to delete data of</param>
+        /// <returns>View: Students.cshtml</returns>
+        public async Task<IActionResult> DeleteStudent(int studentid)
+        {
+            await _adminRepository.DeleteStudent(studentid);
+            await _adminRepository.RemoveStudentFromAllClasses(studentid);
+            await _adminRepository.DeleteStudentsReferrals(studentid);
+            await _adminRepository.DeleteStudentsGrades(studentid);
+            //await _adminRepository.DeleteUser(this.User.Identity.Name);
+
+            return RedirectToAction("Students");
+        }
         #endregion
 
         #region Teacher Pages

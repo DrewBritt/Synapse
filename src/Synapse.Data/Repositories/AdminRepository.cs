@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Synapse.Data.Repositories
 {
@@ -202,6 +203,128 @@ namespace Synapse.Data.Repositories
             };
 
             _context.StudentsClasses.Add(newClass);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes student from database
+        /// </summary>
+        /// <param name="studentid">ID of student to delete</param>
+        public async Task DeleteStudent(int studentid)
+        {
+            Student student = new Student() { StudentId = studentid };
+            _context.Students.Attach(student);
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Removes student from all classes attached to student
+        /// </summary>
+        /// <param name="studentid">ID of student to remove from classes</param>
+        public async Task RemoveStudentFromAllClasses(int studentid)
+        {
+            var studentsClasses = (from studentsclasses in _context.StudentsClasses
+                                   select new
+                                   {
+                                       studentsclasses.StudentId,
+                                       studentsclasses.ClassId
+                                   }).Where(sc => sc.StudentId == studentid);
+
+            List<StudentsClass> studentsClassesList = new List<StudentsClass>();
+            foreach(var sc in studentsClasses)
+            {
+                StudentsClass newStudentClass = new StudentsClass()
+                {
+                    StudentId = sc.StudentId,
+                    ClassId = sc.ClassId
+                };
+
+                studentsClassesList.Add(newStudentClass);
+            }
+
+            _context.StudentsClasses.RemoveRange(studentsClassesList);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Removes all referrals attached to student
+        /// </summary>
+        /// <param name="studentid">ID of student to delete referrals for</param>
+        public async Task DeleteStudentsReferrals(int studentid)
+        {
+            var studentReferrals = (from referrals in _context.Referrals
+                                    select new
+                                    {
+                                        referrals.ReferralId,
+                                        referrals.StudentId
+                                    }).Where(r => r.StudentId == studentid);
+
+            List<Referral> studentReferralsList = new List<Referral>();
+            foreach(var r in studentReferrals)
+            {
+                Referral newReferral = new Referral()
+                {
+                    ReferralId = r.ReferralId,
+                    StudentId = r.StudentId
+                };
+
+                studentReferralsList.Add(newReferral);
+            }
+
+            _context.Referrals.RemoveRange(studentReferralsList);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Removes all grades attached to student
+        /// </summary>
+        /// <param name="studentid">ID of student to delete grades for</param>
+        public async Task DeleteStudentsGrades(int studentid)
+        {
+            var studentGrades = (from grades in _context.Grades
+                                  select new
+                                  {
+                                      grades.GradeId,
+                                      grades.StudentId
+                                  }).Where(g => g.StudentId == studentid);
+
+            List<Grade> studentsGradesList = new List<Grade>();
+            foreach(var g in studentGrades)
+            {
+                Grade studentGrade = new Grade()
+                {
+                    GradeId = g.GradeId,
+                    StudentId = g.StudentId
+                };
+
+                studentsGradesList.Add(studentGrade);
+            }
+
+            _context.Grades.RemoveRange(studentsGradesList);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes Identity user account attached to email
+        /// </summary>
+        /// <param name="email">Email of account to delete</param>\
+        public async Task DeleteUser(string email)
+        {
+            var account = (from aspnetusers in _context.AspNetUsers
+                           select new
+                           {
+                               aspnetusers.Email,
+                               aspnetusers.Id
+                           }).Where(u => u.Email == email).FirstOrDefault();
+
+            IdentityUser user = new IdentityUser()
+            {
+                Email = account.Email,
+                Id = account.Id
+            };
+
+            _context.AspNetUsers.Remove(user);
             await _context.SaveChangesAsync();
         }
         #endregion

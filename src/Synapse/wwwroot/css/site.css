@@ -90,3 +90,7 @@ body {
 .gradesTable input {
     font-size: .75rem;
 }
+
+.deleteBtn {
+    margin-left: .75rem;
+}

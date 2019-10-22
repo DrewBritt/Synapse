@@ -1,0 +1,24 @@
+﻿@model Synapse.Data.ViewModels.ViewStudentVM
+
+<div class="modal" id="deleteStudentVerificationModal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Delete Student <b>@Model.StudentFullName?</b></p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <p>
+                Deleting a student will <b>remove the student from any of their classes</b>,
+                <b>delete all grade and referral records attached to the student</b>, and
+                <b>delete the user account attached to the student.</b>
+
+                Are you sure you want to proceed?
+            </p>
+        </section>
+        <footer class="modal-card-foot">
+            <a asp-area="" asp-action="DeleteStudent" asp-controller="Admin" asp-route-studentid=@Model.StudentId class="button is-danger">Delete</a>
+            <button class="button is-primary">Cancel</button>
+        </footer>
+    </div>
+</div>
