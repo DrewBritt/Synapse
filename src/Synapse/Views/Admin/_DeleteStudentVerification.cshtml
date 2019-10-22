@@ -5,20 +5,20 @@
     <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">Delete Student <b>@Model.StudentFullName?</b></p>
-            <button class="delete" aria-label="close"></button>
+            <button class="delete modalClose" name="modalClose"></button>
         </header>
         <section class="modal-card-body">
             <p>
                 Deleting a student will <b>remove the student from any of their classes</b>,
                 <b>delete all grade and referral records attached to the student</b>, and
                 <b>delete the user account attached to the student.</b>
-
+                <br />
                 Are you sure you want to proceed?
             </p>
         </section>
         <footer class="modal-card-foot">
             <a asp-area="" asp-action="DeleteStudent" asp-controller="Admin" asp-route-studentid=@Model.StudentId class="button is-danger">Delete</a>
-            <button class="button is-primary">Cancel</button>
+            <button class="button is-primary modalClose" name="modalClose">Cancel</button>
         </footer>
     </div>
 </div>

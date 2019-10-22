@@ -1,6 +1,15 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     const editBtn = document.getElementById("editBtn");
     if (editBtn.addEventListener) editBtn.addEventListener('click', editStudent, false);
+
+    const modalButtons = document.getElementsByName("modalClose");
+    let modal = document.getElementById("deleteStudentVerificationModal");
+
+    for (let i = 0; i < modalButtons.length; i++) {
+        modalButtons[i].addEventListener('click', function () {
+            modal.classList.toggle("is-active");
+        });
+    }
 });
 
 function editStudent() {
