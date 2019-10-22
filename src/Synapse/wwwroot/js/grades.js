@@ -81,10 +81,11 @@ let saving = document.getElementById("saving");
 function onCallback(input) {
     const gradeId = input.name;
     const gradeValue = input.value;
+    let filteredGradeValue = checkIfProperValue(gradeValue, input);
     savingBar.classList.remove("is-hidden");
     saved = false;
     saving.textContent = "Saving...";
-    connection.invoke("UpdateGrade", gradeId, gradeValue).catch(function (err) {
+    connection.invoke("UpdateGrade", gradeId, filteredGradeValue).catch(function (err) {
         console.error(err);
     });
 }
@@ -139,3 +140,22 @@ document.addEventListener('DOMContentLoaded', function () {
         viewGradesChange();
     }
 });
+
+
+function checkIfProperValue(gradeValue, input) {
+    gradeValue = gradeValue.toLowerCase();
+    let parsedGrade = parseInt(gradeValue);
+    if (gradeValue === 'm' || gradeValue === "x" || gradeValue === "") {
+        return gradeValue;
+    } else if (isNaN(parsedGrade)) {
+        alert("The grade you entered contanied an unacceptable letter and not a number. The grade has been reset.");
+        input.value = "";
+        return "";
+    } else if (typeof parsedGrade == "number") {
+        if(parsedGrade > 100) parsedGrade = 100;
+        input.value = parsedGrade;
+        return parsedGrade;
+    } else {
+        return "0";
+    }
+}
