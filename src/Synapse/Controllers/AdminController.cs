@@ -176,6 +176,16 @@ namespace Synapse.Controllers
         }
 
         /// <summary>
+        /// PartialView of SelectTeacher modal (found on Admin/AddClass page)
+        /// </summary>
+        /// <returns>PartialView: _SelectTeacher.cshtml</returns>
+        [HttpGet]
+        public async Task<IActionResult> _SelectTeacher()
+        {
+            return await Task.Run(() => PartialView(_adminRepository.GetAllTeachers()));
+        }
+
+        /// <summary>
         /// Edit data of teacher mapped to teacherid
         /// </summary>
         /// <param name="teacherid">ID of teacher record to update</param>

@@ -1,12 +1,12 @@
-﻿@model Synapse.Data.ViewModels.ViewClassVM
+﻿@model List<Synapse.Data.Models.Teacher>
 @using System.Web;
 
-<div class="modal" id="teacherSearchModal">
+<div class="modal" id="selectTeacherModal">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">Select Teacher</p>
-            <button type="button" class="delete modalClose" aria-label="close"></button>
+            <button type="button" class="delete modalClose" aria-label="close" onclick="closeModal()"></button>
         </header>
         <section class="modal-card-body">
             <label>
@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var teacher in Model.AllTeachers)
+                        @foreach (var teacher in Model)
                         {
                             <tr>
                                 <td>@teacher.TeacherFirstName</td>
@@ -40,7 +40,7 @@
             </div>
         </section>
         <footer class="modal-card-foot">
-            <button type="button" class="button modalClose">Cancel</button>
+            <button type="button" class="button modalClose" onclick="closeModal()">Cancel</button>
         </footer>
     </div>
 </div>
