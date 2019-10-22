@@ -291,6 +291,22 @@ namespace Synapse.Controllers
 
             return RedirectToAction("Classes");
         }
+
+        /// <summary>
+        /// Action page to delete class from database and all attached data
+        /// </summary>
+        /// <param name="classid">ID of class to delete</param>
+        /// <returns>View: Classes.cshtml</returns>
+        public async Task<IActionResult> DeleteClass(int classid)
+        {
+            await _adminRepository.DeleteClass(classid);
+            await _adminRepository.DeleteClassAssignments(classid);
+            await _adminRepository.DeleteClassAssignmentCategories(classid);
+            await _adminRepository.DeleteClassGrades(classid);
+            await _adminRepository.RemoveStudentsFromClass(classid);
+
+            return RedirectToAction("Classes");
+        }
         #endregion
 
         #region Referral Pages

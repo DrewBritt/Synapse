@@ -12,6 +12,7 @@
         <div class="columns">
             <div class="is-full" style="width: 100%; margin-bottom: 2rem;">
                 <div class="card">
+                    <partial name="~/Views/Admin/_DeleteClassVerification.cshtml" />
                     @using (Html.BeginForm("EditClassInfo", "Admin", FormMethod.Post))
                     {
                         <div style="padding: .75rem;">
@@ -21,7 +22,10 @@
                                 </div>
                                 <div class="column">
                                     <div class="is-pulled-right-desktop is-marginless" id="btns">
-                                        <button id="editBtn" class="button is-primary">Edit</button>
+                                        <button id="deleteBtn" type="button" class="button is-danger deleteBtn" onclick="deleteClassVerification()">Delete</button>
+                                    </div>
+                                    <div class="is-pulled-right-desktop is-marginless" id="btns">
+                                        <button type="button" id="editBtn" class="button is-primary">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -42,8 +46,8 @@
                                 <div id="period">@Model.Period</div>
                                 <span id="studentsLabel" class="has-text-weight-bold">Assigned Students:</span>
                                 <div>@Model.EnrolledStudents.Count</div>
-                                <input name="classid" hidden value="@Model.ClassId"/>
-                                <input id="teacherid" name="teacherid" hidden value="@Model.TeacherId"/>
+                                <input name="classid" hidden value="@Model.ClassId" />
+                                <input id="teacherid" name="teacherid" hidden value="@Model.TeacherId" />
                             </div>
                         </div>
                     }

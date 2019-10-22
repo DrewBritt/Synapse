@@ -93,16 +93,8 @@ function cancel() {
     btns.appendChild(editBtn);
     editBtn.addEventListener('click', editStudent, false);
 
-    let deleteBtn = document.createElement("BUTTON");
-    deleteBtn.setAttribute("type", "button");
-    deleteBtn.classList.add("button");
-    deleteBtn.classList.add("is-danger");
-    deleteBtn.classList.add("deleteBtn");
-    deleteBtn.setAttribute("id", "deleteBtn");
-    deleteBtn.textContent = "Delete";
-    btns.appendChild(deleteBtn);
-    deleteBtn.setAttribute("onclick", "deleteStudentVerification()");
-
+    let deleteBtn = document.getElementById("deleteBtn");
+    deleteBtn.setAttribute("hidden", "false");
 
     name.removeAttribute("hidden");
     email.removeAttribute("hidden");

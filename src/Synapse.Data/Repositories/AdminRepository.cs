@@ -477,7 +477,7 @@ namespace Synapse.Data.Repositories
 
         #region Class Functions
         /// <summary>
-        /// Gets list of all classes in database
+        /// Gets list of all classes in database.
         /// </summary>
         /// <returns>List(ClassWithTeacherInfo) of all classes in database</returns>
         public List<ClassWithTeacherInfo> GetAllClasses()
@@ -521,7 +521,7 @@ namespace Synapse.Data.Repositories
         }
 
         /// <summary>
-        /// Gets data of class mapped to classid
+        /// Gets data of class mapped to classid.
         /// </summary>
         /// <param name="classid">ID of class to get data of</param>
         /// <returns>ViewClassVM with data of class mapped to classid</returns>
@@ -597,6 +597,135 @@ namespace Synapse.Data.Repositories
 
             //Add Class to classes table
             _context.Classes.Add(newClass);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes class attached to classid.
+        /// </summary>
+        /// <param name="classid">ID of class to delete</param>
+        public async Task DeleteClass(int classid)
+        {
+            Class classToDelete = new Class() { ClassId = classid };
+
+            _context.Classes.Attach(classToDelete);
+            _context.Classes.Remove(classToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes all assignments attached to classid.
+        /// </summary>
+        /// <param name="classid">ID of class to delete assignments of</param>
+        public async Task DeleteClassAssignments(int classid)
+        {
+            var assignmentsQuery = (from assignments in _context.Assignments
+                                    select new
+                                    {
+                                        assignments.AssignmentId,
+                                        assignments.ClassId
+                                    }).Where(a => a.ClassId == classid);
+
+            List<Assignment> assignmentsToDelete = new List<Assignment>();
+            foreach(var a in assignmentsQuery)
+            {
+                Assignment newAssignment = new Assignment()
+                {
+                    AssignmentId = a.AssignmentId,
+                    ClassId = a.ClassId
+                };
+
+                assignmentsToDelete.Add(newAssignment);
+            }
+
+            _context.Assignments.RemoveRange(assignmentsToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes all assignment categories attached to classid.
+        /// </summary>
+        /// <param name="classid">ID of class to delete assignment categories of</param>
+        public async Task DeleteClassAssignmentCategories(int classid)
+        {
+            var assignmentCategoriesQuery = (from assignmentcategories in _context.AssignmentCategories
+                                             select new
+                                             {
+                                                 assignmentcategories.CategoryId,
+                                                 assignmentcategories.ClassId
+                                             }).Where(ac => ac.ClassId == classid);
+
+            List<AssignmentCategory> categoriesToDelete = new List<AssignmentCategory>();
+            foreach(var ac in assignmentCategoriesQuery)
+            {
+                AssignmentCategory category = new AssignmentCategory()
+                {
+                    CategoryId = ac.CategoryId,
+                    ClassId = ac.ClassId
+                };
+
+                categoriesToDelete.Add(category);
+            }
+
+            _context.AssignmentCategories.RemoveRange(categoriesToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes all grades attached to classid.
+        /// </summary>
+        /// <param name="classid">ID of class to delete grades of.</param>
+        public async Task DeleteClassGrades(int classid)
+        {
+            var gradesQuery = (from grades in _context.Grades
+                               select new
+                               {
+                                   grades.GradeId,
+                                   grades.ClassId
+                               }).Where(g => g.ClassId == classid);
+
+            List<Grade> gradesToDelete = new List<Grade>();
+            foreach(var g in gradesQuery)
+            {
+                Grade grade = new Grade()
+                {
+                    GradeId = g.GradeId,
+                    ClassId = g.ClassId
+                };
+
+                gradesToDelete.Add(grade);
+            }
+
+            _context.Grades.RemoveRange(gradesToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Removes all students from class attached to classid.
+        /// </summary>
+        /// <param name="classid">ID of class to remove students from.</param>
+        public async Task RemoveStudentsFromClass(int classid)
+        {
+            var studentsClassesQuery = (from studentsclasses in _context.StudentsClasses
+                                        select new
+                                        {
+                                            studentsclasses.ClassId,
+                                            studentsclasses.StudentId
+                                        }).Where(sc => sc.ClassId == classid);
+
+            List<StudentsClass> connectionsToDelete = new List<StudentsClass>();
+            foreach(var sc in studentsClassesQuery)
+            {
+                StudentsClass connection = new StudentsClass()
+                {
+                    ClassId = sc.ClassId,
+                    StudentId = sc.StudentId
+                };
+
+                connectionsToDelete.Add(connection);
+            }
+
+            _context.StudentsClasses.RemoveRange(connectionsToDelete);
             await _context.SaveChangesAsync();
         }
         #endregion

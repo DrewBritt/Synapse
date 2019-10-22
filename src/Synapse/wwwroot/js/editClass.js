@@ -1,6 +1,22 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     const editBtn = document.getElementById("editBtn");
     if (editBtn.addEventListener) editBtn.addEventListener('click', editClass, false);
+
+    const modalButtons = document.getElementsByClassName("modalClose");
+    let deleteClassModal = document.getElementById("deleteClassVerificationModal");
+    let teacherModal = document.getElementById("teacherSearchModal");
+
+    for (let i = 0; i < modalButtons.length; i++) {
+        if (modalButtons[i].name == "classVerificationModalClose") {
+            modalButtons[i].addEventListener('click', function () {
+                deleteClassModal.classList.toggle("is-active");
+            });
+        } else {
+            modalButtons[i].addEventListener('click', function () {
+                teacherModal.classList.toggle("is-active");
+            });
+        }
+    }
 });
 
 
@@ -42,7 +58,9 @@ function editClass() {
     period.setAttribute("hidden", "true")
 
     const btns = document.getElementById("btns");
-    const editBtn = document.getElementById("editBtn");
+    let editBtn = document.getElementById("editBtn");
+    editBtn.classList.toggle("is-hidden");
+
     let submitBtn = document.createElement("INPUT");
     submitBtn.setAttribute("type", "submit");
     submitBtn.setAttribute("id", "submitBtn")
@@ -50,6 +68,9 @@ function editClass() {
     submitBtn.classList.add("button");
     submitBtn.classList.add("is-success");
     btns.appendChild(submitBtn);
+
+    let deleteBtn = document.getElementById("deleteBtn");
+    deleteBtn.classList.toggle("is-hidden", "true");
 
     let cancelBtn = document.createElement("BUTTON");
     cancelBtn.setAttribute("type", "button");
@@ -61,7 +82,6 @@ function editClass() {
 
     cancelBtn.addEventListener('click', cancel, false)
     modalBtn.removeAttribute("hidden");
-    editBtn.parentNode.removeChild(editBtn);
 }
 
 function cancel() {
@@ -81,14 +101,11 @@ function cancel() {
         newTeacher.parentNode.removeChild(newTeacher);
     }
 
-    let editBtn = document.createElement("BUTTON");
-    editBtn.classList.add("button")
-    editBtn.classList.add("is-primary")
-    editBtn.setAttribute("id", "editBtn");
-    editBtn.textContent = "Edit";
-    btns.appendChild(editBtn);
-    editBtn.addEventListener('click', editClass, false);
+    let editBtn = document.getElementById("editBtn");
+    editBtn.classList.toggle("is-hidden");
 
+    let deleteBtn = document.getElementById("deleteBtn");
+    deleteBtn.classList.toggle("is-hidden");
 
     location.removeAttribute("hidden");
     period.removeAttribute("hidden");
@@ -126,17 +143,6 @@ function filterFunction() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const modalButtons = document.getElementsByClassName("modalClose");
-    let teacherModal = document.getElementById("teacherSearchModal");
-
-    for (let i = 0; i < modalButtons.length; i++) {
-        modalButtons[i].addEventListener('click', function () {
-            teacherModal.classList.toggle('is-active');
-        });
-    }
-});
-
 
 function newTeacher(name, id) {
     let teacherId = document.getElementById("teacherid");
@@ -152,4 +158,9 @@ function newTeacher(name, id) {
     newSelecetedTeacher.textContent = name;
     insertAfter(newSelecetedTeacher, teacherLabel);
     teacherId.setAttribute("value", id)
+}
+
+function deleteClassVerification() {
+    let modal = document.getElementById("deleteClassVerificationModal");
+    modal.classList.add("is-active");
 }
