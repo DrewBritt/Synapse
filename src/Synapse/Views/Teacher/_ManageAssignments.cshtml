@@ -64,14 +64,14 @@
                 <div class="column">
                     <div class="field">
                         <label class="label">Assignment Name</label>
-                        <input name="assignmentname" class="input" type="text" placeholder="Enter Assignment Name..." />
+                        <input required name="assignmentname" class="input" type="text" placeholder="Enter Assignment Name..." />
                     </div>
                 </div>
                 <div class="column">
                     <div class="field">
                         <label class="label">Assignment Category</label>
                         <div class="select" style="width: 100%">
-                            <select name="categoryid" style="width: 100%">
+                            <select required name="categoryid" style="width: 100%">
                                 <option value="" selected disabled hidden>Select Category</option>
                                 @foreach (var category in Model.AssignmentCategories)
                                 {
@@ -84,7 +84,7 @@
                 <div class="column">
                     <div class="field">
                         <label class="label">Assignment Due Date</label>
-                        <input name="duedate" class="input" type="date" />
+                        <input required name="duedate" class="input" type="date" />
                     </div>
                 </div>
                 <div class="column">
