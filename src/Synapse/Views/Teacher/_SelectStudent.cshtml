@@ -1,20 +1,20 @@
-﻿@model List<Synapse.Data.Models.Teacher>
+﻿@model List<Synapse.Data.Models.Student>
 @using System.Web;
 
-<div class="modal" id="selectTeacherModal">
+<div class="modal" id="selectStudentModal">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Select Teacher</p>
+            <p class="modal-card-title">Select Student</p>
             <button type="button" class="delete modalClose" aria-label="close" onclick="closeModal()"></button>
         </header>
         <section class="modal-card-body">
             <label>
-                <input class="input" type="text" placeholder="Search for teachers by name..." id="teachersSearchBar" onkeyup="namesTableSearchBar('teachersTable', 'teachersSearchBar')">
+                <input class="input" type="text" placeholder="Search for students by name..." id="studentsSearchBar" onkeyup="namesTableSearchBar('studentsTable', 'studentsSearchBar')">
             </label>
             <div class="is-centered">
 
-                <table id="teachersTable" class="table">
+                <table id="studentsTable" class="table">
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -23,14 +23,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var teacher in Model)
+                        @foreach (var student in Model)
                         {
                             <tr>
-                                <td>@teacher.TeacherFirstName</td>
-                                <td>@teacher.TeacherLastName</td>
+                                <td>@student.StudentFirstName</td>
+                                <td>@student.StudentLastName</td>
                                 <td>
-                                    <button type="button" onclick="newTeacher('@Html.Raw(HttpUtility.JavaScriptStringEncode(teacher.TeacherFirstName + " " + teacher.TeacherLastName))','@Html.Raw(teacher.TeacherId)')" class="button is-primary is-small modalClose">
-                                        Select Teacher
+                                    <button type="button" onclick="newStudent('@Html.Raw(HttpUtility.JavaScriptStringEncode(student.StudentFirstName + " " + student.StudentLastName))','@Html.Raw(student.StudentId)')" class="button is-primary is-small modalClose">
+                                        Select
                                     </button>
                                 </td>
                             </tr>

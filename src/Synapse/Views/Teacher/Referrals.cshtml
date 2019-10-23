@@ -1,0 +1,49 @@
+﻿@model List<Synapse.Data.ViewModels.ReferralVM>
+
+@{
+    ViewData["Title"] = "Referrals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container has-text-centered">
+    <h1 class="title">View Referrals</h1>
+    <h2 class="subtitle">View your submitted referrals.</h2>
+
+    <a class="button is-primary" asp-area="" asp-action="AddReferral" asp-controller="Teacher">Submit a Referral</a>
+
+    <div class="is-centered">
+        <table class="table" style="width: 65%; margin-left: auto; margin-right: auto">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Date</th>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Handled?</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentFullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateIssuedString)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReferralId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DescriptionTruncated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Handled)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

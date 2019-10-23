@@ -448,5 +448,75 @@ namespace Synapse.Data.Repositories
             await _context.SaveChangesAsync();
         }
         #endregion
+
+        #region Referral Functions
+        /// <summary>
+        /// Returns list of referrals attached to teacherid.
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to get submitted referrals for</param>
+        public List<ReferralVM> GetTeacherReferrals(int teacherid)
+        {
+            //LINQ Query to pull Referrals + associated Student/Teacher data
+            var referralsQuery = (from referrals in _context.Referrals
+                                  join students in _context.Students on referrals.StudentId equals students.StudentId
+                                  join teachers in _context.Teachers on referrals.TeacherId equals teachers.TeacherId
+                                  select new
+                                  {
+                                      referrals.ReferralId,
+                                      students.StudentId,
+                                      students.StudentFirstName,
+                                      students.StudentLastName,
+                                      teachers.TeacherId,
+                                      teachers.TeacherFirstName,
+                                      teachers.TeacherLastName,
+                                      referrals.DateIssued,
+                                      referrals.Description,
+                                      referrals.Handled
+                                  }).Where(r => r.TeacherId == teacherid).OrderBy(r => r.Handled);
+
+            List<ReferralVM> referralsList = new List<ReferralVM>();
+            foreach(var r in referralsQuery)
+            {
+                ReferralVM newReferral = new ReferralVM()
+                {
+                    ReferralId = r.ReferralId,
+                    StudentId = r.StudentId,
+                    StudentFirstName = r.StudentFirstName,
+                    StudentLastName = r.StudentLastName,
+                    TeacherId = r.TeacherId,
+                    TeacherFirstName = r.TeacherFirstName,
+                    TeacherLastName = r.TeacherLastName,
+                    DateIssued = r.DateIssued,
+                    Description = r.Description,
+                    Handled = r.Handled
+                };
+
+                referralsList.Add(newReferral);
+            }
+
+            return referralsList;
+        }
+        
+        /// <summary>
+        /// Adds a referral to the database attached to studentid.
+        /// </summary>
+        /// <param name="studentid">ID of student that the referral is being submitted for</param>
+        /// <param name="teacherid">ID of teacher submitting the referral</param>
+        /// <param name="description">Description (100 character max) of referral</param>
+        public async Task AddReferral(int studentid, int teacherid, string description)
+        {
+            Referral referralToSubmit = new Referral()
+            {
+                StudentId = studentid,
+                TeacherId = teacherid,
+                DateIssued = DateTime.Today,
+                Description = description,
+                Handled = false
+            };
+
+            _context.Referrals.Add(referralToSubmit);
+            await _context.SaveChangesAsync();
+        }
+        #endregion
     }
 }

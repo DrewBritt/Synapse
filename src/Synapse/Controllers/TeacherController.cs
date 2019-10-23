@@ -129,5 +129,46 @@ namespace Synapse.Controllers
         {
             return await Task.Run(() => View());
         }
+
+        #region Referral Pages
+        /// <summary>
+        /// Page with list of all referrals submitted by teacher
+        /// </summary>
+        /// <returns>View: Referrals.cshtml</returns>
+        public async Task<IActionResult> Referrals()
+        {
+            int teacherid = _teacherRepository.GetTeacherIdFromEmail(this.User.Identity.Name);
+            return await Task.Run(() => View(_teacherRepository.GetTeacherReferrals(teacherid)));
+        }
+
+        /// <summary>
+        /// Form page to submit a referral for a student
+        /// </summary>
+        /// <returns>View: AddReferral.cshtml</returns>
+        public async Task<IActionResult> AddReferral()
+        {
+            return await Task.Run(() => View());
+        }
+
+        /// <summary>
+        /// Form post to submit referral to database
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> AddReferral(int studentid, string description)
+        {
+            await _teacherRepository.AddReferral(studentid, _teacherRepository.GetTeacherIdFromEmail(this.User.Identity.Name), description);
+
+            return RedirectToAction("Referrals");
+        }
+
+        /// <summary>
+        /// PartialView with list of students.
+        /// </summary>
+        /// <returns>PartialView: _SelectStudent.cshtml</returns>
+        public async Task<IActionResult> _SelectStudent()
+        {
+            return await Task.Run(() => PartialView(_adminRepository.GetAllStudents()));
+        }
+        #endregion
     }
 }
