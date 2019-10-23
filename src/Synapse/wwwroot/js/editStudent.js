@@ -57,8 +57,7 @@ function editStudent() {
     btns.appendChild(submitBtn);
 
     let deleteBtn = document.getElementById("deleteBtn");
-    deleteBtn.setAttribute("hidden","true");
-
+    deleteBtn.classList.toggle("is-hidden", "true");
 
     let cancelBtn = document.createElement("BUTTON");
     cancelBtn.setAttribute("type", "button");
@@ -70,7 +69,6 @@ function editStudent() {
 
     cancelBtn.addEventListener('click', cancel, false)
     editBtn.parentNode.removeChild(editBtn);
-    deleteBtn.parentNode.removeChild(deleteBtn);
 }
 
 function cancel() {
@@ -94,7 +92,7 @@ function cancel() {
     editBtn.addEventListener('click', editStudent, false);
 
     let deleteBtn = document.getElementById("deleteBtn");
-    deleteBtn.setAttribute("hidden", "false");
+    deleteBtn.classList.toggle("is-hidden");
 
     name.removeAttribute("hidden");
     email.removeAttribute("hidden");

@@ -228,6 +228,24 @@ namespace Synapse.Controllers
 
             return RedirectToAction("Teachers");
         }
+
+        /// <summary>
+        /// Deletes teacher and all associated information (classes and associated data)
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to delete</param>
+        /// <returns>View: Classes.cshtml</returns>
+        public async Task<IActionResult> DeleteTeacher(int teacherid)
+        {
+            await _adminRepository.DeleteClassesAssignments(teacherid);
+            await _adminRepository.DeleteClassesAssignmentCategories(teacherid);
+            await _adminRepository.DeleteClassesGrades(teacherid);
+            await _adminRepository.RemoveStudentsFromClasses(teacherid);
+            await _adminRepository.DeleteTeacherReferrals(teacherid);
+            await _adminRepository.DeleteClasses(teacherid);
+            await _adminRepository.DeleteTeacher(teacherid);
+
+            return RedirectToAction("Classes");
+        }
         #endregion
 
         #region Class Pages

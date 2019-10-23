@@ -1,7 +1,7 @@
 ﻿@model Synapse.Data.ViewModels.ViewTeacherVM
 
 @{
-    ViewData["Title"] = "ViewTeacher";
+    ViewData["Title"] = "View Teacher";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,6 +12,7 @@
         <div class="columns">
             <div class="is-full" style="width: 100%; margin-bottom: 2rem;">
                 <div class="card">
+                    <partial name="~/Views/Admin/_DeleteTeacherVerification.cshtml" />
                     @using (Html.BeginForm("EditTeacherInfo", "Admin", FormMethod.Post))
                     {
                         <div style="padding: .75rem;">
@@ -21,6 +22,7 @@
                                 </div>
                                 <div class="column">
                                     <div class="is-pulled-right-desktop is-marginless" id="btns">
+                                        <button id="deleteBtn" type="button" class="button is-danger deleteBtn" onclick="deleteTeacherVerification()">Delete</button>
                                         <button id="editBtn" type="button" class="button is-primary">Edit</button>
                                     </div>
                                 </div>

@@ -1,0 +1,22 @@
+﻿@model Synapse.Data.ViewModels.ViewTeacherVM
+
+<div class="modal" id="deleteTeacherVerificationModal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Delete Teacher <b>@Model.TeacherFullName?</b></p>
+            <button class="delete modalClose" name="teacherVerificationModalClose"></button>
+        </header>
+        <section class="modal-card-body">
+            <p>
+                Deleting a teacher will also <b>delete all classes, grades, assignments, and referrals attached to the teacher.</b>
+                <br />
+                Are you sure you want to proceed?
+            </p>
+        </section>
+        <footer class="modal-card-foot">
+            <a asp-area="" asp-action="DeleteTeacher" asp-controller="Admin" asp-route-teacherid=@Model.TeacherId class="button is-danger">Delete</a>
+            <button class="button is-primary modalClose" name="teacherVerificationModalClose">Cancel</button>
+        </footer>
+    </div>
+</div>

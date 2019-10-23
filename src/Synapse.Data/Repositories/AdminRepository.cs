@@ -327,6 +327,39 @@ namespace Synapse.Data.Repositories
             _context.AspNetUsers.Remove(user);
             await _context.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// Removes students from classes attached to teacherid.
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to get classes of</param>
+        /// <returns></returns>
+        public async Task RemoveStudentsFromClasses(int teacherid)
+        {
+            var classesQuery = (from studentclasses in _context.StudentsClasses
+                                join classes in _context.Classes on studentclasses.ClassId equals classes.ClassId
+                                select new
+                                {
+                                    studentclasses.StudentId,
+                                    studentclasses.ClassId,
+                                    classes.TeacherId
+                                }).Where(c => c.TeacherId == teacherid);
+
+            List<StudentsClass> connectionsToDelete = new List<StudentsClass>();
+            foreach(var c in classesQuery)
+            {
+                StudentsClass sc = new StudentsClass()
+                {
+                    StudentId = c.StudentId,
+                    ClassId = c.ClassId
+                };
+
+                connectionsToDelete.Add(sc);
+            }
+
+            _context.StudentsClasses.AttachRange(connectionsToDelete);
+            _context.StudentsClasses.RemoveRange(connectionsToDelete);
+            await _context.SaveChangesAsync();
+        }
         #endregion
 
         #region Teacher Functions
@@ -473,6 +506,20 @@ namespace Synapse.Data.Repositories
             _context.Teachers.Add(newTeacher);
             await _context.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// Deletes teacher record from "teachers" table attached to teacherid
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to delete</param>
+        public async Task DeleteTeacher(int teacherid)
+        {
+            Teacher teacherToDelete = new Teacher() { TeacherId = teacherid };
+
+            _context.Teachers.Attach(teacherToDelete);
+            _context.Teachers.Remove(teacherToDelete);
+
+            await _context.SaveChangesAsync();
+        }
         #endregion
 
         #region Class Functions
@@ -614,6 +661,36 @@ namespace Synapse.Data.Repositories
         }
 
         /// <summary>
+        /// Deletes all classes attached to teacherid.
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to delete attached classes of</param>
+        public async Task DeleteClasses(int teacherid)
+        {
+            var classesQuery = (from classes in _context.Classes
+                                select new
+                                {
+                                    classes.ClassId,
+                                    classes.TeacherId
+                                }).Where(c => c.TeacherId == teacherid);
+
+            List<Class> classesToDelete = new List<Class>();
+            foreach(var c in classesQuery)
+            {
+                Class newClass = new Class()
+                {
+                    ClassId = c.ClassId,
+                    TeacherId = c.TeacherId
+                };
+
+                classesToDelete.Add(newClass);
+            }
+
+            _context.Classes.AttachRange(classesToDelete);
+            _context.Classes.RemoveRange(classesToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
         /// Deletes all assignments attached to classid.
         /// </summary>
         /// <param name="classid">ID of class to delete assignments of</param>
@@ -726,6 +803,103 @@ namespace Synapse.Data.Repositories
             }
 
             _context.StudentsClasses.RemoveRange(connectionsToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes all assignments of classes attached to teacherid
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to delete classes assignments</param>
+        public async Task DeleteClassesAssignments(int teacherid)
+        {
+            var assignmentsQuery = (from assignments in _context.Assignments
+                                    join classes in _context.Classes on assignments.ClassId equals classes.ClassId
+                                    select new
+                                    {
+                                        classes.ClassId,
+                                        classes.TeacherId,
+                                        assignments.AssignmentId
+                                    }).Where(a => a.TeacherId == teacherid);
+
+            List<Assignment> assignmentsToDelete = new List<Assignment>();
+            foreach(var a in assignmentsQuery)
+            {
+                Assignment newAssignment = new Assignment()
+                {
+                    ClassId = a.ClassId,
+                    AssignmentId = a.AssignmentId
+                };
+
+                assignmentsToDelete.Add(newAssignment);
+            }
+
+            _context.Assignments.AttachRange(assignmentsToDelete);
+            _context.Assignments.RemoveRange(assignmentsToDelete);
+
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes all assignment categories of classes attached to teacherid
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to delete assignment categories from classes</param>
+        public async Task DeleteClassesAssignmentCategories(int teacherid)
+        {
+            var categoriesQuery = (from categories in _context.AssignmentCategories
+                                   join classes in _context.Classes on categories.ClassId equals classes.ClassId
+                                   select new
+                                   {
+                                       categories.CategoryId,
+                                       classes.ClassId,
+                                       classes.TeacherId
+                                   }).Where(c => c.TeacherId == teacherid);
+
+            List<AssignmentCategory> categoriesToDelete = new List<AssignmentCategory>();
+            foreach(var c in categoriesQuery)
+            {
+                AssignmentCategory ac = new AssignmentCategory()
+                {
+                    CategoryId = c.CategoryId,
+                    ClassId = c.ClassId,
+                };
+
+                categoriesToDelete.Add(ac);
+            }
+
+            _context.AssignmentCategories.AttachRange(categoriesToDelete);
+            _context.AssignmentCategories.RemoveRange(categoriesToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Deletes all grades attached to all classes attached to teacherid
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to delete grades of classes</param>
+        public async Task DeleteClassesGrades(int teacherid)
+        {
+            var gradesQuery = (from grades in _context.Grades
+                               join classes in _context.Classes on grades.ClassId equals classes.ClassId
+                               select new
+                               {
+                                   grades.GradeId,
+                                   classes.ClassId,
+                                   classes.TeacherId
+                               }).Where(g => g.TeacherId == teacherid);
+
+            List<Grade> gradesToDelete = new List<Grade>();
+            foreach(var g in gradesQuery)
+            {
+                Grade grade = new Grade()
+                {
+                    GradeId = g.GradeId,
+                    ClassId = g.ClassId
+                };
+
+                gradesToDelete.Add(grade);
+            }
+
+            _context.Grades.AttachRange(gradesToDelete);
+            _context.Grades.RemoveRange(gradesToDelete);
             await _context.SaveChangesAsync();
         }
         #endregion
@@ -878,6 +1052,35 @@ namespace Synapse.Data.Repositories
 
             _context.Update(referralToUpdate);
             await _context.SaveChangesAsync();                
+        }
+
+        /// <summary>
+        /// Deletes all referrals attached to teacherid.
+        /// </summary>
+        /// <param name="teacherid">ID of teacher to delete referrals of.</param>
+        public async Task DeleteTeacherReferrals(int teacherid)
+        {
+            var referralsQuery = (from referrals in _context.Referrals
+                                  select new
+                                  {
+                                      referrals.TeacherId,
+                                      referrals.ReferralId
+                                  }).Where(r => r.TeacherId == teacherid);
+
+            List<Referral> referralsToDelete = new List<Referral>();
+            foreach(var r in referralsQuery)
+            {
+                Referral referral = new Referral()
+                {
+                    TeacherId = r.TeacherId,
+                    ReferralId = r.ReferralId
+                };
+                referralsToDelete.Add(referral);
+            }
+
+            _context.Referrals.AttachRange(referralsToDelete);
+            _context.Referrals.RemoveRange(referralsToDelete);
+            await _context.SaveChangesAsync();
         }
         #endregion
     }

@@ -1,7 +1,23 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     const editBtn = document.getElementById("editBtn");
     if (editBtn.addEventListener) editBtn.addEventListener('click', editTeacher, false);
+
+    const modalButtons = document.getElementsByClassName("modalClose");
+    let deleteTeacherModal = document.getElementById("deleteTeacherVerificationModal");
+
+    for (let i = 0; i < modalButtons.length; i++) {
+        if (modalButtons[i].name == "teacherVerificationModalClose") {
+            modalButtons[i].addEventListener('click', function () {
+                deleteTeacherModal.classList.toggle("is-active");
+            });
+        }
+    }
 });
+
+function deleteTeacherVerification() {
+    let modal = document.getElementById("deleteTeacherVerificationModal");
+    modal.classList.add("is-active");
+}
 
 function editTeacher() {
     const name = document.getElementById("name");
@@ -36,6 +52,9 @@ function editTeacher() {
     submitBtn.classList.add("is-success");
     btns.appendChild(submitBtn);
 
+    let deleteBtn = document.getElementById("deleteBtn");
+    deleteBtn.classList.toggle("is-hidden", "true");
+
     let cancelBtn = document.createElement("BUTTON");
     cancelBtn.setAttribute("type", "button");
     cancelBtn.setAttribute("id", "cancelBtn")
@@ -64,6 +83,8 @@ function cancel() {
     btns.appendChild(editBtn);
     editBtn.addEventListener('click', editTeacher, false);
 
+    let deleteBtn = document.getElementById("deleteBtn");
+    deleteBtn.classList.toggle("is-hidden");
 
     name.removeAttribute("hidden");
     email.removeAttribute("hidden");
