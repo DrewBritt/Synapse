@@ -148,7 +148,6 @@ function checkIfProperValue(gradeValue, input) {
     if (gradeValue === 'm' || gradeValue === "x" || gradeValue === "") {
         return gradeValue;
     } else if (isNaN(parsedGrade)) {
-        alert("The grade you entered contanied an unacceptable letter and not a number. The grade has been reset.");
         input.value = "";
         return "";
     } else if (typeof parsedGrade == "number") {
