@@ -308,6 +308,38 @@ namespace Synapse.Data.Repositories
             return enrolledStudentsGrades;
         }
 
+        public List<Grade> GetStudentsGrades(int studentid, int classid)
+        {
+            var gradesQuery = (from grades in _context.Grades
+                               join students in _context.Students on grades.StudentId equals students.StudentId
+                               select new
+                               {
+                                   grades.GradeId,
+                                   grades.AssignmentId,
+                                   grades.ClassId,
+                                   grades.StudentId,
+                                   grades.GradeValue,
+                                   students.StudentLastName
+                               }).Where(g => g.StudentId == studentid && g.ClassId == classid).OrderBy(g => g.GradeId);
+
+            List<Grade> gradesList = new List<Grade>();
+            foreach(var g in gradesQuery)
+            {
+                Grade grade = new Grade()
+                {
+                    GradeId = g.GradeId,
+                    AssignmentId = g.AssignmentId,
+                    ClassId = g.ClassId,
+                    StudentId = g.StudentId,
+                    GradeValue = g.GradeValue
+                };
+
+                gradesList.Add(grade);
+            }
+
+            return gradesList;
+        }
+
         /// <summary>
         /// Calculates averages of students in class mapped to classid
         /// </summary>
@@ -354,6 +386,50 @@ namespace Synapse.Data.Repositories
             }
 
             return averages;
+        }
+
+        /// <summary>
+        /// Calculates the average of studentid in classid
+        /// </summary>
+        /// <param name="studentid">ID of student to calculate average for</param>
+        /// <param name="classid">ID of class to calculate student's average</param>
+        /// <returns>int: StudentAverage</returns>
+        public int GetStudentAverageForClass(int studentid, int classid)
+        {
+            int average = 0;
+
+            List<AssignmentCategory> AssignmentCategories = GetAssignmentCategories(classid);
+            List<Assignment> ClassAssignments = GetClassAssignments(classid);
+            List<Grade> StudentGrades = GetStudentsGrades(studentid, classid);
+
+            double studentAverage = 0;
+
+            int weightTotal = 0;
+            int gradesWithWeightTotal = 0;
+
+            for (int assignmentsIndex = 0; assignmentsIndex < ClassAssignments.Count; assignmentsIndex++)
+            {
+                Grade gradeToAccess = StudentGrades[assignmentsIndex];
+
+                if (gradeToAccess.GradeValue == "")
+                {
+                    continue;
+                }
+
+                int gradeWeight = AssignmentCategories.Find(c => c.CategoryId == ClassAssignments[assignmentsIndex].CategoryId).CategoryWeight;
+                weightTotal += gradeWeight;
+
+                if (gradeToAccess.GradeValue != "M" && gradeToAccess.GradeValue != "m")
+                {
+                    gradesWithWeightTotal += Int32.Parse(gradeToAccess.GradeValue) * gradeWeight;
+                }
+            }
+
+            studentAverage += (double)gradesWithWeightTotal / weightTotal;
+
+            average = (int)Math.Round(studentAverage, MidpointRounding.AwayFromZero);
+
+            return average;
         }
 
         /// <summary>

@@ -36,7 +36,8 @@
                             {
                                 <tr>
                                     <td>@Model.EnrolledStudents[studentIndex].StudentFullName</td>
-                                    <td>@Model.StudentAverages[studentIndex]%</td>
+                                    <td class="is-hidden" id="studentid" hidden>@Model.EnrolledStudents[studentIndex].StudentId</td>
+                                    <td id="gradeaverage">@Model.StudentAverages[studentIndex]%</td>
                                     @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
                                     {
                                         <td>
@@ -62,3 +63,7 @@
         }
     </div>
 </div>
+
+<script type="text/javascript">
+    const classid = @Model.ClassId;
+</script>

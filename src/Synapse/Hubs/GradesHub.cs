@@ -14,7 +14,7 @@ namespace Synapse.Hubs
             _teacherRepository = new TeacherRepository(context);
         }
 
-        public async Task UpdateGrade(int gradeid, string gradevalue)
+        public async Task UpdateGrade(int gradeid, string gradevalue, int studentid, int classid)
         {
             //Server side truncation of gradevalue if greater than 3 characters
             if(gradevalue.Length > 3)
@@ -23,12 +23,13 @@ namespace Synapse.Hubs
             }
 
             await _teacherRepository.SubmitGrade(gradeid, gradevalue);
-            await UpdateGradeFinished();
+            await UpdateGradeFinished(studentid, classid);
         }
 
-        public async Task UpdateGradeFinished()
+        public async Task UpdateGradeFinished(int studentid, int classid)
         {
-            await Clients.All.SendAsync("UpdateGradeFinished");
+            int average = _teacherRepository.GetStudentAverageForClass(studentid, classid);
+            await Clients.All.SendAsync("UpdateGradeFinished", average);
         }
     }
 }

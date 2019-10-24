@@ -78,6 +78,9 @@ $('input').donetyping(function () {
 let savingBar = document.getElementById("savingbar");
 let saved = true;
 let saving = document.getElementById("saving");
+
+var tr;
+
 function onCallback(input) {
     const gradeId = input.name;
     const gradeValue = input.value;
@@ -85,12 +88,27 @@ function onCallback(input) {
     savingBar.classList.remove("is-hidden");
     saved = false;
     saving.textContent = "Saving...";
-    connection.invoke("UpdateGrade", gradeId, filteredGradeValue).catch(function (err) {
+    tr = input.parentNode.parentNode;
+    var trChildren = tr.childNodes;
+    var studentid;
+    for (let i = 0; i < trChildren.length; i++) {
+        if (trChildren[i].id == "studentid") {
+            studentid = trChildren[i].innerHTML;
+        }
+    }
+
+    connection.invoke("UpdateGrade", gradeId, filteredGradeValue, studentid, classid).catch(function (err) {
         console.error(err);
     });
 }
 
-connection.on("UpdateGradeFinished", function () {
+connection.on("UpdateGradeFinished", function (gradevalue) {
+    for (let i = 0; i < tr.childNodes.length; i++) {
+        if (tr.childNodes[i].id == "gradeaverage") {
+            tr.childNodes[i].innerHTML = gradevalue + "%";
+        }
+    }
+
     saved = true;
     savingBar.classList.add("is-hidden");
     saving.textContent = "Changes Saved";
