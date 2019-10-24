@@ -1,0 +1,100 @@
+﻿@model Synapse.Data.ViewModels.GradesVM
+
+<div id="assignment" hidden>
+    <div class="container has-text-centered" style="margin-bottom: 2rem; width: 100%;">
+        <h1 class="title">Managing assignments for <span class="has-text-weight-bold">@Model.ClassName</span></h1>
+        <hr />
+
+        @if (Model.ClassAssignments.Count == 0)
+        {
+            <p>No Assignments exist for this class!</p>
+        }
+        else
+        {
+            <table class="table" style="width: 100%; margin-left: auto; margin-right: auto">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var assignment in Model.ClassAssignments)
+                    {
+                        <tr>
+                            <td><input class="input" type="text" value="@assignment.AssignmentName" /></td>
+                            <td>
+                                <div class="select" style="width: 100%">
+                                    <select style="width: 100%">
+                                        @foreach (var category in Model.AssignmentCategories)
+                                        {
+                                            @if (category.CategoryId == assignment.CategoryId)
+                                            {
+                                                <option id="@category.CategoryId" selected>@category.CategoryName (@category.CategoryWeight%)</option>
+                                            }
+                                            else
+                                            {
+                                                <option id="@category.CategoryId">@category.CategoryName (@category.CategoryWeight%)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                            <td><input class="input" type="date" value="@assignment.DueDateString" /></td>
+                            <td>
+                                <a asp-area="" asp-controller="Admin" asp-action="DeleteAssignment" asp-route-assignmentid=@assignment.AssignmentId
+                                   asp-route-classid=@Model.ClassId class="button is-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        </div>
+    <div class="container" style="margin-bottom: 2rem;">
+        <h1 class="title has-text-centered">Add Assignment</h1>
+        <hr />
+        @using (Html.BeginForm("AddAssignment", "Admin", FormMethod.Post))
+        {
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Assignment Name</label>
+                        <input required name="assignmentname" class="input" type="text" placeholder="Enter Assignment Name..." />
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Assignment Category</label>
+                        <div class="select" style="width: 100%">
+                            <select required name="categoryid" style="width: 100%">
+                                <option value="" selected disabled hidden>Select Category</option>
+                                @foreach (var category in Model.AssignmentCategories)
+                                {
+                                    <option value=@category.CategoryId>@category.CategoryName (@category.CategoryWeight%)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Assignment Due Date</label>
+                        <input required name="duedate" class="input" type="date" />
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Actions</label>
+                        <input class="input button is-primary" type="submit" value="Submit" />
+                    </div>
+                </div>
+                <input name="classid" value="@Model.ClassId" hidden />
+            </div>
+        }
+    </div>
+</div>

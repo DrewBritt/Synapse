@@ -335,6 +335,80 @@ namespace Synapse.Controllers
 
             return RedirectToAction("Classes");
         }
+
+        /// <summary>
+        /// Grades management page for classid (includes setting grades, and adding assignments)
+        /// </summary>
+        /// <param name="classid">ID of class to update grades</param>
+        /// <returns>View: Grades?classid</returns>
+        public async Task<IActionResult> Grades(int classid)
+        {
+            GradesVM gradeVM = _teacherRepository.GetGradesForClass(classid);
+
+            gradeVM.AssignmentCategories = _teacherRepository.GetAssignmentCategories(classid);
+            gradeVM.ClassAssignments = _teacherRepository.GetClassAssignments(classid);
+            gradeVM.EnrolledStudents = _teacherRepository.GetEnrolledStudents(classid);
+            gradeVM.StudentGrades = _teacherRepository.GetEnrolledStudentsGrades(classid);
+            gradeVM.PopulateStudentAverages();
+
+            return await Task.Run(() => View(gradeVM));
+        }
+
+        /// <summary>
+        /// Form Post to add new assignment for class mapped to classid
+        /// </summary>
+        /// <param name="classid">ID of class to add assignment to</param>
+        /// <param name="assignmentname">Name of new assignment</param>
+        /// <param name="categoryid">ID of AssignmentCategory to put assignment under (manages grade weights)</param>
+        /// <param name="duedate">Date that new assignment is due</param>
+        /// <returns>View: Grades?classid</returns>
+        [HttpPost]
+        public async Task<IActionResult> AddAssignment(int classid, string assignmentname, int categoryid, string duedate)
+        {
+            await _teacherRepository.AddAssignment(classid, assignmentname, categoryid, duedate);
+
+            return RedirectToAction("Grades", "Admin", new { classid });
+        }
+
+        /// <summary>
+        /// Function to delete assignment mapped to assignmentid from database
+        /// </summary>
+        /// <param name="assignmentid">ID of assignment to delete</param>
+        /// <param name="classid">ID of class to redirect view to</param>
+        /// <returns></returns>
+        public async Task<IActionResult> DeleteAssignment(int assignmentid, int classid)
+        {
+            await _teacherRepository.DeleteAssignment(assignmentid);
+            await _teacherRepository.DeleteGrades(assignmentid);
+
+            return RedirectToAction("Grades", "Admin", new { classid });
+        }
+
+        /// <summary>
+        /// Form post to add assignment to database attached to classid
+        /// </summary>
+        /// <param name="classid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> AddAssignmentCategory(int classid, string categoryname, int categoryweight)
+        {
+            await _teacherRepository.AddAssignmentCategory(classid, categoryname, categoryweight);
+
+            return RedirectToAction("Grades", "Admin", new { classid });
+        }
+
+        /// <summary>
+        /// Action to delete assignment categories attached to classid
+        /// </summary>
+        /// <param name="categoryid">ID of category to delete</param>
+        /// <param name="classid">ID of class to get category from</param>
+        /// <returns></returns>
+        public async Task<IActionResult> DeleteAssignmentCategory(int categoryid, int classid)
+        {
+            await _teacherRepository.DeleteAssignmentCategory(categoryid);
+
+            return RedirectToAction("Grades", "Admin", new { classid });
+        }
         #endregion
 
         #region Referral Pages

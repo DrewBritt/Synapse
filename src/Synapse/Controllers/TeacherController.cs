@@ -100,7 +100,7 @@ namespace Synapse.Controllers
 
             await _teacherRepository.AddAssignment(classid, assignmentname, categoryid, duedate);
 
-            return RedirectToAction("Grades", new { classid });
+            return RedirectToAction("Grades", "Teacher", new { classid });
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Synapse.Controllers
             await _teacherRepository.DeleteAssignment(assignmentid);
             await _teacherRepository.DeleteGrades(assignmentid);
 
-            return RedirectToAction("Grades", new { classid });
+            return RedirectToAction("Grades", "Teacher", new { classid });
         }
 
         /// <summary>
@@ -134,14 +134,20 @@ namespace Synapse.Controllers
         {
             await _teacherRepository.AddAssignmentCategory(classid, categoryname, categoryweight);
 
-            return RedirectToAction("Grades", new { classid });
+            return RedirectToAction("Grades", "Teacher", new { classid });
         }
 
+        /// <summary>
+        /// Action to delete assignment categories attached to classid
+        /// </summary>
+        /// <param name="categoryid">ID of category to delete</param>
+        /// <param name="classid">ID of class to get category from</param>
+        /// <returns></returns>
         public async Task<IActionResult> DeleteAssignmentCategory(int categoryid, int classid)
         {
             await _teacherRepository.DeleteAssignmentCategory(categoryid);
 
-            return RedirectToAction("Grades", new { classid });
+            return RedirectToAction("Grades", "Teacher", new { classid });
         }
         #endregion
 

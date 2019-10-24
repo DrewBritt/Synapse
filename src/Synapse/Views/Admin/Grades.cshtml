@@ -1,0 +1,21 @@
+﻿@model Synapse.Data.ViewModels.GradesVM
+
+@{
+    ViewData["Title"] = "Grades";
+}
+
+<div class="container" style="margin-left: auto; margin-right: auto;">
+    <div class="select" id="change">
+        <select onchange="change()" id="changeSection">
+            <option>View Grades</option>
+            <option>Manage Assignments</option>
+            <option>Set Categories</option>
+        </select>
+    </div>
+    <partial name="~/Views/Admin/_ViewGrades.cshtml" />
+    <partial name="~/Views/Admin/_ManageAssignments.cshtml" />
+    <partial name="~/Views/Admin/_SetCategories.cshtml" />
+</div>
+
+<script src="~/lib/signalr/dist/browsers/signalr.js"></script>
+<script src="~/js/grades.js"></script>

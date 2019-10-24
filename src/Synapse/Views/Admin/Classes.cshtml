@@ -26,7 +26,7 @@
                     <th>Teacher Name</th>
                     <th>Period</th>
                     <th>Location</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,8 +46,11 @@
                         @Html.DisplayFor(modelItem => item.Location)
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="Admin" asp-action="ViewClass" asp-route-classid=@item.ClassId>
-                            <button class="button is-primary is-small">View</button>
+                        <a class="button is-primary is-small" asp-area="" asp-controller="Admin" asp-action="ViewClass" asp-route-classid=@item.ClassId>
+                            View
+                        </a>
+                        <a class="button is-primary is-small" asp-area="" asp-controller="Admin" asp-action="Grades" asp-route-classid=@item.ClassId>
+                            Open Grades
                         </a>
                     </td>
                 </tr>
