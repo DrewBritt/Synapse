@@ -28,7 +28,7 @@
                             <td><input class="input" type="text" value="@category.CategoryName" /></td>
                             <td><input class="input categoryWeight" type="text" value="@category.CategoryWeight" /></td>
                             <td>
-                                <a class="button is-danger">
+                                <a class="button is-danger" asp-area="" asp-action="DeleteAssignmentCategory" asp-controller="Teacher" asp-route-categoryid=@category.CategoryId asp-route-classid=@Model.ClassId>
                                     Delete
                                 </a>
                             </td>
@@ -41,8 +41,11 @@
         <div class="container" style="margin-bottom: 2rem;">
             <h1 class="title has-text-centered">Add Category</h1>
             <hr />
+            @using (Html.BeginForm("AddAssignmentCategory", "Teacher", FormMethod.Post))
+            {
             <div class="columns">
                 <div class="column">
+                    <input name="classid" value=@Model.ClassId hidden />
                     <div class="field">
                         <label class="label">Category Name</label>
                         <input required name="categoryname" class="input" type="text" placeholder="Enter Category Name..." />
@@ -61,5 +64,6 @@
                     </div>
                 </div>
             </div>
+            }
         </div>
     </div>

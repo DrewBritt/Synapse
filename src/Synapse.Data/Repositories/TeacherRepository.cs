@@ -241,6 +241,34 @@ namespace Synapse.Data.Repositories
             _context.Assignments.Remove(assignmentToDelete);
             await _context.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// Adds assignment category to class.
+        /// </summary>
+        /// <param name="classid">ID of class to add category to</param>
+        /// <param name="categoryname">Name of new category</param>
+        /// <param name="categoryweight">Weight percent of new category</param>
+        /// <returns></returns>
+        public async Task AddAssignmentCategory(int classid, string categoryname, int categoryweight)
+        {
+            AssignmentCategory categoryToAdd = new AssignmentCategory()
+            {
+                ClassId = classid,
+                CategoryName = categoryname,
+                CategoryWeight = categoryweight
+            };
+
+            _context.AssignmentCategories.Add(categoryToAdd);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAssignmentCategory(int categoryid)
+        {
+            AssignmentCategory category = _context.AssignmentCategories.FirstOrDefault(ac => ac.CategoryId == categoryid);
+
+            _context.AssignmentCategories.Remove(category);
+            await _context.SaveChangesAsync();
+        }
         #endregion
 
         #region Grade Functions

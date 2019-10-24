@@ -123,6 +123,26 @@ namespace Synapse.Controllers
 
             return RedirectToAction("Grades", new { classid });
         }
+
+        /// <summary>
+        /// Form post to add assignment to database attached to classid
+        /// </summary>
+        /// <param name="classid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> AddAssignmentCategory(int classid, string categoryname, int categoryweight)
+        {
+            await _teacherRepository.AddAssignmentCategory(classid, categoryname, categoryweight);
+
+            return RedirectToAction("Grades", new { classid });
+        }
+
+        public async Task<IActionResult> DeleteAssignmentCategory(int categoryid, int classid)
+        {
+            await _teacherRepository.DeleteAssignmentCategory(categoryid);
+
+            return RedirectToAction("Grades", new { classid });
+        }
         #endregion
 
         public async Task<IActionResult> ViewStudent(int studentid)
