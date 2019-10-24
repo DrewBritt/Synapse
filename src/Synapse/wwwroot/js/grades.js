@@ -39,10 +39,17 @@ connection.start().then(function () {
                 timeout = timeout || 50; // 50ms timeout
                 var timeoutReference,
                     doneTyping = function (el) {
-                        if (!timeoutReference || changeSection.value != "View Grades") return;
-                        timeoutReference = null;
-                        callback.call(el);
-                        onCallback(el);
+                        if (timeoutReference || changeSection.value == "View Grades" || changeSection.value == "Set Categories") {
+                            timeoutReference = null;
+                            callback.call(el);
+                            if (changeSection.value == "View Grades") {
+                                onCallback(el);
+                            } else if (changeSection.value == "Set Categories") {
+                                tabulateWeights(el);
+                            }
+                        } else {
+                            return;
+                        }
                     };
                 return this.each(function (i, el) {
                     var $el = $(el);
@@ -128,24 +135,38 @@ window.addEventListener("beforeunload", function (e) {
 const changeSection = document.getElementById("changeSection");
 let input = document.getElementById("view");
 let assignment = document.getElementById("assignment");
+let category = document.getElementById("category");
 function change() {
     if (changeSection.value == "View Grades") {
         viewGradesChange();
     } else if (changeSection.value == "Manage Assignments") {
         manageAssignmentsChange();
+    } else if (changeSection.value == "Set Categories") {
+        setCategoriesChange();
+    } else {
+        viewGradesChange();
     }
 }
 
 function viewGradesChange() {
     input.removeAttribute("hidden");
     assignment.setAttribute("hidden", "true");
-    document.cookie = "selectedSection=view";
+    category.setAttribute("hidden", "true");
+    document.cookie = "selectedSection=viewGrades";
 }
 
 function manageAssignmentsChange() {
     assignment.removeAttribute("hidden");
     input.setAttribute("hidden", "true");
+    category.setAttribute("hidden", "true");
     document.cookie = "selectedSection=assignments";
+}
+
+function setCategoriesChange() {
+    category.removeAttribute("hidden");
+    input.setAttribute("hidden", "true");
+    assignment.setAttribute("hidden", "true");
+    document.cookie = "selectedSection=categories";
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -153,6 +174,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (cookieValue == "assignments") {
         changeSection.selectedIndex = 1;
         manageAssignmentsChange();
+    } else if (cookieValue == "viewGrades") {
+        changeSection.selectedIndex = 0;
+        viewGradesChange();
+    } else if (cookieValue == "categories") {
+        changeSection.selectedIndex = 2;
+        setCategoriesChange();
     } else {
         changeSection.selectedIndex = 0;
         viewGradesChange();
@@ -176,4 +203,35 @@ function checkIfProperValue(gradeValue, input) {
         input.value = "";
         return "";
     }
+}
+
+function tabulateWeights(input) {
+    if (!input.classList.contains("categoryWeight")) return;
+    const categoryWeights = document.getElementsByClassName("categoryWeight");
+    let categoryWarning = document.getElementById("categoryWarning");
+    let sumWeights = 0;
+    let parsedValue = parseInt(input.value);
+    if (isNaN(parsedValue)) {
+        input.value = "";
+        return;
+    } else if (typeof parsedGrade == "number") {
+        input.value = parsedValue;
+    }
+    sumWeights += parsedValue;
+    for (let i = 0; i < categoryWeights.length; i++) {
+        if (categoryWeights[i] == input) {
+            continue;
+        }
+        sumWeights += parseInt(categoryWeights[i].value);
+    }
+    if (sumWeights > 100) {
+        input.value = "";
+        categoryWarning.classList.remove("is-hidden");
+    }
+
+}
+
+function closeMessage(id) {
+    let message = document.getElementById(id);
+    message.classList.add("is-hidden");
 }
