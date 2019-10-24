@@ -1,0 +1,65 @@
+﻿@model Synapse.Data.ViewModels.GradesVM
+
+    <div id="category" hidden>
+        <article class="message is-warning is-hidden" id="categoryWarning" style="margin-top: 1rem;">
+            <div class="message-header">
+                <p>Category Weight sum is greater than 100!</p>
+                <button onclick="closeMessage('categoryWarning')" class="delete" aria-label="delete"></button>
+            </div>
+            <div class="message-body">
+                Your category values are greater than 100, including your unsubmitted category weight! Please ensure the sum of your category values are less than or equal 100. 
+            </div>
+        </article>
+        <div class="container has-text-centered" style="margin-bottom: 2rem; width: 100%;">
+            <h1 class="title">Managing Categories for <span class="has-text-weight-bold">@Model.ClassName</span></h1>
+            <hr />
+            <table class="table" style="width: 100%; margin-left: auto; margin-right: auto">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Category Weight</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model.AssignmentCategories)
+                    {
+                        <tr>
+                            <td><input class="input" type="text" value="@category.CategoryName" /></td>
+                            <td><input class="input categoryWeight" type="text" value="@category.CategoryWeight" /></td>
+                            <td>
+                                <a class="button is-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container" style="margin-bottom: 2rem;">
+            <h1 class="title has-text-centered">Add Category</h1>
+            <hr />
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Category Name</label>
+                        <input required name="categoryname" class="input" type="text" placeholder="Enter Category Name..." />
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Category Weight</label>
+                        <input required name="categoryweight" class="input categoryWeight" type="text" placeholder="Enter Category Weight..." />
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Actions</label>
+                        <input class="input button is-primary" type="submit" value="Submit" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
