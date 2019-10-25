@@ -21,18 +21,17 @@
                     </div>
                 </div>
             </div>
+            <br />
             <!--If the Referral has already been handled, don't display "Mark as Handled" button-->
             @if (!Model.Handled)
             {
-                @using (Html.BeginForm("MarkAsHandled", "Admin", FormMethod.Post))
-                {
-                    <button class="button is-primary" type="submit" name="MarkAsHandledButton">
+                    <a class="button is-primary" asp-area="" asp-action="MarkAsHandled" asp-controller="Admin" asp-route-referralid=@Model.ReferralId>
                         Mark as Handled
-                    </button>
-                    <input id="referralid" name="referralid" hidden value="@Model.ReferralId" />
-                }
+                    </a>
             }
-
+                    <a class="button is-danger" asp-area="" asp-action="DeleteReferral" asp-controller="Admin" asp-route-referralid=@Model.ReferralId>
+                        Delete
+                    </a>
             <hr />
         </div>
     </div>

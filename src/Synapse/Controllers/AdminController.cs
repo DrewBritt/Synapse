@@ -432,19 +432,24 @@ namespace Synapse.Controllers
         }
 
         /// <summary>
+        /// Action to delete referral attached to referralid.
+        /// </summary>
+        /// <param name="referralid">ID of referral to delete</param>
+        /// <returns>View: Referrals.cshtml</returns>
+        public async Task<IActionResult> DeleteReferral(int referralid)
+        {
+            await _adminRepository.DeleteReferral(referralid);
+
+            return RedirectToAction("Referrals");
+        }
+
+        /// <summary>
         /// Marks referral mapped to referralid as "handled"
         /// </summary>
         /// <param name="referralid">ID of referral to mark</param>
         /// <returns>View: Referrals.cshtml</returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> MarkAsHandled (int? referralid)
+        public async Task<IActionResult> MarkAsHandled (int referralid)
         {
-            if (referralid == null)
-            {
-                return NotFound();
-            }
-
             await _adminRepository.MarkReferralAsHandled(referralid);
 
             return RedirectToAction(nameof(Referrals));

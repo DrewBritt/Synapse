@@ -1041,6 +1041,22 @@ namespace Synapse.Data.Repositories
         }
 
         /// <summary>
+        /// Deletes referral record attached to referralid
+        /// </summary>
+        /// <param name="referralid">ID of referral to delete</param>
+        public async Task DeleteReferral(int referralid)
+        {
+            Referral referralToDelete = new Referral()
+            {
+                ReferralId = referralid
+            };
+
+            _context.Referrals.Attach(referralToDelete);
+            _context.Referrals.Remove(referralToDelete);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
         /// Marks referral mapped to referralid as "handled"
         /// </summary>
         /// <param name="referralid">ID of referral to mark as "handled"</param>
