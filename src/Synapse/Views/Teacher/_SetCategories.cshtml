@@ -3,11 +3,11 @@
     <div id="category" hidden>
         <article class="message is-warning is-hidden" id="categoryWarning" style="margin-top: 1rem;">
             <div class="message-header">
-                <p>Category Weight sum is greater than 100!</p>
+                <p>Category Weight sum is not valid!</p>
                 <button onclick="closeMessage('categoryWarning')" class="delete" aria-label="delete"></button>
             </div>
             <div class="message-body">
-                Your category values are greater than 100, including your unsubmitted category weight! Please ensure the sum of your category values are less than or equal 100. 
+                Your category values may be greater than 100, or they may contain a number less than 0. 
             </div>
         </article>
         <div class="container has-text-centered" style="margin-bottom: 2rem; width: 100%;">

@@ -207,6 +207,7 @@ function checkIfProperValue(gradeValue, input) {
 
 function tabulateWeights(input) {
     if (!input.classList.contains("categoryWeight")) return;
+    console.log(input.value);
     const categoryWeights = document.getElementsByClassName("categoryWeight");
     let categoryWarning = document.getElementById("categoryWarning");
     let sumWeights = 0;
@@ -219,12 +220,12 @@ function tabulateWeights(input) {
     }
     sumWeights += parsedValue;
     for (let i = 0; i < categoryWeights.length; i++) {
-        if (categoryWeights[i] == input) {
+        if (categoryWeights[i] == input || categoryWeights[i].value == "") {
             continue;
         }
         sumWeights += parseInt(categoryWeights[i].value);
     }
-    if (sumWeights > 100) {
+    if (sumWeights > 100 || sumWeights < 0) {
         input.value = "";
         categoryWarning.classList.remove("is-hidden");
     }
