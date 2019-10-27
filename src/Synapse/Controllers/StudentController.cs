@@ -3,6 +3,7 @@ using Synapse.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Synapse.Data.ViewModels;
 
 namespace Synapse.Controllers
 {
@@ -22,9 +23,11 @@ namespace Synapse.Controllers
             var userEmail = this.User.Identity.Name;
             int studentid = _studentRepository.GetStudentIdWithEmail(userEmail);
 
-            GradesVM model = new GradesVM();
+            StudentGradesVM model = new StudentGradesVM();
+            model.StudentSchedule = _studentRepository.GetStudentSchedule(studentid);
+            model.ClassAverages = _studentRepository.CalculateStudentAverages(studentid);
 
-            return await Task.Run(() => View(_adminRepository.GetStudentSchedule(studentid)));
+            return await Task.Run(() => View(model));
         }
     }
 }

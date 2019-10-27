@@ -63,52 +63,6 @@ namespace Synapse.Data.Repositories
         }
 
         /// <summary>
-        /// Gets schedule of student mapped to studentid
-        /// </summary>
-        /// <param name="studentid">ID of student to get schedule of</param>
-        /// <returns>List(ClassWithTeacherInfo) of classes in student's schedule</returns>
-        public List<ClassWithTeacherInfo> GetStudentSchedule(int studentid)
-        {
-            var schedule = (from studentsclasses in _context.StudentsClasses
-                            join classes in _context.Classes on studentsclasses.ClassId equals classes.ClassId
-                            join teachers in _context.Teachers on classes.TeacherId equals teachers.TeacherId
-                            select new
-                            {
-                                classes.ClassId,
-                                classes.TeacherId,
-                                teachers.TeacherFirstName,
-                                teachers.TeacherLastName,
-                                teachers.Email,
-                                classes.ClassName,
-                                classes.Period,
-                                classes.Location,
-                                studentsclasses.StudentId
-                            }).Where(s => s.StudentId == studentid).OrderBy(c => c.Period)
-                            .ToList();
-
-            List<ClassWithTeacherInfo> EnrolledClasses = new List<ClassWithTeacherInfo>();
-
-            foreach (var item in schedule)
-            {
-                ClassWithTeacherInfo studentClass = new ClassWithTeacherInfo
-                {
-                    ClassId = item.ClassId,
-                    TeacherId = item.TeacherId,
-                    TeacherFirstName = item.TeacherFirstName,
-                    TeacherLastName = item.TeacherLastName,
-                    Email = item.Email,
-                    ClassName = item.ClassName,
-                    Period = item.Period,
-                    Location = item.Location
-                };
-
-                EnrolledClasses.Add(studentClass);
-            }
-
-            return EnrolledClasses;
-        }
-
-        /// <summary>
         /// Edit record of student mapped to studentid.
         /// </summary>
         /// <param name="studentid">ID of student to edit info of</param>
