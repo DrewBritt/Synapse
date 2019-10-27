@@ -18,5 +18,6 @@ namespace Synapse.Data.ViewModels
         public string Email { get; set; }
         public byte GradeLevel { get; set; }
         public List<ClassWithTeacherInfo> Classes { get; set; }
+        public List<int> StudentAverages { get; set; }
     }
 }

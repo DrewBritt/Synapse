@@ -73,19 +73,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var enrolledclass in Model.Classes)
+                    @for(int classIndex = 0; classIndex < Model.Classes.Count; classIndex++)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => enrolledclass.ClassName)</td>
-                            <td>@Html.DisplayFor(modelItem => enrolledclass.TeacherFullName)</td>
-                            <td>@Html.DisplayFor(modelItem => enrolledclass.Period)</td>
-                            <td>Grade Percent</td>
+                            <td>@Html.DisplayFor(modelItem => Model.Classes[classIndex].ClassName)</td>
+                            <td>@Html.DisplayFor(modelItem => Model.Classes[classIndex].TeacherFullName)</td>
+                            <td>@Html.DisplayFor(modelItem => Model.Classes[classIndex].Period)</td>
+                            <td>@Html.DisplayFor(modelItem => Model.StudentAverages[classIndex])</td>
                             <td>
-                                <a class="button is-primary is-small" asp-area="" asp-controller="Admin" asp-action="ViewClass" asp-route-classid=@enrolledclass.ClassId>
+                                <a class="button is-primary is-small" asp-area="" asp-controller="Admin" asp-action="ViewClass" asp-route-classid=@Model.Classes[classIndex].ClassId>
                                     View
                                 </a>
                                 <a class="button is-danger is-small" asp-area="" asp-controller="Admin" asp-action="RemoveStudentFromClass" 
-                                   asp-route-studentid=@Model.StudentId asp-route-classid=@enrolledclass.ClassId>
+                                   asp-route-studentid=@Model.StudentId asp-route-classid=@Model.Classes[classIndex].ClassId>
                                    Remove from Class
                                 </a>
                             </td>

@@ -42,6 +42,7 @@ namespace Synapse.Controllers
         {
             ViewStudentVM StudentToView = _adminRepository.GetStudent(studentid);
             StudentToView.Classes = _studentRepository.GetStudentSchedule(studentid);
+            StudentToView.StudentAverages = _studentRepository.CalculateStudentAverages(studentid);
 
             return await Task.Run(() => View(StudentToView));
         }
