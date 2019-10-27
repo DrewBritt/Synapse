@@ -22,12 +22,9 @@ namespace Synapse.Controllers
             var userEmail = this.User.Identity.Name;
             int studentid = _studentRepository.GetStudentIdWithEmail(userEmail);
 
-            return await Task.Run(() => View(_adminRepository.GetStudentSchedule(studentid)));
-        }
+            GradesVM model = new GradesVM();
 
-        public async Task<IActionResult> Attendance()
-        {
-            return await Task.Run(() => View());
+            return await Task.Run(() => View(_adminRepository.GetStudentSchedule(studentid)));
         }
     }
 }
