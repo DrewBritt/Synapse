@@ -31,6 +31,11 @@ namespace Synapse.Data.Repositories
             return studentidquery.StudentId;
         }
 
+        /// <summary>
+        /// Calculates student's averages in attached classes
+        /// </summary>
+        /// <param name="studentid">ID of student to check averages of</param>
+        /// <returns>List(int) of student's averages</returns>
         public List<int> CalculateStudentAverages(int studentid)
         {
             List<int> averages = new List<int>();
