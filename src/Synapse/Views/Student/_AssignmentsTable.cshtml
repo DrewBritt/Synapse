@@ -1,4 +1,6 @@
-﻿<table class="table is-hidden" style="margin:auto; margin-bottom: 1rem;" width="75%" id="@Html.DisplayFor(modelItem => enrolledClass.ClassId)">
+﻿@model Synapse.Data.ViewModels.AssignmentsTableVM
+
+<table class="table" style="margin:auto; margin-bottom: 1rem;" width="75%;" id="@Model.ClassId">
     <thead>
         <tr>
             <th>Assignment Name</th>
@@ -7,10 +9,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Comp Sci Test</td>
-            <td>Test</td>
-            <td>80%</td>
-        </tr>
+        @for (int i = 0; i < Model.classAssignments.Count; i++)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => Model.classAssignments[i].AssignmentName)</td>
+                <td>@Html.DisplayFor(modelItem => Model.classAssignmentCategories.Find(c => c.CategoryId == Model.classAssignments[i].CategoryId).CategoryName) - @Html.DisplayFor(modelItem => Model.classAssignmentCategories.Find(c => c.CategoryId == Model.classAssignments[i].CategoryId).CategoryWeight)%</td>
+                <td>@Html.DisplayFor(modelItem => Model.studentGrades[i].GradeValue)%</td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -48,14 +48,15 @@ namespace Synapse.Data.Repositories
                 int weightTotal = 0;
                 int gradesWithWeightTotal = 0;
 
-                int currentClassId = studentSchedule[0].ClassId;
+                int currentClassId = studentSchedule[classIndex].ClassId;
                 while(assignmentsIndex < studentClassesAssignments.Count)
                 {
                     Grade gradeToAccess = studentGrades[assignmentsIndex];
 
                     if(currentClassId != gradeToAccess.ClassId)
                     {
-                        continue;
+                        currentClassId = gradeToAccess.ClassId;
+                        break;
                     }
 
                     if(gradeToAccess.GradeValue != "")
@@ -68,7 +69,13 @@ namespace Synapse.Data.Repositories
                             gradesWithWeightTotal += Int32.Parse(gradeToAccess.GradeValue) * gradeWeight;
                         }
                     }
+
+                    assignmentsIndex++;
                 }
+
+                average += (double)gradesWithWeightTotal / weightTotal;
+
+                averages.Add((int)Math.Round(average, MidpointRounding.AwayFromZero));
             }
 
             return averages;

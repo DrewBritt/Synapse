@@ -1,9 +1,11 @@
-﻿@model List<Synapse.Data.Models.ClassWithTeacherInfo>
+﻿@model Synapse.Data.ViewModels.StudentGradesVM
 
 @{
     ViewData["Title"] = "Grades";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script src="~/js/studentGrades.js"></script>
 
 <div class="container has-text-centered" style="width: 65%; margin-left: auto; margin-right: auto;">
     <div>
@@ -19,17 +21,19 @@
             </div>
         </div>
 
-        @foreach (var enrolledClass in Model)
+        @for(int classIndex = 0; classIndex < Model.StudentSchedule.Count; classIndex++)
         {
         <div style="border-bottom: 1px solid #dbdbdb; margin-top: .5rem">
             <div class="columns" style="margin-bottom: 0;">
-                <div class="column"><p class="has-text-left" style="margin-left: 1rem;">@Html.DisplayFor(modelItem => enrolledClass.ClassName)</p></div>
-                <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => enrolledClass.TeacherFullName)</p></div>
-                <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => enrolledClass.Period)</p></div>
-                <div class="column"><p class="has-text-left">69%</p></div>
-                <div class="column"><p id="@Html.DisplayFor(modelItem => enrolledClass.ClassId)dropdown" onclick="openGrades('@Html.DisplayFor(modelItem => enrolledClass.ClassId)', '@Html.DisplayFor(modelItem => enrolledClass.ClassId)dropdown')" class="is-primary fas fa-chevron-down is-pulled-left is-vcentered" style="margin-top: .3rem; color: hsl(217, 71%, 53%);"></p></div>
+                <div class="column"><p class="has-text-left" style="margin-left: 1rem;">@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassName)</p></div>
+                <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].TeacherFullName)</p></div>
+                <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].Period)</p></div>
+                <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => Model.ClassAverages[classIndex])%</p></div>
+                <div class="column" onclick="openGrades('@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)', '@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)dropdown')" ><p id="@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)dropdown" class="is-primary fas fa-chevron-down is-pulled-left is-vcentered" style="margin-top: .3rem; color: hsl(217, 71%, 53%);"></p></div>
             </div>
-            <partial name="~/Views/Student/_AssignmentsTable.cshtml" />
+            <div id="@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)gradesTable" data-url="@Url.Action("_AssignmentsTable", "Student", new { Model.StudentId, Model.StudentSchedule[classIndex].ClassId })">
+                <div id="@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)container"></div>
+            </div>
         </div>
         }
     </div>
