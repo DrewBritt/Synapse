@@ -8,30 +8,29 @@
 <div class="container has-text-centered" style="width: 65%; margin-left: auto; margin-right: auto;">
     <div>
         <h1 class="title">Schedule & Grades</h1>
-        <div class="columns is-desktop">
-            <div class="column is-full has-text-centered">
-                <table id="studentsTable" class="table" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Class Name</th>
-                            <th>Teacher</th>
-                            <th>Period</th>
-                            <th>Grade in Class</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var enrolledClass in Model)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => enrolledClass.ClassName)</td>
-                                <td>@Html.DisplayFor(modelItem => enrolledClass.TeacherFullName)</td>
-                                <td>@Html.DisplayFor(modelItem => enrolledClass.Period)</td>
-                                <td>Grade Percent</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+        <hr />
+        <div style="padding-bottom: .5rem; border-bottom: 1.5px solid #dbdbdb">
+            <div class="columns">
+                <div class="column"><h1 class="is-size-6 has-text-weight-bold has-text-left" style="margin-left: 1rem;">Class Name</h1></div>
+                <div class="column"><h1 class="is-size-6 has-text-weight-bold has-text-left">Teacher Name</h1></div>
+                <div class="column"><h1 class="is-size-6 has-text-weight-bold has-text-left">Period</h1></div>
+                <div class="column"><h1 class="is-size-6 has-text-weight-bold has-text-left">Grade In Class</h1></div>
+                <div class="column"><h1 class="is-size-6 has-text-weight-bold has-text-left">Open Grades</h1></div>
             </div>
         </div>
+
+        @foreach (var enrolledClass in Model)
+        {
+        <div style="border-bottom: 1px solid #dbdbdb; margin-top: .5rem">
+            <div class="columns" style="margin-bottom: 0;">
+                <div class="column"><p class="has-text-left" style="margin-left: 1rem;">@Html.DisplayFor(modelItem => enrolledClass.ClassName)</p></div>
+                <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => enrolledClass.TeacherFullName)</p></div>
+                <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => enrolledClass.Period)</p></div>
+                <div class="column"><p class="has-text-left">69%</p></div>
+                <div class="column"><p id="@Html.DisplayFor(modelItem => enrolledClass.ClassId)dropdown" onclick="openGrades('@Html.DisplayFor(modelItem => enrolledClass.ClassId)', '@Html.DisplayFor(modelItem => enrolledClass.ClassId)dropdown')" class="is-primary fas fa-chevron-down is-pulled-left is-vcentered" style="margin-top: .3rem; color: hsl(217, 71%, 53%);"></p></div>
+            </div>
+            <partial name="~/Views/Student/_AssignmentsTable.cshtml" />
+        </div>
+        }
     </div>
 </div>
