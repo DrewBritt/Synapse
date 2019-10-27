@@ -55,3 +55,11 @@ document.addEventListener('DOMContentLoaded', function () {
         menu.classList.toggle('is-active');
     })
 });
+
+function openGrades(period, periodDropdown) {
+    let table = document.getElementById(period);
+    let dropdown = document.getElementById(periodDropdown);
+    table.classList.toggle("is-hidden");
+    dropdown.classList.toggle("fa-chevron-down");
+    dropdown.classList.toggle("fa-chevron-up");
+}
