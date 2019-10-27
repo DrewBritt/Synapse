@@ -13,11 +13,13 @@ namespace Synapse.Controllers
     {
         private readonly AdminRepository _adminRepository;
         private readonly TeacherRepository _teacherRepository;
+        private readonly StudentRepository _studentRepository;
 
         public AdminController(SynapseContext dbContext)
         {
             _adminRepository = new AdminRepository(dbContext);
             _teacherRepository = new TeacherRepository(dbContext);
+            _studentRepository = new StudentRepository(dbContext);
         }
 
         #region Student Pages
@@ -39,7 +41,7 @@ namespace Synapse.Controllers
         public async Task<IActionResult> ViewStudent(int studentid)
         {
             ViewStudentVM StudentToView = _adminRepository.GetStudent(studentid);
-            StudentToView.Classes = _adminRepository.GetStudentSchedule(studentid);
+            StudentToView.Classes = _studentRepository.GetStudentSchedule(studentid);
 
             return await Task.Run(() => View(StudentToView));
         }
@@ -114,7 +116,7 @@ namespace Synapse.Controllers
             _AddStudentToClassVM model = new _AddStudentToClassVM()
             {
                 AllClasses = _adminRepository.GetAllClasses(),
-                CurrentClasses = _adminRepository.GetStudentSchedule(studentid),
+                CurrentClasses = _studentRepository.GetStudentSchedule(studentid),
                 StudentId = studentid
             };
 
