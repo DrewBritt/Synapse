@@ -18,18 +18,20 @@
             @using (Html.BeginForm("AddReferral", "Teacher", FormMethod.Post))
             {
                 <div class="field">
-                    <label class="label">Student</label>
-                    <div id="currentlySelectedStudentText">Currently Selected: None</div>
-                    <button id="selectStudentBtn" type="button" class="button is-primary">Select Student</button>
-                    <input name="studentid" id="studentid" hidden value="" />
+                    <label class="is-size-4 has-text-weight-bold">Select Student</label>
+                    <br />
+                    <button id="selectStudentBtn" type="button" class="button is-primary"><div id="currentlySelectedStudentText"><p>Select Student</p></div></button>
                 </div>
+                
                 <div class="field">
-                    <label class="label">Description</label>
-                    <div class="control has-icons-right">
-                        <input type="text" class="input" name="description" id="descriptionInput" placeholder="Enter a description of the incident..." />
+                    <label class="is-size-4 has-text-weight-bold">Description</label>
+                    <div class="control">
+                        <textarea type="text" required class="textarea" name="description" id="descriptionInput" placeholder="Enter a description of the incident..." ></textarea>
                     </div>
+                    
                 </div>
                 <button class="button is-primary">Submit</button>
+                <input name="studentid" id="studentid" hidden value="" />
             }
         </div>
     </div>
