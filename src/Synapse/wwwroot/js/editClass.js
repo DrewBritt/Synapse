@@ -64,7 +64,7 @@ function editClass() {
     let submitBtn = document.createElement("INPUT");
     submitBtn.setAttribute("type", "submit");
     submitBtn.setAttribute("id", "submitBtn")
-    submitBtn.textContent = "Submit";
+    submitBtn.value = "Submit";
     submitBtn.classList.add("button");
     submitBtn.classList.add("is-success");
     btns.appendChild(submitBtn);
