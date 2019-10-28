@@ -34,17 +34,24 @@
                         <tbody>
                             @for (int studentIndex = 0; studentIndex < Model.EnrolledStudents.Count; studentIndex++)
                             {
-                                <tr>
-                                    <td>@Model.EnrolledStudents[studentIndex].StudentFullName</td>
-                                    <td class="is-hidden" id="studentid" hidden>@Model.EnrolledStudents[studentIndex].StudentId</td>
-                                    <td id="gradeaverage">@Model.StudentAverages[studentIndex]%</td>
-                                    @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
-                                    {
-                                        <td>
-                                            <input maxlength="3" value="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeValue" name="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeId" class="input" style="width: 5rem" max="100" />
-                                        </td>
-                                    }
-                                </tr>
+                            <tr>
+                                <td>@Model.EnrolledStudents[studentIndex].StudentFullName</td>
+                                <td class="is-hidden" id="studentid" hidden>@Model.EnrolledStudents[studentIndex].StudentId</td>
+                                @if (Model.StudentAverages[studentIndex] == null)
+                                {
+                                    <td id="gradeaverage">N/A</td>
+                                }
+                                else
+                                {
+                                    <td id="gradeaverage">@Html.DisplayFor(modelItem => Model.StudentAverages[studentIndex])%</td>
+                                }
+                                @for (int assignmentIndex = 0; assignmentIndex < Model.ClassAssignments.Count; assignmentIndex++)
+                                {
+                                    <td>
+                                        <input maxlength="3" value="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeValue" name="@Model.StudentGrades[assignmentIndex + (studentIndex * Model.ClassAssignments.Count)].GradeId" class="input" style="width: 5rem" max="100" />
+                                    </td>
+                                }
+                            </tr>
                             }
                         </tbody>
                     </table>

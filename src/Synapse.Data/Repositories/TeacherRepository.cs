@@ -373,9 +373,9 @@ namespace Synapse.Data.Repositories
         /// </summary>
         /// <param name="classid">ID of class to calculate student averages for</param>
         /// <returns>List(int) of student averages</returns>
-        public List<int> GetStudentAverages(int classid)
+        public List<int?> GetStudentAverages(int classid)
         {
-            List<int> averages = new List<int>();
+            List<int?> averages = new List<int?>();
 
             List<AssignmentCategory> AssignmentCategories = GetAssignmentCategories(classid);
             List<Assignment> ClassAssignments = GetClassAssignments(classid);
@@ -410,7 +410,13 @@ namespace Synapse.Data.Repositories
 
                 studentAverage += (double)gradesWithWeightTotal / weightTotal;
 
-                averages.Add((int)Math.Round(studentAverage, MidpointRounding.AwayFromZero));
+                studentAverage = Math.Round(studentAverage, MidpointRounding.AwayFromZero);
+                int studentAverageInt = (int)studentAverage;
+
+                if (studentAverageInt < 0)
+                    averages.Add(null);
+                else
+                    averages.Add(studentAverageInt);
             }
 
             return averages;
@@ -422,10 +428,8 @@ namespace Synapse.Data.Repositories
         /// <param name="studentid">ID of student to calculate average for</param>
         /// <param name="classid">ID of class to calculate student's average</param>
         /// <returns>int: StudentAverage</returns>
-        public int GetStudentAverageForClass(int studentid, int classid)
+        public int? GetStudentAverageForClass(int studentid, int classid)
         {
-            int average = 0;
-
             List<AssignmentCategory> AssignmentCategories = GetAssignmentCategories(classid);
             List<Assignment> ClassAssignments = GetClassAssignments(classid);
             List<Grade> StudentGrades = GetStudentsGrades(studentid, classid);
@@ -455,9 +459,13 @@ namespace Synapse.Data.Repositories
 
             studentAverage += (double)gradesWithWeightTotal / weightTotal;
 
-            average = (int)Math.Round(studentAverage, MidpointRounding.AwayFromZero);
+            studentAverage = Math.Round(studentAverage, MidpointRounding.AwayFromZero);
+            int studentAverageInt = (int)studentAverage;
 
-            return average;
+            if (studentAverageInt < 0)
+                return null;
+
+            return studentAverageInt;
         }
 
         /// <summary>

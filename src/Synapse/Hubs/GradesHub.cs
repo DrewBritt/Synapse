@@ -28,7 +28,7 @@ namespace Synapse.Hubs
 
         public async Task UpdateGradeFinished(int studentid, int classid)
         {
-            int average = _teacherRepository.GetStudentAverageForClass(studentid, classid);
+            int? average = _teacherRepository.GetStudentAverageForClass(studentid, classid);
             await Clients.All.SendAsync("UpdateGradeFinished", average);
         }
     }

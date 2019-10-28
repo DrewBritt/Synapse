@@ -18,11 +18,11 @@ namespace Synapse.Data.ViewModels
         public List<Grade> StudentGrades { get; set; }
 
         //List of Student Averages sorted by student last name, populated by PopulateStudentAverages function
-        public List<int> StudentAverages { get; set; }
+        public List<int?> StudentAverages { get; set; }
 
         public void PopulateStudentAverages()
         {
-            List<int> averages = new List<int>();
+            List<int?> averages = new List<int?>();
 
             //Iterate through all enrolled students, keep index for grades math
             for (int studentsIndex = 0; studentsIndex < EnrolledStudents.Count; studentsIndex++)
@@ -52,7 +52,13 @@ namespace Synapse.Data.ViewModels
 
                 studentAverage += (double)gradesWithWeightTotal / weightTotal;
 
-                averages.Add((int)Math.Round(studentAverage, MidpointRounding.AwayFromZero));
+                studentAverage = Math.Round(studentAverage, MidpointRounding.AwayFromZero);
+                int studentAverageInt = (int)studentAverage;
+
+                if (studentAverageInt < 0)
+                    averages.Add(null);
+                else
+                    averages.Add(studentAverageInt);
             }
 
             StudentAverages = averages;

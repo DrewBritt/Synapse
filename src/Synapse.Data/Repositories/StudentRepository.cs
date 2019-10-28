@@ -36,9 +36,9 @@ namespace Synapse.Data.Repositories
         /// </summary>
         /// <param name="studentid">ID of student to check averages of</param>
         /// <returns>List(int) of student's averages</returns>
-        public List<int> CalculateStudentAverages(int studentid)
+        public List<int?> CalculateStudentAverages(int studentid)
         {
-            List<int> averages = new List<int>();
+            List<int?> averages = new List<int?>();
 
             List<ClassWithTeacherInfo> studentSchedule = GetStudentSchedule(studentid);
             List<Assignment> studentClassesAssignments = GetAssignmentsInStudentSchedule(studentid);
@@ -80,7 +80,13 @@ namespace Synapse.Data.Repositories
 
                 average += (double)gradesWithWeightTotal / weightTotal;
 
-                averages.Add((int)Math.Round(average, MidpointRounding.AwayFromZero));
+                average = Math.Round(average, MidpointRounding.AwayFromZero);
+                int averageInt = (int)average;
+
+                if (averageInt < 0)
+                    averages.Add(null);
+                else
+                    averages.Add(averageInt);
             }
 
             return averages;

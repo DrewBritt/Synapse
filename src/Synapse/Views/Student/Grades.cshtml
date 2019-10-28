@@ -28,8 +28,15 @@
                 <div class="column"><p class="has-text-left" style="margin-left: 1rem;">@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassName)</p></div>
                 <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].TeacherFullName)</p></div>
                 <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].Period)</p></div>
-                <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => Model.ClassAverages[classIndex])%</p></div>
-                <div class="column" onclick="openGrades('@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)', '@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)dropdown')" ><p id="@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)dropdown" class="is-primary fas fa-chevron-down is-pulled-left is-vcentered" style="margin-top: .3rem; color: hsl(217, 71%, 53%);"></p></div>
+                @if (Model.ClassAverages[classIndex] == null)
+                {
+                    <div class="column"><p class="has-text-left">N/A</p></div>
+                }
+                else
+                {
+                    <div class="column"><p class="has-text-left">@Html.DisplayFor(modelItem => Model.ClassAverages[classIndex])%</p></div>
+                }
+                <div class="column" onclick="openGrades('@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)', '@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)dropdown')"><p id="@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)dropdown" class="is-primary fas fa-chevron-down is-pulled-left is-vcentered" style="margin-top: .3rem; color: hsl(217, 71%, 53%);"></p></div>
             </div>
             <div id="@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)gradesTable" data-url="@Url.Action("_AssignmentsTable", "Student", new { Model.StudentId, Model.StudentSchedule[classIndex].ClassId })">
                 <div id="@Html.DisplayFor(modelItem => Model.StudentSchedule[classIndex].ClassId)container"></div>

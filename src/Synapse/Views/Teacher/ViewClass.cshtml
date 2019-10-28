@@ -57,7 +57,14 @@
                     <tr>
                         <td>@Model.EnrolledStudents[studentIndex].StudentFirstName</td>
                         <td>@Model.EnrolledStudents[studentIndex].StudentLastName</td>
-                        <td>@Model.StudentAverages[studentIndex]%</td>
+                        @if (Model.StudentAverages[studentIndex] == null)
+                        {
+                            <td>N/A</td>
+                        }
+                        else
+                        {
+                            <td>@Html.DisplayFor(modelItem => Model.StudentAverages[studentIndex])%</td>
+                        }
                         <td>@Model.EnrolledStudents[studentIndex].GradeLevel</td>
                     </tr>
                     }

@@ -10,6 +10,6 @@ namespace Synapse.Data.ViewModels
         public int StudentId { get; set; }
 
         public List<ClassWithTeacherInfo> StudentSchedule { get; set; }
-        public List<int> ClassAverages { get; set; }
+        public List<int?> ClassAverages { get; set; }
     }
 }
