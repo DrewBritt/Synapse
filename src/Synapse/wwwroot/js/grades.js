@@ -112,7 +112,11 @@ function onCallback(input) {
 connection.on("UpdateGradeFinished", function (gradevalue) {
     for (let i = 0; i < tr.childNodes.length; i++) {
         if (tr.childNodes[i].id == "gradeaverage") {
-            tr.childNodes[i].innerHTML = gradevalue + "%";
+            if (gradevalue == null) {
+                tr.childNodes[i].innerHTML = "N/A";
+            } else {
+                tr.childNodes[i].innerHTML = gradevalue + "%";
+            }
         }
     }
 
