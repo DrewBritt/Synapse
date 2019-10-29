@@ -3,6 +3,8 @@ A grade book webapp built for the US Congressional App Challenge 2019.
 
 [![Build Status](https://travis-ci.com/DrewBritt/Synapse.svg?token=4rByHCezJSmruU5cvesW&branch=master)](https://travis-ci.com/DrewBritt/Synapse)
 
+[Video Demonstration](https://www.youtube.com/watch?v=2yUqcTfEIHo)
+
 # Features
 Students:
 * Can view their class schedule assigned by Administrators
