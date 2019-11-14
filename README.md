@@ -32,3 +32,6 @@ Administrators:
 * CSS with Bulma and SASS
 
 * JS with JQuery
+
+# License
+Synapse is licensed under [MIT](https://github.com/drewbritt/synapse/blob/master/LICENSE) by [Drew Britt](https://github.com/drewbritt) & [Lyon Jenkins](https://github.com/lyonjenkins).
