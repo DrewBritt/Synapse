@@ -1,5 +1,5 @@
 # Synapse
-A grade book webapp built for the US Congressional App Challenge 2019.
+A grade book webapp that placed 2nd in the US Congressional App Challenge 2019 for TX31.
 
 [![Build Status](https://travis-ci.com/DrewBritt/Synapse.svg?token=4rByHCezJSmruU5cvesW&branch=master)](https://travis-ci.com/DrewBritt/Synapse)
 
